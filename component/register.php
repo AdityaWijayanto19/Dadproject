@@ -22,7 +22,7 @@ function showError($error)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="shortcut icon" href="../picture/logo (1).png" type="image/x-icon">
+    <link rel="shortcut icon" href="../picture/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/register.css">
 </head>
 
@@ -33,7 +33,7 @@ function showError($error)
             <form action="cekAkun.php" method="post">
                 <!-- Logo DadProject -->
                 <div class="formContainer">
-                    <img src="../picture/logo (1).png" alt="Logo" class="imgLogo">
+                    <img src="../picture/logo.png" alt="Logo" class="imgLogo">
                 </div>
 
                 <!-- MENAMPILKAN ERROR -->

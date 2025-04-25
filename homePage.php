@@ -23,10 +23,10 @@
 
             <div class="boxsearch right nav-links" id="navLinks">
                 <div class="boxbtn">
-                    <a class="regbtn" href="login.php">Masuk</a>
+                    <a class="regbtn" href="component/login.php">Masuk</a>
                 </div>
                 <div class="boxbtn">
-                    <a class="regbtn" href="register.php">Daftar</a>
+                    <a class="regbtn" href="component/register.php">Daftar</a>
                 </div>
             </div>
         </div>
