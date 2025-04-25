@@ -1,0 +1,130 @@
+body{
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+}
+
+.container{
+    display: grid;
+}
+
+.containerForm{
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border: 1px solid black;
+    justify-items: center;
+    
+}
+
+form{
+    width: 350px;
+    border: 1px solid rgb(79, 77, 77);
+    text-align: center;
+    padding: 20px;
+}
+
+.formContainer{
+    padding: 5px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.imgLogo{
+    width: 170px;
+    height: 170px;
+}
+
+.input {
+    color: rgb(255, 255, 255);
+    background-color: rgb(18, 18, 18);
+    height: 30px;
+    width: 100%;
+    font-size: 15px;
+    border-radius: 3px;
+    border: 1px solid rgb(38, 38, 38);
+    outline: none;
+    transition: border-color 0.3s ease;
+    padding-top: 7px; 
+    line-height: 20px;
+}
+
+
+.label{
+    position: absolute;
+    color:rgb(142, 142, 147);
+    left: 10px;
+    top: 30%;
+    transform: translateY(-5%);
+    font-size: 16px;
+    transition: all 0.5s ease-out;
+    pointer-events: none;
+}
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label{
+    top: 5px;
+    font-size: 12px;
+}
+
+.formContainerSelect{
+    width: 348px;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.formContainerSelect .labelSelect{
+    color:rgb(142, 142, 147);   
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.formContainerSelect select {
+    width: 220px;
+    height: 42px;
+    justify-items: right;
+    padding-left: 5px;
+    font-size: 14px;
+    border: 1px solid #262626; 
+    background-color: #121212; 
+    color:rgb(142, 142, 147);
+    border-radius: 4px;
+    outline: none;
+    appearance: none; 
+  }
+
+  select::-ms-expand {
+    display: none; 
+  }
+
+  .btnDaftar{
+    height: 40px;
+    width: 100%;
+    margin-top: 5px;
+    background-color: rgb(47, 126, 218);
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .btnDaftar:hover{
+    background-color: rgb(49, 140, 243);
+  }
+
+.containerDaftar{
+    width: 350px;
+    border: 1px solid rgb(79, 77, 77);
+    text-align: center;
+    padding: 20px;
+    color: aliceblue    ;
+}
+
+.containerDaftar a{
+    text-decoration: none;
+}
