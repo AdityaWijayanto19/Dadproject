@@ -22,18 +22,41 @@ function showError($error)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="shortcut icon" href="../picture/logo (1).png" type="image/x-icon">
+    <link rel="shortcut icon" href="../picture/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/register.css">
 </head>
 
 <body>
+    <!-- navbar -->
+    <nav>
+        <div class="header">
+            <div class="boxsearch left">
+                <a href="../index.php">
+                    <img class="foto" src="../picture/logo.png" alt="Dad project">
+                </a>
+                <input class="search" type="text" name="search" placeholder="cari...">
+            </div>
+
+            <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
+            <div class="boxsearch right nav-links" id="navLinks">
+                <div class="boxbtn">
+                    <a class="regbtn" href="login.php">Masuk</a>
+                </div>
+                <div class="boxbtn">
+                    <a class="regbtn" href="register.php">Daftar</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="containerForm">
             <!-- DIRECTION KE CEK AKUN UNTUK VALIDASI -->
             <form action="cekAkun.php" method="post">
                 <!-- Logo DadProject -->
                 <div class="formContainer">
-                    <img src="../picture/logo (1).png" alt="Logo" class="imgLogo">
+                    <img src="../picture/logo.png" alt="Logo" class="imgLogo">
                 </div>
 
                 <!-- MENAMPILKAN ERROR -->

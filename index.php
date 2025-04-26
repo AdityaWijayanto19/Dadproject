@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="picture/logo.png" type="image/x-icon">
     <title>home page | Dad Project</title>
-    <link rel="stylesheet" href="css/homepage.css">
+    <link rel="stylesheet" href="css/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 
@@ -16,17 +16,17 @@
         <div class="header">
             <div class="boxsearch left">
                 <img class="foto" src="picture/logo.png" alt="Dad project">
-                <input class="search" type="text" name="search" value="cari..">
+                <input class="search" type="text" name="search" placeholder="cari...">
             </div>
 
             <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
 
             <div class="boxsearch right nav-links" id="navLinks">
                 <div class="boxbtn">
-                    <a class="regbtn" href="login.php">Masuk</a>
+                    <a class="regbtn" href="component/login.php">Masuk</a>
                 </div>
                 <div class="boxbtn">
-                    <a class="regbtn" href="register.php">Daftar</a>
+                    <a class="regbtn" href="component/register.php">Daftar</a>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@
 
 // KONEKSI DATABASE 2 (DANIEL)
 
-$conn = mysqli_connect("localhost", "root", "", "dadproject", 3307);
+$conn = mysqli_connect("localhost", "root", "", "dadproject");
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
