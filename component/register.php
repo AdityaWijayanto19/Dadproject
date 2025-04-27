@@ -27,6 +27,29 @@ function showError($error)
 </head>
 
 <body>
+    <!-- navbar -->
+    <nav>
+        <div class="header">
+            <div class="boxsearch left">
+                <a href="../index.php">
+                    <img class="foto" src="../picture/logo.png" alt="Dad project">
+                </a>
+                <input class="search" type="text" name="search" placeholder="cari...">
+            </div>
+
+            <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
+            <div class="boxsearch right nav-links" id="navLinks">
+                <div class="boxbtn">
+                    <a class="regbtn" href="login.php">Masuk</a>
+                </div>
+                <div class="boxbtn">
+                    <a class="regbtn" href="register.php">Daftar</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="containerForm">
             <!-- DIRECTION KE CEK AKUN UNTUK VALIDASI -->
