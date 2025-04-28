@@ -1,3 +1,17 @@
+<?php
+require 'koneksi/koneksi.php';
+
+$data = query("SELECT * FROM `kelas`");
+$hasil = $data;
+
+if (isset($_POST['search'])) {
+    $cari = htmlspecialchars($_POST['search']);
+
+    $hasil = query("SELECT * FROM `kelas` WHERE `title_kelas` LIKE '%$cari%' ");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,8 +29,10 @@
     <nav>
         <div class="header">
             <div class="boxsearch left">
-                <img class="foto" src="picture/logo.png" alt="Dad project">
-                <input class="search" type="text" name="search" placeholder="cari...">
+                <img class="logo" src="picture/logo.png" alt="Dad project">
+                <form action="" method="post">
+                    <input class="search" type="text" name="search" placeholder="cari...">
+                </form>
             </div>
 
             <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
@@ -75,36 +91,16 @@
 
     <section>
         <div class="boxkelas">
-            <div class="kelas">
-                <h3>JavaScript</h3>
-                <img class="foto" src="picture/javascript.jpg" alt="">
-                <p>The JavaScript logo is commonly recognized as a stylized depiction of the letters "JS." The logo's design is simple yet distinctive.</p>
-                <button>mulai Belajar</button>
-            </div>
-
-            <div class="kelas">
-                <h3>JavaScript</h3>
-                <img class="foto" src="picture/javascript.jpg" alt="">
-                <p>The JavaScript logo is commonly recognized as a stylized depiction of the letters "JS." The logo's design is simple yet distinctive.</p>
-                <button>mulai Belajar</button>
-            </div>
-
-            <div class="kelas">
-                <h3>JavaScript</h3>
-                <img class="foto" src="picture/javascript.jpg" alt="">
-                <p>The JavaScript logo is commonly recognized as a stylized depiction of the letters "JS." The logo's design is simple yet distinctive.</p>
-                <button>mulai Belajar</button>
-            </div>
-
-            <div class="kelas">
-                <h3>JavaScript</h3>
-                <img class="foto" src="picture/javascript.jpg" alt="">
-                <p>The JavaScript logo is commonly recognized as a stylized depiction of the letters "JS." The logo's design is simple yet distinctive.</p>
-                <button>mulai Belajar</button>
-            </div>
+            <?php foreach ($hasil as $dt): ?>
+                <div class="kelas">
+                    <h3><?= $dt['title_kelas'] ?></h3>
+                    <img class="foto" src="picture/<?= $dt['foto'] ?>" alt="">
+                    <p>T<?= $dt['desk_kelas'] ?></p>
+                    <button class="button">mulai Belajar</button>
+                </div>
+            <?php endforeach; ?>
         </div>
 
-        
     </section>
 
 

@@ -1,5 +1,5 @@
 <?php
-require "../koneksi/koneksi.php";
+require "../controller/controlKelas.php";
 $alert = "";
 
 $id = $_GET['id'];
@@ -133,7 +133,7 @@ if (isset($_POST['submit'])) {
                         <input class="label" type="text" name="kategori" id="kategori" required value="<?= $dt['kategori'] ?>">
                     </li>
                 </ul>
-                <button type="submit" name="submit">Tambah Kelas</button>
+                <button type="submit" name="submit">Edit Kelas</button>
                 <a href="manageClasses.php">Kembali</a>
             <?php endforeach; ?>
         </div>

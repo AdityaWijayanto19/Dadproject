@@ -1,5 +1,5 @@
 <?php
-require "../koneksi/koneksi.php";
+require "../controller/controlKelas.php";
 $id = $_GET['id'];
 $alert = "";
 

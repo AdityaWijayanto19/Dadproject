@@ -18,14 +18,16 @@ table{
     font-size: 18px;
 }
 
-th, td{
-    padding: 10px 20px;
-    text-align: justify;
-}
-
 th{
+    padding: 10px 20px;
+    text-align: center;
     background-color: #08697f;
     color: white;
+}
+
+td{
+    padding: 10px 20px;
+    text-align: justify; 
 }
 
 tbody tr:nth-child(odd){
@@ -43,39 +45,70 @@ tbody tr:nth-child(even){
 }
 
 .boxbtn button{
-    height: 40px;
-    width: 120px;
-    border: 2px solid gray;
-    border-radius: 5px;
-    background-color: #3acb6f;
+    display: inline-block;
+    vertical-align: middle;
+    user-select: none;
+    background-color: #198754; 
+    border: 1px solid #198754;
+    padding: 0.375rem 0.75rem; 
+    line-height: 1.5;
+    border-radius: 0.375rem; 
+    transition: all 0.15s ease-in-out;
     cursor: pointer;
 }
+
+.boxbtn button:hover {
+    background-color: #157347;
+    border-color: #146c43;
+  }
+  
 
 .boxbtn button a{
     font-family: 'Poppins', sans-serif;
     color: white;
-    font-weight: 200;
+    font-weight: 400;
+    font-size: 1rem; 
+    text-decoration: none;
+    text-align: center;
 }
 
 td button{
-    height: 30px;
-    width: 80px;
-    border: 2px solid gray;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 200;
-    cursor: pointer; 
-    margin: 5px;
+    margin-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0.375rem 0.75rem; 
+    line-height: 1.5;
+    border-radius: 0.375rem; 
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
 }
 
 td button a{
+    font-family: 'Poppins', sans-serif;
     color: white;
+    font-weight: 400;
+    font-size: 1rem; 
+    text-decoration: none;
+    text-align: center;
 }
 
 td .hapus{
-    background-color: rgb(188, 29, 29);
+    border: 1px solid  #dc3545;
+    background-color: #dc3545;
 }
 
+td .hapus:hover {
+    background-color:  #bb2d3b;
+    border-color:  #b02a37;
+  }
+
 td .edit{
-    background-color: rgb(62, 144, 251);
+    border: 1px solid #0d6efd;
+    background-color: #0d6efd; 
 }
+
+td .edit:hover {
+    background-color:  #0b5ed7;
+    border-color:  #0a58ca;
+  }
