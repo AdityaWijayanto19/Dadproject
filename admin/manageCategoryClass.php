@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="shortcut icon" href="picture/logo (1).png" type="image/x-icon">
     <title>Kelola Kategori Kelas-DadProject</title>
-    <link rel="stylesheet" href="adminDashboard.css">
+    <link rel="stylesheet" href="../css/adminDashboard.css">
 </head>
 <body>
     <div class="wrapper">

@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    background-color:#112D4E; 
+    color: #fff;
+    width: 250px;
+    padding: 20px;
+}
+
+.sidebar .logo h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.sidebar .logo p {
+    font-size: 14px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin-top: 40px;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #575757;
+    padding-left: 10px;
+    font-size: 20px; 
+    transition: all 0.3s ease;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #F9F7F7; 
+}
+
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 18px;
+    color: #777;
+}
+
+#openModalBtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#openModalBtn:hover {
+    background-color: #45a049;
+}
+
+.inputSearch{
+    padding: 9px;
+    width: 20%;
+    border-radius: 5px;
+    border: 0.6mm solid #45a049;
+    margin-left: 5px;
+}
+
+ /* Style untuk modal */
+ .modal {
+    display: none; /* Modal disembunyikan secara default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0); /* Transparan hitam */
+    background-color: rgba(0, 0, 0, 0.4); /* Latar belakang dengan transparansi */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 1% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    font-size: 12px;
+}
+
+/* Tombol tutup modal */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style untuk form */
+.form-container input, .form-container select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 30px;
+}
+
+.form-container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+}
+
+/* Menyembunyikan elemen berdasarkan role */
+.admin-fields, .mentor-fields, .student-fields {
+    display: none;
+}
+
+/* Styling untuk tabel */
+.custom-table {
+    table-layout: fixed;
+    font-size: 13px;
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse; 
+  }
+  
+  .custom-table th, .custom-table td {
+    border: 1px solid #000000; 
+    padding: 6px;
+    text-align: center; 
+  }
+  
+  .custom-table th {
+    background-color: #cbcbcb; 
+    font-weight: bold; 
+  }
+  
+  .custom-table tr:nth-child(even) {
+    background-color:  #d5d7bb; 
+  }
+
+  .custom-table td{
+    width: 150px;            
+    overflow: hidden;        
+    text-overflow: ellipsis; 
+    white-space: nowrap;     
+    padding-right: 10px;      
+  }
+
+  .btnEdit{
+    padding: 4px;
+    margin: 2px;
+    background-color: green;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+  } 
+
+  .btnEdit:hover{
+    background-color: rgb(59, 150, 59);
+  }
+
+  .btnHapus{
+    padding: 4px;
+    margin: 2px;
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+  } 
+
+  .btnHapus:hover{
+    background-color: rgb(220, 67, 67);
+  }
+
+
+  

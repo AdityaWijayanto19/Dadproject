@@ -5,6 +5,7 @@ session_start();
 $errors = [
     'daftar' => $_SESSION['register_error'] ?? ''
 ];
+
 session_unset();
 
 // FUNCTION UNTUK MENAMPILKAN ERROR
@@ -80,12 +81,6 @@ function showError($error)
                     <label for="inputField" class="label">Email</label>
                 </div>
 
-                <!-- Input nama pengguna -->
-                <div class="formContainer">
-                    <input type="text" name="namaLengkap" id="inputField" class="input" placeholder=" " required>
-                    <label for="inputField" class="label">Nama Lengkap</label>
-                </div>
-
                 <!-- Input username -->
                 <div class="formContainer">
                     <input type="username" name="username" id="inputField" class="input" placeholder=" " required>
@@ -102,8 +97,8 @@ function showError($error)
                 <div class="formContainerSelect">
                     <label for="status" class="labelSelect">Status pengguna</label>
                     <select name="status" id="status">
-                        <option value="option1">Mahasiswa</option>
-                        <option value="option2">Siswa</option>
+                        <option value="Mahasiswa">Mahasiswa</option>
+                        <option value="Siswa">Siswa</option>
                     </select>
                 </div>
 

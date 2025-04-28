@@ -6,8 +6,8 @@ require '../koneksi/koneksi.php';
 // CEK TOMBOL APAKAH YANG DIPENCET?
 if (isset($_POST['masuk'])) { // JIKA USER MENEKAN TOMBOL MASUK
     // MENGAMBIL DATA DARI FORM
-    $email = $_POST['email'];
-    $password = $_POST['kataSandi'];
+    $email      = $_POST['email'];
+    $password   = $_POST['kataSandi'];
 
     // VALIDASI PASSWORD
     $query = "SELECT * FROM user WHERE email = '$email'"; // MENGAMBIL DATA AKUN BERDASARKAN EMAIL UNTUK DICEK PASSWORDNYA
@@ -30,7 +30,7 @@ if (isset($_POST['masuk'])) { // JIKA USER MENEKAN TOMBOL MASUK
     // MENGAMBIL DATA DARI FORM
     $nama_depan = $_POST['namaDepan'];
     $nama_belakang = $_POST['namaBelakang'];
-    $nama_lengkap = $_POST['namaLengkap'];
+    $nama_lengkap = $nama_depan . ' ' . $nama_belakang;
     $email = $_POST['email'];
     $username = $_POST['username'];
     $plainPassword = $_POST['kataSandi'];

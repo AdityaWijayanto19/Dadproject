@@ -1,3 +1,13 @@
+<?php 
+    include '../koneksi/koneksi.php';
+
+    $result = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_user FROM user');
+
+    // mysqli_fetch_assoc =  untuk mengambil hasil query dalam bentuk array asosiatif
+    $data =  mysqli_fetch_assoc($result);
+    $jumlahUser = $data['jumlah_user'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="shortcut icon" href="picture/logo (1).png" type="image/x-icon">
     <title>Dashboard Admin</title>
-    <link rel="stylesheet" href="adminDashboard.css">
+    <link rel="stylesheet" href="../css/adminDashboard.css">
 </head>
 <body>
     <div class="wrapper">
@@ -41,7 +51,7 @@
                     <div class="stat-head">     
                         <i class="fa-solid fa-user"></i>
                         <div class="side">    
-                            <h3>10<p>Pengguna</p></h3>
+                            <h3><?= $jumlahUser; ?><p>Pengguna</p></h3>
                         </div>
                     </div>
 
