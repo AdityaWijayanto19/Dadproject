@@ -159,5 +159,5 @@
         } else {
             return 0; // Mengembalikan 0 jika penghapusan gagal
         }
-    }    
+    } 
 ?>

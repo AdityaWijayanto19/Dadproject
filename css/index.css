@@ -31,8 +31,13 @@ nav{
     padding-right: 10px;
 }
 
+.logo{
+    height: 80px;
+    width: auto;
+}
+
 .foto{
-    height: 70px;
+    height: 100px;
     width: auto;
 }
 
@@ -173,12 +178,12 @@ nav{
 }
 
 .boxkelas{
-    height:650px;
+    height:1050px;
     width: 100%;
     background-color:#F9F7F7;
     display: grid;
     place-items: center;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .kelas{
@@ -186,8 +191,8 @@ nav{
     flex-direction: column;
     justify-content:center;
     align-items: center; 
-    height: 350px;
-    width: 250px;
+    height: 450px;
+    width: 350px;
     background-color: #DBE2EF;
     border: none;
     border-radius: 15px;
@@ -195,7 +200,7 @@ nav{
 }
 
 .kelas:hover{
-    scale: 115%;
+    scale: 105%;
 }
 
 .kelas h3{
@@ -203,13 +208,38 @@ nav{
 }
 
 .kelas p {
-    width: 200px;
+    width: 320px;
     font-family: 'Poppins', sans-serif;
 }
 
-.kelas button{
+.button {
+    display: inline-block;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: #0d6efd;
+    border: 1px solid #0d6efd;
+    padding: 0.375rem 0.75rem; 
+    font-size: 1rem; 
+    line-height: 1.5;
+    border-radius: 0.375rem;
+    transition: all 0.15s ease-in-out;
+    text-decoration: none;
     cursor: pointer;
-}
+  }
+  
+  .button:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+  }
+  
+  .button:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+  }
+  
 
 @media(max-width : 768px){
     .hamburger {
