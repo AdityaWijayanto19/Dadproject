@@ -63,7 +63,7 @@
     }
 
 
-    if (isset($_POST['tambahUser'])) {
+    if (isset($_POST['tambahUser'])) { 
         if (create_user($_POST) > 0) {
             $alert = "<script>
                     Swal.fire({
@@ -79,7 +79,7 @@
             $alert = "<script>
                     Swal.fire({
                         title: 'Gagal!',
-                        text: 'Data user gagal ditambahkan',
+                        text: '". $_SESSION['createUser_error'] ."',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     }).then(function() {
@@ -108,16 +108,14 @@
          $checkUsername = $conn->query("SELECT username FROM user WHERE username = '$username' AND user_id != '$user_id'"); // MENGEMBALIKAN OBJECT BERUPA mysqli_result;
          
          if ($checkEmail->num_rows > 0) {
-             $_SESSION['updateUser_error'] = 'Email sudah digunakan!';
-             header("Location: ../admin/editUser.php?user_id=$user_id"); 
-             exit;
-         }
-         
-         if ($checkUsername->num_rows > 0) {
-             $_SESSION['updateUser_error'] = 'Username sudah digunakan!';
-             header("Location: ../admin/editUser.php?user_id=$user_id"); 
-             exit;
-         }
+            $_SESSION['updateUser_error'] = 'Email sudah terdaftar!';
+            return false;  // Mengembalikan false jika terjadi error
+        }
+    
+        if ($checkUsername->num_rows > 0) {
+            $_SESSION['updateUser_error'] = 'Username sudah terdaftar!';
+            return false;  // Mengembalikan false jika terjadi error
+        }
  
          // UPDATE data pengguna ke tabel user
          $keTabelUser = mysqli_query(
@@ -162,7 +160,7 @@
             $alert = "<script>
                     Swal.fire({
                         title: 'Gagal!',
-                        text: 'Data user gagal diupdate',
+                        text: '".$_SESSION['updateUser_error']."',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     }).then(function() {

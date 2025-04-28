@@ -3,6 +3,7 @@
     include '../koneksi/koneksi.php';
 
     $dataUser = query('SELECT * FROM user');
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +51,7 @@
                 
                 <!-- Tombol untuk membuka modal -->
                 <button id="openModalBtn">Tambah Pengguna</button> 
-                <input type="text" id="search" class="inputSearch" placeholder="Cari Pengguna" required>
+                <input type="text" name="keyword" id="keyword" class="inputSearch" autocomplete="off"  placeholder="Cari Pengguna" required>
 
             <!-- Modal -->
             <div id="addUserModal" class="modal">
@@ -153,6 +154,27 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.0/dist/sweetalert2.min.js"></script> 
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <script>
+
+            //Ambil elemen yang dibutuhkan
+            var keyword = document.getElementById('keyword');
+            var searchResult = document.getElementById('searchResult');
+
+            keyword.addEventListener('keyup', function(){
+
+                //OBJEK AJAX
+                var xhr = new XMLHttpRequest();
+
+               
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+
+                        searchResult.innerHTML = xhr.responseText;
+                    }
+                };
+                
+                xhr.open('GET', 'searchUser.php?keyword=' + keyword.value, true)
+                xhr.send();
+            });
 
             function confirm(id) {
                 Swal.fire({

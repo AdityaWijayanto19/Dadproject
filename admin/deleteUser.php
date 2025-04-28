@@ -7,7 +7,7 @@
     if (delete_user($user_id) > 0) {
         $alert = '<script>
                 Swal.fire({
-                    title: "Sukses!",
+                    title: "User Terhapus",
                     text: "User Berhasil di Hapus",
                     icon: "success",
                     confirmButtonText: "OK"
@@ -18,10 +18,10 @@
     } else {
         $alert =  '<script>
                 Swal.fire({
-                    title: "Gagal!",
-                    text: "User gagal di Hapus",
+                    title: "Gagal Mengapus!",
+                    text: "Terjadi kesalahan saat menghapus data. Silakan coba lagi nanti.",
                     icon: "error",
-                    confirmButtonText: "OK"
+                    confirmButtonText: "Coba Lagi"
                 }).then(function() {
                     window.location.href = "manageUser.php";
                 });
