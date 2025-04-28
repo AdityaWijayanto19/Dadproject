@@ -62,17 +62,30 @@
         return true;  // Mengembalikan true jika berhasil
     }
 
+
     if (isset($_POST['tambahUser'])) {
         if (create_user($_POST) > 0) {
-            echo "<script>
-            alert('Data user berhasil ditambahkan');
-            document.location.href = '../admin/manageUser.php';
-            </script>";
+            $alert = "<script>
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Data user berhasil ditambahkan',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(function() {
+                        window.location.href = '../admin/manageUser.php';
+                    });
+                </script>";
         } else {
-            echo "<script>
-            alert('Data user gagal ditambahkan');
-            document.location.href = '../admin/manageUser.php';
-            </script>";
+            $alert = "<script>
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Data user gagal ditambahkan',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    }).then(function() {
+                        window.location.href = '../admin/manageUser.php';
+                    });
+                </script>";
         }
     }
 
@@ -80,15 +93,15 @@
         global $conn;
 
          // Ambil data dari form untuk update
-         $user_id        = $_POST['userId']; //Untuk kebutuhan Uupdate
-         $nama_depan     = $_POST['namaDepan'];
-         $nama_belakang  = $_POST['namaBelakang'];
+         $user_id        = $post['userId']; //Untuk kebutuhan Uupdate
+         $nama_depan     = $post['namaDepan'];
+         $nama_belakang  = $post['namaBelakang'];
          $nama_lengkap   = $nama_depan . ' ' . $nama_belakang;
-         $email          = $_POST['email'];
-         $username       = $_POST['username'];
-         $role           = $_POST['role'];
-         $status         = $_POST['status'];
-         $expertise      = $_POST['expertise'];
+         $email          = $post['email'];
+         $username       = $post['username'];
+         $role           = $post['role'];
+         $status         = $post['status'];
+         $expertise      = $post['expertise'];
  
          // MENCARI TAU APAKAH EMAIL/PASSWORD/USERNAME SUDAH TERDAFTAR?
          $checkEmail = $conn->query("SELECT email FROM user WHERE email = '$email' AND user_id != '$user_id'"); // MENGEMBALIKAN OBJECT BERUPA mysqli_result;
@@ -135,15 +148,27 @@
 
     if (isset($_POST['editUser'])) {
         if (update_user($_POST) > 0) {
-            echo "<script>
-            alert('Data user berhasil diupdate');
-            document.location.href = '../admin/manageUser.php';
-            </script>";
+            $alert = "<script>
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Data user berhasil diupdate',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(function() {
+                        window.location.href = '../admin/manageUser.php';
+                    });
+                </script>";
         } else {
-            echo "<script>
-            alert('Data user gagal diupdate');
-            document.location.href = '../admin/manageUser.php';
-            </script>";
+            $alert = "<script>
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Data user gagal diupdate',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    }).then(function() {
+                        window.location.href = '../admin/manageUser.php';
+                    });
+                </script>";
         }
     }
 
@@ -161,3 +186,16 @@
         }
     }    
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <?= $alert ?>
+</body>
+</html>
