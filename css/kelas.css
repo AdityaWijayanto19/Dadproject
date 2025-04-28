@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+}
+
+table{
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    font-size: 18px;
+}
+
+th, td{
+    padding: 10px 20px;
+    text-align: justify;
+}
+
+th{
+    background-color: #08697f;
+    color: white;
+}
+
+tbody tr:nth-child(odd){
+    background-color: #f8f9fa;
+}
+
+tbody tr:nth-child(even){
+    background-color: #e9ecef;
+}
+
+.boxbtn{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.boxbtn button{
+    height: 40px;
+    width: 120px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    background-color: #3acb6f;
+    cursor: pointer;
+}
+
+.boxbtn button a{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-weight: 200;
+}
+
+td button{
+    height: 30px;
+    width: 80px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    cursor: pointer; 
+    margin: 5px;
+}
+
+td button a{
+    color: white;
+}
+
+td .hapus{
+    background-color: rgb(188, 29, 29);
+}
+
+td .edit{
+    background-color: rgb(62, 144, 251);
+}
