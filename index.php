@@ -122,7 +122,6 @@ if (isset($_POST['search'])) {
             const nav = document.getElementById("navLinks");
             nav.classList.toggle("active");
         }
-
     </script>
 </body>
 

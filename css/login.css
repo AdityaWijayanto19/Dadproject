@@ -1,178 +1,269 @@
+/* FONT */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+
+/* CSS VARIABEL */
+:root{
+    /* COLORS */
+    --primary-color: #213555;
+    --secondary-color: #3E5879;
+    --tertiary-color: #D8C4B6;
+    --fourtiary-color: #F5EFE7;
+    --white-color: #FFFFFF;
+    --black-color: #000000;
+
+    /* FONT & TYPOGRAPHY */
+    /* .5rem = 8px | 1rem = 16px */
+
+    --body-font: 'Montserrat', sans-serif;
+    --big--font-size: 1.5rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --tiny-font-size: .688rem;
+
+    /* FONT WEIGHT */
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semi-bold: 600;
+
+    /* Z INDEX */
+    --z-tooltop : 10;
+    --z-fixed: 100;
+}
+
+/* RESPONSIVE TYPOGRAPHY */
+@media screen and (min-width: 1150px){
+    :root{
+        --big--font-size: 3rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --tiny-font-size: .75rem;
+    }
+}
+
+/* BASE */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body, input, button {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+}
+
 body{
-    background-color: #F9F7F7;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0px;
+    background-color: var(--fourtiary-color);
+    color: var(--white-color);
 }
 
-nav{
-    width: 100%;
-    height: 12vh;
-    background-color: #112D4E;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-.hamburger{
-    display: none;
-    font-size: 26px;
-    color: white;
-    cursor: pointer;
-}
-
-.header{
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.foto{
-    height: 70px;
-    width: auto;
-}
-
-.boxsearch{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.search{
-    height: 10px;
-    width: 200px;
+input, button{
     border: none;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-    padding: 15px;
-}
-
-.boxsearch .btn{
-    height: 35px;
-    width: 65px;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-    background-color: #3F72AF;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    margin-right: 20px;
-}
-
-.boxbtn{
-    height: 55px;
-    width: 100px;
-    border: 2px solid gray;
-    display: flex;
-    justify-content:center;
-    align-items: center;
+    outline: none;
     cursor: pointer;
 }
 
-.boxbtn:hover{
-    background-color:#3F72AF
-}
-
-.regbtn{
+a{
     text-decoration: none;
-    color: white;
-    font-family: 'Poppins', sans-serif;
 }
 
+img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* CONTAINER */
 .container{
+    max-width: 1120px;
+    margin-inline: 1.5rem;
     display: grid;
+    gap: 1rem;
+}
+
+.login{
+    position: relative;
+    height: 100vh;
+    align-items: center;
+}
+
+.title{
+    text-align: center;
+}
+
+.title h1{
+    padding-top: 2rem;
+    font-size: var(--big--font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
 }
 
 .containerForm{
-    padding-top: 80px;
     padding-bottom: 20px;
     justify-items: center;
-    
 }
 
-form{
-    width: 350px;
-    background-color: #3F72AF;
-    border: 1px solid rgb(79, 77, 77);
+
+.loginForm{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 2rem 2rem 2rem;
+    background-color: var(--white-color);
+    border-radius: 4rem;
+}
+
+.loginForm h1{
+    font-size: var(--big--font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--primary-color);
     text-align: center;
-    padding: 20px;
 }
 
-.formContainer{
-    padding: 5px;
+.loginForm h2{
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.loginBox{
+    width: 100%;
     position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 1rem;
+    padding: 5px;
     margin: 0 auto;
+    background-color: var(--tertiary-color);
 }
 
-.imgLogo{
-    width: 170px;
-    height: 170px;
-}
-
-.input {
-    background-color:  #112D4E;
-    background-color: #F9F7F7;
-    height: 30px;
+.loginInput{
     width: 100%;
-    font-size: 15px;
-    border-radius: 3px;
-    border: 1px solid rgb(38, 38, 38);
-    outline: none;
-    transition: border-color 0.3s ease;
-    padding-top: 7px; 
-    line-height: 20px;
+    padding: 1.5rem 2.5rem 1.5rem 1.25rem;
+    font-weight: var(--font-semi-bold);
+    border: 3px solid transparent;
+    border-radius: 1rem;
+    z-index: 1;
+    transition: border-color 0.4s;
+    background-color: var(--tertiary-color);
 }
 
+.loginInput:autofill{
+    transition: background-color 6000s, color 6000s;
+}
 
-.label{
+.loginInput:focus ~ .loginLabel{
+    transform: translateY(-20px);
+    font-size: var(--tiny-font-size);
+}
+
+.loginInput:focus{
+    padding-block: 2rem 1rem;
+}
+
+.loginInput:not(:placeholder-shown).loginInput:not(:focus) ~ .loginLabel{
+    transform: translateY(-20px);
+    font-size: var(--tiny-font-size);
+}
+
+.loginInput:not(:placeholder-shown).loginInput:not(:focus){
+    padding-block: 2rem 1rem;
+    border-color: var(--primary-color);
+}
+
+.loginLabel {
     position: absolute;
-    color:  #112D4E;
-    left: 10px;
-    top: 30%;
-    transform: translateY(-5%);
-    font-size: 16px;
-    transition: all 0.5s ease-out;
-    pointer-events: none;
+    left: 1.25rem;
+    font-weight: var(--font-semi-bold);
+    transition: transform 0.4s, font-size .4s, color .4s;
+    color: var(--primary-color);
+    z-index: 1;
 }
 
-.input:focus + .label,
-.input:not(:placeholder-shown) + .label{
-    top: 5px;
-    font-size: 12px;
- }
+.loginIcon{
+    position: absolute;
+    right: 1rem;
+    font-size: 1.25rem;
+    transition: color .4s;
+    color: var(--primary-color);
+    z-index: 1;
+}
 
-  .btnDaftar{
-    height: 40px;
+.loginButton{
     width: 100%;
-    margin-top: 5px;
-    background-color:  #112D4E;
-    border-radius: 12px;
-    color: white;
+    display: inline-flex;
+    justify-content: center;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    font-weight: var(--font-semi-bold);
+    font-size: 1.2rem;
+    padding-block: 1rem;
+    border-radius: 4rem;
+    margin: 0.8rem 2rem 2rem 2rem;
     cursor: pointer;
-  }
-
-  .btnDaftar:hover{
-    background-color: #153e6d;
-  }
-
-.containerBuatAkn{
-    background-color: #3F72AF;
-    border: 1px solid rgb(79, 77, 77);
-    text-align: center;
-    padding: 10px;
-    color: #112D4E;
+    transition: background-color 0.4s, box-shadow 0.4s;
 }
 
-.containerBuatAkn a{
-    text-decoration: none;
+.loginButton:hover{
+    background-color: var(--primary-color);
+    box-shadow: 0 8px 24px rgba(0, 0%, 0%, 0.2);
+}
+
+.loginBox .registBox{
+    position: absolute;
+    bottom: 0.7rem;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+    font-weight: var(--font-semi-bold);
+}
+
+.registBox a{
+    color: var(--primary-color);
+    font-weight: var(--font-semi-bold);
+    transition: transform 0.4s, color .4s;
+}
+
+.registBox a:hover{
+    transform: scale(1.4);
+    color: white;
+}
+
+.socialIcon{
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.socialIcon i{
+    font-size: 2.5rem;
+    transition: transform 0.4s, color .4s;
+    cursor: pointer;
+}
+
+.socialIcon i:hover{
+    transform: scale(1.2);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.loginSvg{
+    display: block;
+    position: absolute;
+    height: 100vh;
+    top: 0;
+    right: 0;
 }
 
 .error-massage{
@@ -182,5 +273,5 @@ form{
     font-size: 16px;
     color: red;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }

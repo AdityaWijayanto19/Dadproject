@@ -24,64 +24,82 @@ function showError($error)
     <title>Login</title>
     <link rel="shortcut icon" href="../picture/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/login.css">
+
+    <!-- REMIXICON -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet" />
+
+    <!-- SCROLL REVEAL LIBRARY -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+
+    <!-- SCRIPT -->
+    <script src="../script/login.js"></script>
+
+
 </head>
 
 <body>
-    <!-- navbar -->
-    <nav>
-        <div class="header">
-            <div class="boxsearch left">
-                <a href="../index.php">
-                    <img class="foto" src="../picture/logo.png" alt="Dad project">
-                </a>
-                <input class="search" type="text" name="search" placeholder="cari...">
-            </div>
-
-            <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
-
-            <div class="boxsearch right nav-links" id="navLinks">
-                <div class="boxbtn">
-                    <a class="regbtn" href="login.php">Masuk</a>
-                </div>
-                <div class="boxbtn">
-                    <a class="regbtn" href="register.php">Daftar</a>
-                </div>
-            </div>
+    <div class="login container">
+        <div class="title">
+            <h1>Log in to your account.</h1>
         </div>
-    </nav>
-
-    <div class="container">
+        <!-- MENAMPILKAN ERROR -->
+        <?= showError($errors['login']) ?>
         <div class="containerForm">
-            <form action="cekAkun.php" method="post">
-                <!-- Logo DadProject -->
-                <div class="formContainer">
-                    <img src="../picture/logo.png" alt="Logo" class="imgLogo">
-                </div>
+            <form class="loginForm" action="cekAkun.php" method="post">
+                <h1>Login</h1>
+                <h2>Let's login and join us to make a dream project.</h1>
 
-                <!-- MENAMPILKAN ERROR -->
-                <?= showError($errors['login']) ?>
+                    <!-- Input email -->
+                    <div class="loginBox">
+                        <input type="email" name="email" id="inputField" class="loginInput" placeholder=" " required>
+                        <label for="inputField" class="loginLabel">Email</label>
+                        <i class="ri-mail-line loginIcon"></i>
+                    </div>
 
-                <!-- Input email -->
-                <div class="formContainer">
-                    <input type="email" name="email" id="inputField" class="input" placeholder=" " required>
-                    <label for="inputField" class="label">Email</label>
-                </div>
+                    <!-- Input kata sandi -->
+                    <div class="loginBox">
+                        <input type="password" name="kataSandi" id="inputField" class="loginInput" placeholder=" " required>
+                        <label for="inputField" class="loginLabel">Kata Sandi</label>
+                        <i class="ri-lock-line loginIcon"></i>
+                    </div>
 
-                <!-- Input kata sandi -->
-                <div class="formContainer">
-                    <input type="password" name="kataSandi" id="inputField" class="input" placeholder=" " required>
-                    <label for="inputField" class="label">Kata Sandi</label>
-                </div>
+                    <div class="loginBox">
+                        <button type="submit" name="masuk" class="loginButton">Login</button>
 
-                <div class="formContainer">
-                    <button type="submit" name="masuk" class="btnDaftar">Masuk</button>
-                </div>
+                        <div class="registBox">
+                            <p>Belum punya akun? <a href="register.php">Buat Akun</a></p>
+                        </div>
+                    </div>
+
+                    <div class="socialIcon">
+                        <i class="ri-google-fill"></i>
+                        <i class="ri-github-fill"></i>
+                        <i class="ri-facebook-circle-fill"></i>
+                    </div>
             </form>
         </div>
+    </div>
+    <svg class="loginSvg" viewBox="0 0 566 840" xmlns="http://www.w3.org/2000/svg">
+        <mask id="mask0" mask-type="alpha">
+            <path d="M342.407 73.6315C388.53 56.4007 394.378 17.3643 391.538
+                0H566V840H0C14.5385 834.991 100.266 804.436 77.2046 707.263C49.6393
+                591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824
+                167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z" />
+        </mask>
 
-        <div class="containerBuatAkn">
-            <p>Belum punya akun? <a href="register.php">Buat Akun</a></p>
-        </div>
+        <g mask="url(#mask0)">
+            <path d="M342.407 73.6315C388.53 56.4007 394.378 17.3643 391.538
+                0H566V840H0C14.5385 834.991 100.266 804.436 77.2046 707.263C49.6393
+                591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824
+                167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z" />
+
+            <!-- Insert your image (recommended size: 1000 x 1200) -->
+            <image class="loginImg" href="../picture/loginPict.jpg" />
+        </g>
+    </svg>
     </div>
 </body>
 
