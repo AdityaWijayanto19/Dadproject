@@ -17,14 +17,14 @@ if (isset($_POST['masuk'])) { // JIKA USER MENEKAN TOMBOL MASUK
         // PENGECEKAN PASSWORD YANG SUDAH DI HASH/ENKRIPSI
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['user_id']; // MENYIMPAN ID USER
-            header("Location: homePage.php");   // MENGARAHKAN KE HALAMAN HOMEPAGE
+            header("Location: ../index.php");   // MENGARAHKAN KE HALAMAN HOMEPAGE
             exit;
         }
     }
 
     // JIKA GAGAL SIMPAN EROR UNTUK DITAMPILKAN DAN DIARAHKAN KEMBALI KE HALAMAN LOGIN
     $_SESSION['login_error'] = "Email atau password salah!";
-    header("Location: login.php");
+    header("Location: login.php?error = true");
     exit;
 } else if (isset($_POST['daftar'])) { // JIKA USER MENEKAN TOMBOL DAFTAR
     // MENGAMBIL DATA DARI FORM

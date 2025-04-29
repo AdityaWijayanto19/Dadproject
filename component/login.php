@@ -5,13 +5,7 @@ session_start();
 $errors = [
     'login' => $_SESSION['login_error'] ?? ''
 ];
-session_unset();
-
-// FUNCTION UNTUK MENAMPILKAN ERROR
-function showError($error)
-{
-    return !empty($error) ? "<p class = 'error-massage'> $error </p>" : '';
-}
+unset($_SESSION['login_error']);
 ?>
 
 
@@ -33,20 +27,28 @@ function showError($error)
     <!-- SCROLL REVEAL LIBRARY -->
     <script src="https://unpkg.com/scrollreveal"></script>
 
-
-    <!-- SCRIPT -->
-    <script src="../script/login.js"></script>
-
-
+    <script>
+        const isError = <?= !empty($errors['login']) ? 'true' : 'false' ?>;
+    </script>
 </head>
 
 <body>
+    <div class="toast" data-show-toast="<?= !empty($errors['login']) ? 'true' : 'false' ?>">
+        <div class="toast-content">
+            <i class="ri-error-warning-line check"></i>
+            <div class="message">
+                <span class="text text-1">Error</span>
+                <span class="text text-2"><?= htmlspecialchars($errors['login']) ?></span>
+            </div>
+        </div>
+        <i class="ri-close-large-fill close"></i>
+        <div class="progress"></div>
+    </div>
     <div class="login container">
         <div class="title">
             <h1>Log in to your account.</h1>
         </div>
-        <!-- MENAMPILKAN ERROR -->
-        <?= showError($errors['login']) ?>
+
         <div class="containerForm">
             <form class="loginForm" action="cekAkun.php" method="post">
                 <h1>Login</h1>
@@ -101,6 +103,9 @@ function showError($error)
         </g>
     </svg>
     </div>
+
+    <!-- SCRIPT -->
+    <script src="../script/login.js"></script>
 </body>
 
 </html>
