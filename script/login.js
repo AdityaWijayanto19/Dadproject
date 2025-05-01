@@ -3,8 +3,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const toast = document.querySelector('.toast'); // Memilih berdasarkan class
     const progress = document.querySelector('.progress'); // Memilih berdasarkan class
     const close = document.querySelector(".toast .close");
+    
+    const hide = document.querySelector("#inputPass");
+    const btn_show = document.querySelector("#toggleIcon");
 
     const showToast = toast.dataset.showToast === "true";
+
+
+        if(btn_show){
+            btn_show.addEventListener("click", function(){
+                if (hide.type === "password") {
+                    hide.type = "text";         
+                    btn_show.classList.replace("fa-eye", "fa-eye-slash")      
+                }else {
+                    hide.type = "password";
+                    btn_show.classList.replace("fa-eye-slash", "fa-eye");
+                }
+            });
+        }
 
     if (showToast) {
         setTimeout(() => {

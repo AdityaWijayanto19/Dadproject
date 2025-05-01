@@ -62,6 +62,7 @@ unset($_SESSION['login_error']);
         <i class="ri-close-large-fill close"></i>
         <div class="progress"></div>
     </div>
+
     <div class="login container">
         <div class="title">
             <h1>Log in to your account.</h1>
