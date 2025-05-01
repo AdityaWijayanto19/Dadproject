@@ -1,6 +1,24 @@
 <?php
 session_start();
 
+require_once 'callback.php';
+
+if (isset($_GET['code'])) {
+    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    $client->setAccessToken( $token);
+
+    $googleAuth = new Google_Service_Oauth2($client);
+    $google_info = $googleAuth->userinfo->get();
+
+    $_SESSION['info'] = [
+        'name' => $google_info->name,
+        'email' => $google_info->email,
+        'picture' => $google_info->picture,
+    ]; 
+
+    header('location: ../student/dashboardStudent.php');
+}
+
 // ARRAY ASSOC PESAN ERROR
 $errors = [
     'login' => $_SESSION['login_error'] ?? ''
@@ -77,7 +95,7 @@ unset($_SESSION['login_error']);
                     </div>
 
                     <div class="socialIcon">
-                        <i class="ri-google-fill"></i>
+                        <a href="<?= $client->createAuthUrl() ?>"><i class="ri-google-fill"></i></a>
                         <i class="ri-github-fill"></i>
                         <i class="ri-facebook-circle-fill"></i>
                     </div>
