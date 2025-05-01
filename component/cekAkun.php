@@ -44,13 +44,13 @@ if (isset($_POST['masuk'])) { // JIKA USER MENEKAN TOMBOL MASUK
 
     if ($checkEmail->num_rows > 0) {
         $_SESSION['register_error'] = 'Email sudah terdaftar!';
-        header("Location: register.php");
+        header("Location: register.php?error = true");
         exit;
     }
 
     if ($checkUsername->num_rows > 0) {
         $_SESSION['register_error'] = 'Username sudah terdaftar!';
-        header("Location: register.php");
+        header("Location: register.php?error = true");
         exit;
     }
 
