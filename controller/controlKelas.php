@@ -33,6 +33,15 @@ function hapus($id){
     $data = mysqli_fetch_assoc($query);
     $foto = $data["foto"];
 
+    //get foto
+    $sql_f = "SELECT `foto` FROM `kelas` WHERE `kelas_id` = $id";
+    $query_f = mysqli_query($conn,$sql_f);
+    while($db_f = mysqli_fetch_row($query_f)){
+        $foto = $db_f[0];
+    } 
+
+   
+
     if(file_exists("../picture/" . $foto )){
         unlink("../picture/" . $foto);
     }
