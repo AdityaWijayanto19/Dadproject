@@ -4,7 +4,7 @@
 /* CSS VARIABEL */
 :root{
     /* COLORS */
-    --primary-color: #213555;
+    --primary-color: #0F172A;
     --secondary-color: #3E5879;
     --tertiary-color: #D8C4B6;
     --fourtiary-color: #F5EFE7;
@@ -54,7 +54,7 @@ body, input, button {
 }
 
 body{
-    background-color: var(--fourtiary-color);
+    background-color: var(--primary-color);
     color: var(--white-color);
 }
 
@@ -97,7 +97,7 @@ img{
     padding-top: 2rem;
     font-size: var(--big--font-size);
     font-weight: var(--font-semi-bold);
-    color: var(--primary-color);
+    color: white;
     margin-bottom: 1rem;
 }
 
