@@ -58,6 +58,7 @@
             height: 100px;
             border-radius: 50%;
             margin-bottom: 10px;
+            z-index: 1;
         }
 
         .username {
@@ -103,7 +104,7 @@
     <div class="dashboard-container">
         <div class="sidebar">
             <div class="profile-section">
-                <img src="<?= $_SESSION['info']['picture'] ?>" class="profile-img">
+                <img src="<?= htmlspecialchars($_SESSION['info']['picture']) ?>" class="profile-img" referrerpolicy="no-referrer">
                 <h2 class="username"><?= $_SESSION['info']['name'] ?></h2>
             </div>
             <div class="navigation">

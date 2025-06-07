@@ -16,8 +16,7 @@ function tambah($data){
     $direktori = '../picture/' . $nama_file;
 
     if(move_uploaded_file($lokasi_file,$direktori)){
-        $query = "INSERT INTO kelas VALUES
-        ('','$title','$nama_file','$desc','$mentor','$kategori')";
+        $query = "INSERT INTO kelas (`title_kelas`, `foto`,	`desk_kelas`,`mentor_id`,`kategori`) VALUES ('$title','$nama_file','$desc','$mentor','$kategori')";
 
         mysqli_query($conn,$query);
     }

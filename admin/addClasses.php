@@ -102,7 +102,7 @@ if (isset($_POST['submit'])) {
 
     <?= $alert ?>
 
-    <form class="form" action="" method="POST" enctype="multipart/form-data">
+    <form class="form" method="POST" enctype="multipart/form-data">
         <div class="bungkus">
             <h1>Tambah kelas</h1>
 
