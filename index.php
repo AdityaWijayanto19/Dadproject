@@ -38,10 +38,10 @@ if (isset($_POST['search'])) {
             <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
 
             <div class="boxsearch right nav-links" id="navLinks">
-                <div class="boxbtn">
+                <div class="boxbtn-log">
                     <a class="regbtn" href="component/login.php">Masuk</a>
                 </div>
-                <div class="boxbtn">
+                <div class="boxbtn-reg">
                     <a class="regbtn" href="component/register.php">Daftar</a>
                 </div>
             </div>
@@ -53,8 +53,8 @@ if (isset($_POST['search'])) {
         <div class="container">
             <img class="image-slide" src="picture/imghero1.jpg" alt="">
             <div class="slogan">
-                <h3>Bangun karirmu sebagai Developer Profesional</h3>
-                <p>Mulai belajar terarah dengan learning path</p>
+                <h3><span class="ungu">Bangun</span> karirmu sebagai Developer <span class="textdec">Profesional</span></h3>
+                <p><span class="bordertext">Mulai belajar</span> terarah dengan learning path</p>
             </div>
         </div>
 
@@ -105,7 +105,7 @@ if (isset($_POST['search'])) {
 
 
     <script>
-        const images = ["picture/imghero1.jpg", "picture/imghero2.png", "picture/imghero3.jpg"];
+        const images = ["picture/imghero1.jpg", "picture/imghero2.png", "picture/thumbnails.jpg"];
 
         let currentIndex = 0;
         const imgelemet = document.querySelector(".image-slide");
