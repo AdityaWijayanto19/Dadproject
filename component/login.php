@@ -1,23 +1,7 @@
 <?php
 session_start();
-
+// Hanya perlu callback.php untuk membuat Auth URL
 require_once 'callback.php';
-
-if (isset($_GET['code'])) {
-    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-    $client->setAccessToken( $token);
-
-    $googleAuth = new Google_Service_Oauth2($client);
-    $google_info = $googleAuth->userinfo->get();
-
-    $_SESSION['info'] = [
-        'name' => $google_info->name,
-        'email' => $google_info->email,
-        'picture' => $google_info->picture,
-    ]; 
-
-    header('location: ../student/dashboardStudent.php');
-}
 
 // ARRAY ASSOC PESAN ERROR
 $errors = [
@@ -25,7 +9,6 @@ $errors = [
 ];
 unset($_SESSION['login_error']);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

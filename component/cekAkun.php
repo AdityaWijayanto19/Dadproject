@@ -1,78 +1,94 @@
 <?php
-// 1. Mulai session dan koneksi database
 session_start();
-require '../koneksi/koneksi.php';
+require '../koneksi/koneksi.php'; 
 
-// CEK TOMBOL APAKAH YANG DIPENCET?
-if (isset($_POST['masuk'])) { // JIKA USER MENEKAN TOMBOL MASUK
-    // MENGAMBIL DATA DARI FORM
-    $email      = $_POST['email'];
-    $password   = $_POST['kataSandi'];
+function redirectUser($role) {
+    switch ($role) {
+        case 'admin':
+            header('Location: ../admin/adminDashboard.php');
+            break;
+        case 'mentor':
+            header('Location: ../mentor/mentorDashboard.php');
+            break;
+        case 'student':
+            header('Location: ../student/dashboardStudent.php');
+            break;
+        default:
+            $_SESSION['login_error'] = "Peran pengguna tidak dikenali.";
+            header('Location: login.php');
+            break;
+    }
+    exit(); 
+}
 
-    // VALIDASI PASSWORD
-    $query = "SELECT * FROM user WHERE email = '$email'"; // MENGAMBIL DATA AKUN BERDASARKAN EMAIL UNTUK DICEK PASSWORDNYA
-    $akun = query($query); // MENDAPATKAN DATA AKUN DARI DATABASE USER
-    foreach ($akun as $akn) {
-        $user = mysqli_fetch_assoc(mysqli_query($conn, $query)); // MENJADIKAN DATA SEBAGAI VARIABEL $user
-        // PENGECEKAN PASSWORD YANG SUDAH DI HASH/ENKRIPSI
+if (isset($_POST['masuk'])) {
+    $email    = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = $_POST['kataSandi'];
+
+    $query = "SELECT * FROM user WHERE email = '$email'";
+    $result = mysqli_query($conn, $query);
+
+    if ($result && mysqli_num_rows($result) === 1) {
+        $user = mysqli_fetch_assoc($result);
+
         if (password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['user_id']; // MENYIMPAN ID USER
-            header("Location: ../index.php");   // MENGARAHKAN KE HALAMAN HOMEPAGE
-            exit;
+            $_SESSION['loggedin'] = true;
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['info'] = [
+                'name' => $user['nama_lengkap'],
+                'email' => $user['email'],
+                'picture' => $user['gambar'] ?? 'path/to/default.png'
+            ];
+            redirectUser($user['role']);
         }
     }
+    
+    $_SESSION['login_error'] = "Email atau kata sandi salah!";
+    header("Location: login.php");
+    exit();
+} 
 
-    // JIKA GAGAL SIMPAN EROR UNTUK DITAMPILKAN DAN DIARAHKAN KEMBALI KE HALAMAN LOGIN
-    $_SESSION['login_error'] = "Email atau password salah!";
-    header("Location: login.php?error = true");
-    exit;
-} else if (isset($_POST['daftar'])) { // JIKA USER MENEKAN TOMBOL DAFTAR
-    // MENGAMBIL DATA DARI FORM
-    $nama_depan = $_POST['namaDepan'];
-    $nama_belakang = $_POST['namaBelakang'];
+else if (isset($_POST['daftar'])) {
+    $nama_depan = mysqli_real_escape_string($conn, $_POST['namaDepan']);
+    $nama_belakang = mysqli_real_escape_string($conn, $_POST['namaBelakang']);
     $nama_lengkap = $nama_depan . ' ' . $nama_belakang;
-    $email = $_POST['email'];
-    $username = $_POST['username'];
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
+    
     $plainPassword = $_POST['kataSandi'];
-    $password = password_hash($plainPassword, PASSWORD_BCRYPT); // PASSWORD ENKRIPSI
+    $password = password_hash($plainPassword, PASSWORD_BCRYPT);
     $role = "student";
-    $status = $_POST['status'];
 
-    // MENCARI TAU APAKAH EMAIL/PASSWORD/USERNAME SUDAH TERDAFTAR?
-    $checkEmail = $conn->query("SELECT email FROM user WHERE email = '$email'"); // MENGEMBALIKAN OBJECT BERUPA mysqli_result;
-    $checkUsername = $conn->query("SELECT username FROM user WHERE username = '$username'"); // MENGEMBALIKAN OBJECT BERUPA mysqli_result;
+    $checkEmailQuery = "SELECT email FROM user WHERE email = '$email'";
+    $checkUsernameQuery = "SELECT username FROM user WHERE username = '$username'";
 
-    if ($checkEmail->num_rows > 0) {
+    $resultEmail = mysqli_query($conn, $checkEmailQuery);
+    if (mysqli_num_rows($resultEmail) > 0) {
         $_SESSION['register_error'] = 'Email sudah terdaftar!';
-        header("Location: register.php?error = true");
+        header("Location: register.php");
         exit;
     }
 
-    if ($checkUsername->num_rows > 0) {
+    $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+    if (mysqli_num_rows($resultUsername) > 0) {
         $_SESSION['register_error'] = 'Username sudah terdaftar!';
-        header("Location: register.php?error = true");
+        header("Location: register.php");
         exit;
     }
 
-    $keTabelUser = mysqli_query(
-        $conn,
-        "INSERT INTO user (nama_depan, nama_belakang, nama_lengkap, username, email, password, role) VALUES
-        ('$nama_depan', '$nama_belakang', '$nama_lengkap', '$username', '$email', '$password', '$role')"
-    );
-
+    $insertUserQuery = "INSERT INTO user (nama_depan, nama_belakang, nama_lengkap, username, email, password, role) VALUES
+        ('$nama_depan', '$nama_belakang', '$nama_lengkap', '$username', '$email', '$password', '$role')";
+    mysqli_query($conn, $insertUserQuery);
+    
     $user_id = mysqli_insert_id($conn);
 
-    $keTabelStudent = mysqli_query(
-        $conn,
-        "INSERT INTO students (user_id, nama_depan, nama_belakang, status) VALUES
-        ('$user_id', '$nama_depan', '$nama_belakang', '$status')"
-    );
+    $insertStudentQuery = "INSERT INTO students (user_id, nama_depan, nama_belakang, status) VALUES
+        ('$user_id', '$nama_depan', '$nama_belakang', '$status')";
+    mysqli_query($conn, $insertStudentQuery);
 
-    if (!$keTabelStudent) {
-        die("Error student: " . mysqli_error($conn));
-    }
-
-    // JIKA BERHASIL MAKA AKAN PERGI KE HALAMAN LOGIN
     header("Location: login.php");
     exit;
 }
+?>

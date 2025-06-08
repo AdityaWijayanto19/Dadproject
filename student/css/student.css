@@ -1,0 +1,461 @@
+/* /css/style.css */
+
+/* Import Font dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Reset dan Pengaturan Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* === Styling untuk Layout Dashboard dengan Sidebar === */
+
+/* Container utama yang memegang sidebar dan konten */
+.dashboard-container {
+    display: flex;
+    background-color: #f0f2f5; /* Background utama halaman */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px; /* Lebar sidebar */
+    background-color: #ffffff; /* Warna background sidebar */
+    padding: 25px;
+    height: 100vh; /* Tinggi 100% dari viewport */
+    position: sticky; /* Membuat sidebar tetap di tempat saat scroll */
+    top: 0;
+    flex-shrink: 0; /* Mencegah sidebar menyusut */
+    box-shadow: 3px 0px 15px rgba(0, 0, 0, 0.04); /* Bayangan halus */
+    border-right: 1px solid #e5e7eb;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 4px solid #eef2ff; /* Border biru muda di sekitar foto */
+}
+
+.username {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Jarak antar menu */
+}
+
+.navigation a {
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #4b5563;
+    transition: background-color 0.2s, color 0.2s;
+    display: block;
+}
+
+/* Style untuk link yang aktif atau saat di-hover */
+.navigation a:hover,
+.navigation a.active {
+    background-color: #eef2ff; /* Background biru muda */
+    color: #3B82F6; /* Teks biru */
+}
+
+/* Area Konten Utama */
+.content-area {
+    flex-grow: 1; /* Mengambil sisa ruang yang tersedia */
+    padding: 30px;
+    overflow-y: auto; /* Memungkinkan scroll jika konten panjang */
+}
+
+/* Menghilangkan margin pada container lama karena sudah dihandle .content-area */
+.content-area .container {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+}
+
+/* Mengatur ulang header agar pas di layout baru */
+.content-area .header {
+    margin-bottom: 25px;
+}
+
+/* Container Utama */
+.container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Header/Navbar */
+.header {
+    background-color: #3B82F6; /* Biru */
+    color: white;
+    padding: 15px 0;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.navbar .nav-links a {
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.navbar .nav-links a:hover {
+    opacity: 0.8;
+}
+
+.navbar .hamburger-menu {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+/* Konten Utama */
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.main-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Tombol (Button) */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: #3B82F6;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2563EB;
+}
+
+.btn-light {
+    background-color: #eef2ff;
+    color: #3B82F6;
+}
+
+.btn-light:hover {
+    background-color: #e0e7ff;
+}
+
+/* Kartu (Card) */
+.card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+/* === Styling Khusus Halaman Dashboard === */
+.search-bar-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.search-input-group {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0 15px;
+}
+
+.search-input-group input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 12px 0;
+    font-size: 1rem;
+}
+.search-input-group i {
+    color: #6b7280;
+}
+
+.filter-dropdown select {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 1rem;
+}
+
+.recommendation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.class-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.class-card-content {
+    padding: 15px;
+}
+
+.class-card-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.class-card-content p {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* === Styling Khusus Daftar & Detail Kelas === */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tabs .tab-item {
+    padding: 10px 20px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.tabs .tab-item.active {
+    border-bottom-color: #3B82F6;
+    color: #3B82F6;
+    font-weight: 600;
+}
+
+.class-list-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.class-list-item img, .class-list-item .video-placeholder {
+    width: 160px;
+    height: 90px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.video-placeholder i {
+    font-size: 2rem;
+    color: white;
+}
+
+
+.class-info {
+    flex-grow: 1;
+}
+
+.class-info h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.class-info p {
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.tag-enrolled {
+    background-color: #e0e7ff;
+    color: #4338ca;
+}
+.tag-join {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+/* === Styling Khusus Notifikasi & Profil === */
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.notification-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.notification-item-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.icon-f { background-color: #1877F2; }
+.icon-u { background-color: #6366F1; }
+
+.notification-text span {
+    color: #6b7280;
+}
+.notification-time {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+.notification-arrow {
+    color: #9ca3af;
+}
+
+/* === Styling Khusus Forum Diskusi === */
+.forum-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.thread-post {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 20px;
+}
+.thread-meta {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+.thread-meta span {
+    float: right;
+}
+
+.replies-section {
+    margin-top: 30px;
+}
+.reply-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+.reply-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.reply-content p {
+    margin-top: 2px;
+    line-height: 1.6;
+}
+.reply-author {
+    font-weight: 600;
+}
+.reply-meta {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.reply-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    min-height: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+.reply-form {
+    text-align: right;
+}

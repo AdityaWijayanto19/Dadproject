@@ -1,123 +1,66 @@
 <?php
     session_start();
-    
+    $currentPage = 'dashboard'; // Menandai halaman ini sebagai 'dashboard'
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Body and background */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F9F7F7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: #112D4E;
-        }
-
-        /* Main container for the dashboard */
-        .dashboard-container {
-            display: flex;
-            width: 80%;
-            height: 80%;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: #DBE2EF;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 25%;
-            background-color: #3F72AF;
-            padding: 20px;
-            text-align: center;
-            color: white;
-        }
-
-        .profile-section {
-            margin-bottom: 30px;
-        }
-
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-            z-index: 1;
-        }
-
-        .username {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .navigation a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .navigation a:hover {
-            background-color: #112D4E;
-        }
-
-        /* Main content area */
-        .main-content {
-            width: 75%;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .main-content h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .main-content p {
-            font-size: 1.2rem;
-            color: #3F72AF;
-        }
-    </style>
+    <title>Dashboard - Student</title>
+    <link rel="stylesheet" href="css/student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
-
 <body>
     <div class="dashboard-container">
-        <div class="sidebar">
-            <div class="profile-section">
-                <img src="<?= htmlspecialchars($_SESSION['info']['picture']) ?>" class="profile-img" referrerpolicy="no-referrer">
-                <h2 class="username"><?= $_SESSION['info']['name'] ?></h2>
-            </div>
-            <div class="navigation">
-                <a href="#">Dashboard</a>
-                <a href="#">Settings</a>
-                <a href="#">Logout</a>
-            </div>
-        </div>
-        <div class="main-content">
-            <h1>Selamat Datang <?= $_SESSION['info']['name'] ?></h1>
-            <p>Here you can manage your profile and settings.</p>
+        <?php include 'components/sidebarStudent.php'; ?>
+        <div class="content-area">
+            <?php include 'components/navbarStudent.php'; ?>
+            <main>
+                <h1 class="page-title">Selamat Datang, <?php echo isset($_SESSION['info']['name']) ? htmlspecialchars($_SESSION['info']['name']) : 'Student'; ?>!</h1>
+                <div class="main-content">
+                    <div class="search-bar-container">
+                        <div class="search-input-group">
+                            <input type="text" placeholder="Cari kelas, materi, atau mentor...">
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div class="filter-dropdown">
+                            <select name="kategori" id="kategori">
+                                <option value="semua">Semua Kategori</option>
+                                <option value="web">Web Development</option>
+                                <option value="design">Design</option>
+                                <option value="marketing">Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+                    <h2>Kelas Rekomendasi</h2>
+                    <br>
+                    <div class="recommendation-grid">
+                        <a href="detailKelasStudent.php" class="card class-card">
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="Class Image">
+                            <div class="class-card-content">
+                                <h3>Belajar JavaScript Dasar</h3>
+                                <p>Pait Vied</p>
+                            </div>
+                        </a>
+                        <a href="detailKelasStudent.php" class="card class-card">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978" alt="Class Image">
+                            <div class="class-card-content">
+                                <h3>UI/UX Design untuk Pemula</h3>
+                                <p>Ein Gun</p>
+                            </div>
+                        </a>
+                        <a href="detailKelasStudent.php" class="card class-card">
+                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0" alt="Class Image">
+                            <div class="class-card-content">
+                                <h3>Digital Marketing 101</h3>
+                                <p>Pait Xjiot</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 </body>
-
 </html>
