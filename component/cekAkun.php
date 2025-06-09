@@ -1,8 +1,9 @@
 <?php
 session_start();
-require '../koneksi/koneksi.php'; 
+require '../koneksi/koneksi.php';
 
-function redirectUser($role) {
+function redirectUser($role)
+{
     switch ($role) {
         case 'admin':
             header('Location: ../admin/adminDashboard.php');
@@ -18,7 +19,7 @@ function redirectUser($role) {
             header('Location: login.php');
             break;
     }
-    exit(); 
+    exit();
 }
 
 if (isset($_POST['masuk'])) {
@@ -35,28 +36,30 @@ if (isset($_POST['masuk'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['role'] = $user['role'];
-            $_SESSION['info'] = [
-                'name' => $user['nama_lengkap'],
-                'email' => $user['email'],
-                'picture' => $user['gambar'] ?? 'path/to/default.png'
-            ];
-            redirectUser($user['role']);
+
+            header("Location: ../index.php");
+            exit();
+
+            // $_SESSION['info'] = [
+            //     'name' => $user['nama_lengkap'],
+            //     'email' => $user['email'],
+            //     'picture' => $user['gambar'] ?? 'path/to/default.png'
+            // ];
+            // redirectUser($user['role']);
         }
     }
-    
+
     $_SESSION['login_error'] = "Email atau kata sandi salah!";
     header("Location: login.php");
     exit();
-} 
-
-else if (isset($_POST['daftar'])) {
+} else if (isset($_POST['daftar'])) {
     $nama_depan = mysqli_real_escape_string($conn, $_POST['namaDepan']);
     $nama_belakang = mysqli_real_escape_string($conn, $_POST['namaBelakang']);
     $nama_lengkap = $nama_depan . ' ' . $nama_belakang;
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $status = mysqli_real_escape_string($conn, $_POST['status']);
-    
+
     $plainPassword = $_POST['kataSandi'];
     $password = password_hash($plainPassword, PASSWORD_BCRYPT);
     $role = "student";
@@ -81,7 +84,7 @@ else if (isset($_POST['daftar'])) {
     $insertUserQuery = "INSERT INTO user (nama_depan, nama_belakang, nama_lengkap, username, email, password, role) VALUES
         ('$nama_depan', '$nama_belakang', '$nama_lengkap', '$username', '$email', '$password', '$role')";
     mysqli_query($conn, $insertUserQuery);
-    
+
     $user_id = mysqli_insert_id($conn);
 
     $insertStudentQuery = "INSERT INTO students (user_id, nama_depan, nama_belakang, status) VALUES
@@ -91,4 +94,3 @@ else if (isset($_POST['daftar'])) {
     header("Location: login.php");
     exit;
 }
-?>

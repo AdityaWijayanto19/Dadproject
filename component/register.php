@@ -23,7 +23,7 @@ unset($_SESSION['register_error']);
 
 
     <link rel="shortcut icon" href="../picture/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/regist.css">
+    <link rel="stylesheet" href="../css/regist/regist.css">
 
     <!-- SCROLL REVEAL LIBRARY -->
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -50,7 +50,7 @@ unset($_SESSION['register_error']);
     <div class="register container">
         <div class="leftSection">
             <h1 class="title">Register</h1>
-            <h2 class="subTitle">Let's register and join us to make a dream project.</h2>
+            <h2 class="subTitle">Let's register and join us to make a dream project</h2>
 
             <svg class="registSvg" id="sw-js-blob-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <defs>

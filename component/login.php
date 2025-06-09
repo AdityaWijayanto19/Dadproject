@@ -18,7 +18,7 @@ unset($_SESSION['login_error']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="shortcut icon" href="../picture/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/login/login.css">
 
     <!-- REMIXICON -->
     <link
@@ -48,41 +48,41 @@ unset($_SESSION['login_error']);
 
     <div class="login container">
         <div class="title">
-            <h1>Log in to your account.</h1>
+            <h1>Welcome back!</h1>
+            <h2>Let's login and join us to make a dream project</h1>
+                <p class="subTitle">Stay focused, track your progress, and win the day</p>
         </div>
 
         <div class="containerForm">
             <form class="loginForm" action="cekAkun.php" method="post">
                 <h1>Login</h1>
-                <h2>Let's login and join us to make a dream project.</h1>
+                <!-- Input email -->
+                <div class="loginBox">
+                    <input type="email" name="email" id="inputField" class="loginInput" placeholder=" " required>
+                    <label for="inputField" class="loginLabel">Email</label>
+                    <i class="ri-mail-line loginIcon"></i>
+                </div>
 
-                    <!-- Input email -->
-                    <div class="loginBox">
-                        <input type="email" name="email" id="inputField" class="loginInput" placeholder=" " required>
-                        <label for="inputField" class="loginLabel">Email</label>
-                        <i class="ri-mail-line loginIcon"></i>
+                <!-- Input kata sandi -->
+                <div class="loginBox">
+                    <input type="password" name="kataSandi" id="inputField" class="loginInput" placeholder=" " required>
+                    <label for="inputField" class="loginLabel">Kata Sandi</label>
+                    <i class="ri-lock-line loginIcon"></i>
+                </div>
+
+                <div class="loginBox">
+                    <button type="submit" name="masuk" class="loginButton">Login</button>
+
+                    <div class="registBox">
+                        <p>Belum punya akun? <a href="register.php">Buat Akun</a></p>
                     </div>
+                </div>
 
-                    <!-- Input kata sandi -->
-                    <div class="loginBox">
-                        <input type="password" name="kataSandi" id="inputField" class="loginInput" placeholder=" " required>
-                        <label for="inputField" class="loginLabel">Kata Sandi</label>
-                        <i class="ri-lock-line loginIcon"></i>
-                    </div>
-
-                    <div class="loginBox">
-                        <button type="submit" name="masuk" class="loginButton">Login</button>
-
-                        <div class="registBox">
-                            <p>Belum punya akun? <a href="register.php">Buat Akun</a></p>
-                        </div>
-                    </div>
-
-                    <div class="socialIcon">
-                        <a href="<?= $client->createAuthUrl() ?>"><i class="ri-google-fill"></i></a>
-                        <i class="ri-github-fill"></i>
-                        <i class="ri-facebook-circle-fill"></i>
-                    </div>
+                <div class="socialIcon">
+                    <a href="<?= $client->createAuthUrl() ?>"><i class="ri-google-fill"></i></a>
+                    <i class="ri-github-fill"></i>
+                    <i class="ri-facebook-circle-fill"></i>
+                </div>
             </form>
         </div>
     </div>
@@ -101,7 +101,7 @@ unset($_SESSION['login_error']);
                 167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z" />
 
             <!-- Insert your image (recommended size: 1000 x 1200) -->
-            <image class="loginImg" href="../picture/loginPict.jpg" />
+            <image class="loginImg" href="../picture/loginPict1.jpg" />
         </g>
     </svg>
     </div>

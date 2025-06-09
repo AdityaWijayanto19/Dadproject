@@ -1,29 +1,30 @@
 /* FONT */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* CSS VARIABEL */
 :root{
     /* COLORS */
     --primary-color: #0F172A;
-    --secondary-color: #3E5879;
-    --tertiary-color: #D8C4B6;
-    --fourtiary-color: #F5EFE7;
+    --secondary-color: #9333EA;
+    --tertiary-color: #BE185D;
+    --fourtiary-color: #C084FC;
+    --quinary-color: #581C87;
     --white-color: #FFFFFF;
     --black-color: #000000;
 
     /* FONT & TYPOGRAPHY */
     /* .5rem = 8px | 1rem = 16px */
 
-    --body-font: 'Montserrat', sans-serif;
+    --body-font: 'Inter', sans-serif;
     --big--font-size: 1.5rem;
     --normal-font-size: .938rem;
     --small-font-size: .813rem;
     --tiny-font-size: .688rem;
 
     /* FONT WEIGHT */
-    --font-regular: 400;
-    --font-medium: 500;
-    --font-semi-bold: 600;
+    --font-regular: 500;
+    --font-medium: 600;
+    --font-semi-bold: 700;
 
     /* Z INDEX */
     --z-tooltop : 10;
@@ -75,150 +76,137 @@ img{
     display: block;
 }
 
+
 /* CONTAINER */
-.container {
-    max-width: 1300px;
-    margin-inline: auto;
+.container{
+    max-width: 1120px;
+    margin-inline: 1.5rem;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dua kolom */
-    align-items: center;
-    height: 100vh;
-    position: relative;
-    padding-inline: 1.5rem;
+    gap: 1rem;
 }
 
-.leftSection{
-    width: 100%;
+.login{
+    position: relative;
     height: 100vh;
-    padding-top: 3rem;
+    align-items: center;
+}
+
+.title{
+    text-align: center;
+}
+
+.title h1{
+    padding-top: 2rem;
+    font-size: var(--big--font-size);
+    font-weight: var(--font-semi-bold);
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.title h2{
+    font-size: 1.5rem;
+    font-weight: var(--font-regular);
     color: white;
 }
 
-.leftSection .title{
-    text-align: center;
-    margin-bottom: 1rem;
-}
 
-.leftSection .subTitle{
-    text-align: center;    
-}
-
-.registSvg {
-    height: 70vh;
-    width: 100%;
-    object-fit: cover;
-}
-
-.register{
-    position: relative;
-    height: 100vh;
-    align-items: center;;
+.title .subTitle{
+    font-size: 1.5rem;
+    font-weight: var(--font-regular);
+    color: white;    
 }
 
 .containerForm{
-    width: 100%;
-    max-width: 700px;
-    margin-left: auto; /* Dorong ke kanan */
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem 2rem 0.25rem 2rem;
-    border-radius: 4rem;
-    background-color: var(--white-color);
+    padding-bottom: 20px;
+    justify-items: center;
 }
 
 
-.registerForm{
-    width: 100%;
+.loginForm{
+    width: 40%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem 2rem 2rem 2rem;
-    border-radius: 4rem;
+    gap: 0.3rem;
+    padding: 1rem 2rem 1rem 2rem;
     background-color: var(--white-color);
+    border-radius: 1rem;    
 }
 
-.registerBox{
+.loginForm h1{
+    font-size: var(--big--font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.loginForm h2{
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.loginBox{
     width: 100%;
     position: relative;
     display: flex;
     align-items: center;
     border-radius: 1rem;
+    padding: 5px;
     margin: 0 auto;
-    background-color: var(--tertiary-color);
+    background-color: var(--white-color);
 }
 
-.registerInput{
+.loginInput{
     width: 100%;
-    padding: 1.25rem 2.25rem 1.25rem 1rem;
+    padding: 1.5rem 2.5rem 1.5rem 1.25rem;
     font-weight: var(--font-semi-bold);
-    border: 3px solid transparent;
+    border: 2px solid black;
     border-radius: 1rem;
-    z-index: 1;
     transition: border-color 0.4s;
-    background-color: var(--tertiary-color);
 }
 
-.registerInput:autofill{
+.loginInput:autofill{
     transition: background-color 6000s, color 6000s;
 }
 
-.registerInput:focus ~ .registerLabel{
+.loginInput:focus ~ .loginLabel{
     transform: translateY(-20px);
     font-size: var(--tiny-font-size);
 }
 
-.registerInput:not(:placeholder-shown).registerInput:not(:focus) ~ .registerLabel{
+.loginInput:focus{
+    padding-block: 2rem 1rem;
+    background-color: var(--fourtiary-color);
+}
+
+.loginInput:not(:placeholder-shown).loginInput:not(:focus) ~ .loginLabel{
     transform: translateY(-20px);
     font-size: var(--tiny-font-size);
 }
 
-.registerInput:not(:placeholder-shown).registerInput:not(:focus){
+.loginInput:not(:placeholder-shown).loginInput:not(:focus){
+    padding-block: 2rem 1rem;
     border-color: var(--primary-color);
 }
 
-.registerLabel {
+.loginLabel {
     position: absolute;
     left: 1.25rem;
     font-weight: var(--font-semi-bold);
     transition: transform 0.4s, font-size .4s, color .4s;
     color: var(--primary-color);
-    z-index: 1;
 }
 
-.registIcon{
-    position: absolute;
-    font-size: 1.25rem;
-    right: 1rem;
-    transition: color .4s;
-    color: var(--primary-color);
-    z-index: 1;
-}
-
-.registerBox .labelSelect{
-    padding: 1rem 0.5rem 1rem 1.25rem;
-    font-weight: var(--font-semi-bold);
-    transition: transform 0.4s, font-size .4s, color .4s;
-    color: var(--primary-color);
-    z-index: 1;
-}
-
-.registerBox .statusBox{
+.loginIcon{
     position: absolute;
     right: 1rem;
     font-size: 1.25rem;
     transition: color .4s;
     color: var(--primary-color);
-    background-color: var(--tertiary-color);
-    border: none;
-    z-index: 1;
 }
 
-.statusBox:focus{
-    border: none;
-}
-
-.registButton{
+.loginButton{
     width: 100%;
     display: inline-flex;
     justify-content: center;
@@ -229,17 +217,16 @@ img{
     padding-block: 1rem;
     border-radius: 4rem;
     margin: 0.8rem 2rem 2rem 2rem;
-    margin-bottom: 2.25rem;
     cursor: pointer;
     transition: background-color 0.4s, box-shadow 0.4s;
 }
 
-.registButton:hover{
+.loginButton:hover{
     background-color: var(--primary-color);
     box-shadow: 0 8px 24px rgba(0, 0%, 0%, 0.2);
 }
 
-.registerBox .loginBox{
+.loginBox .registBox{
     position: absolute;
     bottom: 0.7rem;
     left: 0;
@@ -251,17 +238,45 @@ img{
     font-weight: var(--font-semi-bold);
 }
 
-.loginBox{
+.registBox a{
     color: var(--primary-color);
     font-weight: var(--font-semi-bold);
     transition: transform 0.4s, color .4s;
 }
 
-.loginBox a:hover{
+.registBox a:hover{
     transform: scale(1.4);
-    color: white;
+    color: var(--tertiary-color);
 }
 
+.socialIcon{
+    font-size: 1.25rem;
+    color: var(--fourtiary-color);
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.socialIcon i{
+    font-size: 2.5rem;
+    transition: transform 0.4s, color .4s;
+    cursor: pointer;
+}
+
+.socialIcon i:hover{
+    transform: scale(1.2);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.loginSvg{
+    display: block;
+    position: absolute;
+    height: 100vh;
+    top: 0;
+    right: 0;
+}
 
 .toast {
     position: absolute;
@@ -276,18 +291,18 @@ img{
     overflow: hidden;
     transform: translateX(calc(100% + 30px));
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
-    z-index: 10;
+    z-index: 999;
 }
 
 .toast.active{
-    z-index: 10;
+    z-index: 999;
     transform: translateX(0%);
 }
 
 .toast .toast-content{
     display: flex;
     align-items: center;
-    z-index: 10;
+    z-index: 999;
 }
 
 .toast-content .check{
@@ -300,26 +315,26 @@ img{
     color: white;
     font-size: 20px;
     border-radius: 50%;
-    z-index: 10;
+    z-index: 999;
 }
 
 .toast-content .message{
     display: flex;
     flex-direction: column;
     margin: 0 20px;
-    z-index: 10;
+    z-index: 999;
 }
 
 .message .text{
     font-size: var(--normal-font-size);
     font-weight: var(--font-regular);
     color: var(--primary-color);
-    z-index: 10;
+    z-index: 999;
 }
 
 .message .text.text-1{
     font-weight: var(--font-semi-bold);
-    z-index: 10;
+    z-index: 999;
 }
 
 .toast .close{
@@ -330,12 +345,12 @@ img{
     padding: 5px;
     opacity: 0.7;
     cursor: pointer;
-    z-index: 10;
+    z-index: 999;
 }
 
 .toast .close:hover{
     opacity: 1;
-    z-index: 10;
+    z-index: 999;
 }
 
 .toast .progress{
@@ -345,7 +360,7 @@ img{
     height: 3px;
     width: 100%;
     background: #f8d7da;
-    z-index: 10;
+    z-index: 999;
 }
 
 .toast .progress:before{
@@ -356,12 +371,12 @@ img{
     height: 100%;
     width: 100%;
     background: var(--primary-color);
-    z-index: 10;
+    z-index: 999;
 }
 
 .progress.active:before{
     animation: progress 5s linear forwards;
-    z-index: 10;
+    z-index: 999;
 
 }
 
