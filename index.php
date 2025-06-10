@@ -13,20 +13,10 @@ if ($user_role === 'admin') {
 } elseif ($user_role === 'student') {
     $profile_link = 'student/dashboardStudent.php';
 }
-
-$data = query("SELECT * FROM `kelas`");
-$hasil = $data;
-
-if (isset($_POST['search'])) {
-    $cari = htmlspecialchars($_POST['search']);
-
-    $hasil = query("SELECT * FROM `kelas` WHERE `title_kelas` LIKE '%$cari%' ");
-}
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -59,32 +49,16 @@ if (isset($_POST['search'])) {
                         <li><a href="mentor/mentorDashboard.php">Dashboard Mentor</a></li>
                     <?php elseif ($user_role === 'student'): ?>
                         <li><a href="student/dashboardStudent.php">Dashboard Siswa</a></li>
-                    <?php else: ?>
-                        <li><a href="student/dashboardStudent.php">Dashboard</a></li>
-                    <?php endif ?>
-
+                    <?php endif; ?>
                 </ul>
             </div>
 
             <div class="boxSearch right">
                 <?php if ($user_id): ?>
-                    <!-- <div class="button"> -->
                     <a class="btnProfile" href="<?= htmlspecialchars($profile_link) ?>">Profile</a>
                     <a class="btnLogout" href="logout.php">Logout</a>
-                    <!-- </div> -->
                 <?php endif; ?>
             </div>
-
-            <!-- <div class="hamburger" onclick="toggleMenu()">☰</div>
-
-            <div class="boxsearch right nav-links" id="navLinks">   
-                <div class="boxbtn-log">
-                    <a class="regbtn" href="component/login.php">Masuk</a>
-                </div>
-                <div class="boxbtn-reg">
-                    <a class="regbtn" href="component/register.php">Daftar</a>
-                </div>
-            </div> -->
         </div>
     </nav>
 
@@ -113,9 +87,6 @@ if (isset($_POST['search'])) {
                     <img class="image-slide" src="picture/imghero1.jpg" alt="">
                     <img class="image-slide" src="picture/imghero2.png" alt="">
                     <img class="image-slide" src="picture/imghero3.jpg" alt="">
-                    <img class="image-slide" src="picture/imghero1.jpg" alt="">
-                    <img class="image-slide" src="picture/imghero2.png" alt="">
-                    <img class="image-slide" src="picture/imghero3.jpg" alt="">
                 </div>
                 <div>
                     <img class="image-slide" src="picture/imghero1.jpg" alt="">
@@ -124,85 +95,103 @@ if (isset($_POST['search'])) {
                     <img class="image-slide" src="picture/imghero1.jpg" alt="">
                     <img class="image-slide" src="picture/imghero2.png" alt="">
                     <img class="image-slide" src="picture/imghero3.jpg" alt="">
-                    <img class="image-slide" src="picture/imghero1.jpg" alt="">
-                    <img class="image-slide" src="picture/imghero2.png" alt="">
-                    <img class="image-slide" src="picture/imghero3.jpg" alt="">
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="bottomSectiom">
-            <div class="path-container">
-                 <div class="section-title">
-                        <h3 class="greeting">Learning Path</h3>
-                        <p>Temukan cara belajar yang lebih terarah dengan jalur pembelajaran</p>
-                        <p>yang sudah disusun agar sesuai dengan kebutuhan Anda.</p>
-                    </div>
-                <div class="section-header">
-                    <div class="slider-controls">
-                        <button id="path-scroll-left" class="arrow-btn" aria-label="Scroll Left">←</button>
-                        <button id="path-scroll-right" class="arrow-btn" aria-label="Scroll Right">→</button>
+    <!-- LEARNING PATH SECTION -->
+    <div class="bottomSectiom">
+        <div class="path-container">
+            <div class="section-title">
+                <h3 class="greeting">Learning Path</h3>
+                <p>Temukan cara belajar yang lebih terarah dengan jalur pembelajaran</p>
+                <p>yang sudah disusun agar sesuai dengan kebutuhan Anda.</p>
+            </div>
+            <div class="section-header">
+                <div class="slider-controls">
+                    <button id="path-scroll-left" class="arrow-btn" aria-label="Scroll Left">←</button>
+                    <button id="path-scroll-right" class="arrow-btn" aria-label="Scroll Right">→</button>
+                </div>
+            </div>
+
+            <div class="path-slider">
+                <div class="path-card" data-path="web" style="background-image: url('picture/webdeveloper.jpg');">
+                    <div class="card-title">
+                        <h3>Web Developer</h3>
                     </div>
                 </div>
-
-                <div class="path-slider">
-                    <a href="#" class="path-card" style="background-image: url('picture/webdeveloper.jpg');">
-                        <div class="card-title">
-                            <h3>Web Developer</h3>
-                        </div>
-                    </a>
-
-                    <a href="#" class="path-card" style="background-image: url('picture/mobiledeveloper.jpg');">
-                        <div class="card-title">
-                            <h3>Mobile Developer</h3>
-                        </div>
-                    </a>
-
-                    <a href="#" class="path-card" style="background-image: url('picture/iotengineer.jpg');">
-                        <div class="card-title">
-                            <h3>IoT Engineer</h3>
-                        </div>
-                    </a>
-
-                    <a href="#" class="path-card" style="background-image: url('picture/dataanalyst.jpg');">
-                        <div class="card-title">
-                            <h3>Data Scientist</h3>
-                        </div>
-                    </a>
-
-                    <a href="#" class="path-card" style="background-image: url('picture/gamedeveloper.jpg');">
-                        <div class="card-title">
-                            <h3>Game Developer</h3>
-                        </div>
-                    </a>
-
-                    <a href="#" class="path-card" style="background-image: url('picture/uiuxdesigner.jpg');">
-                        <div class="card-title">
-                            <h3>UI/UX Designer</h3>
-                        </div>
-                    </a>
+                <div class="path-card" data-path="mobile" style="background-image: url('picture/mobiledeveloper.jpg');">
+                    <div class="card-title">
+                        <h3>Mobile Developer</h3>
+                    </div>
+                </div>
+                <div class="path-card" data-path="iot" style="background-image: url('picture/iotengineer.jpg');">
+                    <div class="card-title">
+                        <h3>IoT Engineer</h3>
+                    </div>
+                </div>
+                <div class="path-card" data-path="data" style="background-image: url('picture/dataanalyst.jpg');">
+                    <div class="card-title">
+                        <h3>Data Scientist</h3>
+                    </div>
+                </div>
+                <div class="path-card" data-path="game" style="background-image: url('picture/gamedeveloper.jpg');">
+                    <div class="card-title">
+                        <h3>Game Developer</h3>
+                    </div>
+                </div>
+                <div class="path-card" data-path="ui-ux" style="background-image: url('picture/uiuxdesigner.jpg');">
+                    <div class="card-title">
+                        <h3>UI/UX Designer</h3>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- <section class="secondSection">
-            <div class="boxkelas">
-                <?php foreach ($hasil as $dt): ?>
-                    <div class="kelas">
-                        <h3>
-                            </?= $dt['title_kelas'] ?>
-                        </h3>
-                        <img class="foto" src="picture/</?= $dt['foto'] ?>" alt="">
-                        <p>T</?= $dt['desk_kelas'] ?>
-                        </p>
-                        <button class="button">mulai Belajar</button>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </section> -->
+    <div id="path-details-container">
+        <!-- ISI KONTEN DISINI -->
+    </div>
 
+    <div class="secondSection">
 
-        <script>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const pathData = {
+                mobile: {
+                    title: "Mobile Developer", classCount: "3 kelas", studentCount: "299k siswa belajar di path ini",
+                    description: "Kurikulum didesain dengan persetujuan dari Tim Google Android untuk mempersiapkan developer Android standar Global. Dicoding adalah Google Developer Authorized Training Partner.",
+                    courses: [
+                        { step: 1, title: "Memulai Pemrograman dengan Kotlin", rating: "4.84", level: "Dasar", img: "mobiledeveloper.jpg" },
+                        { step: 2, title: "Belajar Membuat Aplikasi Android untuk Pemula", rating: "4.87", level: "Pemula", img: "mobiledeveloper.jpg" },
+                        { step: 3, title: "Belajar Fundamental Aplikasi Android", rating: "4.84", level: "Menengah", img: "mobiledeveloper.jpg" }
+                    ]
+                },
+                web: {
+                    title: "Web Developer", classCount: "4 kelas", studentCount: "450k siswa belajar di path ini",
+                    description: "Belajar membuat website responsif dan modern dari dasar hingga menjadi seorang Full-Stack Web Developer handal dengan teknologi terkini.",
+                    courses: [
+                        { step: 1, title: "Belajar Dasar Pemrograman Web", rating: "4.85", level: "Dasar", img: "webdeveloper.jpg" },
+                        { step: 2, title: "Belajar Membuat Front-End Web untuk Pemula", rating: "4.88", level: "Pemula", img: "webdeveloper.jpg" },
+                        { step: 3, title: "Belajar Fundamental Front-End Web Development", rating: "4.86", level: "Menengah", img: "webdeveloper.jpg" },
+                        { step: 4, title: "Menjadi Front-End Web Developer Expert", rating: "4.90", level: "Expert", img: "webdeveloper.jpg" }
+                    ]
+                },
+                data: {
+                    title: "Data Scientist", classCount: "3 kelas", studentCount: "150k siswa belajar di path ini",
+                    description: "Mulai karir di bidang data dengan mempelajari statistika, machine learning, dan visualisasi data yang relevan dengan kebutuhan industri.",
+                    courses: [
+                        { step: 1, title: "Memulai Pemrograman Dengan Python", rating: "4.89", level: "Dasar", img: "dataanalyst.jpg" },
+                        { step: 2, title: "Belajar Analisis Data dengan Python", rating: "4.87", level: "Pemula", img: "dataanalyst.jpg" },
+                        { step: 3, title: "Belajar Machine Learning untuk Pemula", rating: "4.88", level: "Pemula", img: "dataanalyst.jpg" }
+                    ]
+                }
+            };
+
             const text = document.querySelector(".role");
             const textLoad = () => {
                 setTimeout(() => {
@@ -234,41 +223,93 @@ if (isset($_POST['search'])) {
             textLoad();
             setInterval(textLoad, 32000);
 
-            // const images = ["picture/imghero1.jpg", "picture/imghero2.png", "picture/thumbnails.jpg"];
-
-            // let currentIndex = 0;
-            // const imgelemet = document.querySelector(".image-slide");
-
-            // function changeImg() {
-            //     currentIndex = (currentIndex + 1) % images.length;
-            //     imgelemet.src = images[currentIndex];
-            // }
-
-            // setInterval(changeImg, 2000);
-
-            function toggleMenu() {
-                const nav = document.getElementById("navLinks");
-                nav.classList.toggle("active");
-            }
-
-
             const pathSlider = document.querySelector(".path-slider");
             const pathScrollLeftBtn = document.getElementById("path-scroll-left");
             const pathScrollRightBtn = document.getElementById("path-scroll-right");
 
             if (pathSlider && pathScrollLeftBtn && pathScrollRightBtn) {
                 const card = pathSlider.querySelector(".path-card");
-                const scrollAmount = card ? card.offsetWidth + 24 : 304;
-
-                pathScrollRightBtn.addEventListener("click", () => {
-                    pathSlider.scrollLeft += scrollAmount;
-                });
-
-                pathScrollLeftBtn.addEventListener("click", () => {
-                    pathSlider.scrollLeft -= scrollAmount;
-                });
+                const scrollAmount = card ? card.offsetWidth + 24 : 424;
+                pathScrollRightBtn.addEventListener("click", () => { pathSlider.scrollLeft += scrollAmount; });
+                pathScrollLeftBtn.addEventListener("click", () => { pathSlider.scrollLeft -= scrollAmount; });
             }
-        </script>
+
+            const pathDetailsContainer = document.getElementById("path-details-container");
+
+            pathSlider.addEventListener('click', (e) => {
+                const clickedCard = e.target.closest('.path-card');
+                if (!clickedCard) return;
+
+                const pathId = clickedCard.dataset.path;
+                displayPathDetails(pathId, true);
+            });
+
+            function displayPathDetails(pathId, shouldScroll) {
+                const cardToActivate = document.querySelector(`.path-card[data-path="${pathId}"]`);
+                const data = pathData[pathId];
+
+                document.querySelectorAll('.path-card').forEach(card => card.classList.remove('active'));
+
+                if (cardToActivate && data) {
+                    renderPathDetails(data);
+                    pathDetailsContainer.style.display = 'block';
+
+                    cardToActivate.classList.add('active');
+
+                } else {
+                    window.location.href = 'component/comingSoon.php';
+                }
+            }
+
+            function renderPathDetails(data) {
+                const coursesHTML = data.courses.map((course, index) => `
+                    <div class="course-card">
+                        <img src="picture/${course.img}" alt="${course.title}">
+                        <div class="card-content">
+                            <div class="card-step">Langkah ${index + 1}</div>
+                            <h4>${course.title}</h4>
+                        </div>
+                    </div>
+                `).join('');
+
+                const detailsHTML = `
+                    <div class="path-details-content">
+                        <div class="path-info">
+                            <h2>${data.title}</h2>
+                            <div class="info-item"><span>${data.classCount}</span></div>
+                            <div class="info-item"><span>${data.studentCount}</span></div>
+                            <p class="description">${data.description}</p>
+                        </div>
+                        <div class="path-courses">
+                            <div class="slider-controls-detail">
+                                <button id="course-scroll-left" class="arrow-btn">←</button>
+                                <button id="course-scroll-right" class="arrow-btn">→</button>
+                            </div>
+                            <div class="course-slider">${coursesHTML.length > 0 ? coursesHTML : '<p>Belum ada kelas untuk path ini.</p>'}</div>
+                        </div>
+                    </div>
+                `;
+
+                pathDetailsContainer.innerHTML = detailsHTML;
+                initializeCourseSlider();
+            }
+
+            function initializeCourseSlider() {
+                const slider = document.querySelector(".course-slider");
+                const scrollLeftBtn = document.getElementById("course-scroll-left");
+                const scrollRightBtn = document.getElementById("course-scroll-right");
+
+                if (slider && scrollLeftBtn && scrollRightBtn) {
+                    const card = slider.querySelector(".course-card");
+                    if (!card) return;
+                    const scrollAmount = card.offsetWidth + 20;
+                    scrollRightBtn.addEventListener("click", () => { slider.scrollLeft += scrollAmount; });
+                    scrollLeftBtn.addEventListener("click", () => { slider.scrollLeft -= scrollAmount; });
+                }
+            }
+            displayPathDetails('web', false);
+        });
+    </script>
 </body>
 
 </html>
