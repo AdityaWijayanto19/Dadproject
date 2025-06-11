@@ -40,102 +40,80 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <style>
-    .form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 90px;
-    }
+    hr {
+        border-color: #9333EA;
 
-    .bungkus {
-        height: 580px;
-        width: 500px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 10px;
-        border: none;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.53);
-    }
-
-    ul {
-        margin-left: 0;
-        list-style-type: none;
-    }
-
-    li {
-        margin: 10px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .label {
-        width: 250px;
-        height: 5px;
-        padding: 15px;
-        border: 1px solid black;
-        border-radius: 10px;
-    }
-
-    .desc{
-        height: 95px;
-        padding: 5px;
-        width: 350px;
-        border-radius: 10px;
-        border: 1px solid black;
-        text-align: start;
-    }
-
-    button {
-        height: 40px;
-        width: 130px;
-        border-radius: 10px;
-        margin-bottom: 20px;
     }
 </style>
 
-<body>
+<body class="bg-[#0F172A] text-white">
 
     <?= $alert ?>
 
-    <form class="form" method="POST" enctype="multipart/form-data">
-        <div class="bungkus">
-            <h1>Tambah kelas</h1>
+    <div class="mx-10 mt-5">
+        <h1 class="text-3xl font-semibold">Tambah kelas</h1>
+        <br>
+        <hr>
+    </div>
 
-            <ul>
-                <li>
-                    <label for="title">Title kelas</label>
-                    <input class="label" type="text" name="title" id="title" required>
-                </li>
-
-                <li>
-                    <label for="foto">foto</label>
-                    <input class="foto" type="file" name="foto" id="foto" required>
-                </li>
-
-                <li>
-                    <label for="desc">Deskripsi kelas</label>
-                    <textarea class="desc" type="text" name="desc" id="desc" required></textarea>
-                </li>
-
-                <li>
-                    <label for="mentor">ID mentor</label>
-                    <input class="label" type="text" name="mentor" id="mentor" required>
-                </li>
-
-                <li>
-                    <label for="kategori">Kategori</label>
-                    <input class="label" type="text" name="kategori" id="kategori" required>
-                </li>
-            </ul>
-            <button type="submit" name="submit">Tambah Kelas</button>
-            <a href="manageClasses.php">Kembali</a>
+    <div class="flex p-10 gap-10">
+        <div class="flex justify-center items-center w-[30%] h-150 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl">
+            <img class="h-30" src="../picture/logo1.png" alt="">
         </div>
-    </form>
+
+        <form class="flex flex-col p-10 w-[70%] h-150 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl" method="POST"
+            enctype="multipart/form-data">
+            <div class="flex flex-col text-xl">
+                <ul>
+                    <li class="flex flex-col text-xl">
+                        <label for="title">Title kelas</label>
+                        <input
+                            class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
+                            type="text" name="title" id="title" required>
+                    </li>
+
+                    <li class="flex flex-col text-xl">
+                        <label for="foto">Foto</label>
+                        <input
+                            class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md cursor-pointer hover:bg-[#0F172A] hover:scale-101 duration-200"
+                            type="file" name="foto" id="foto" required>
+                    </li>
+
+                    <li class="flex flex-col text-xl">
+                        <label for="desc">Deskripsi kelas</label>
+                        <textarea
+                            class="h-40 bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
+                            type="text" name="desc" id="desc" required></textarea>
+                    </li>
+
+                    <li class="flex flex-col text-xl">
+                        <label for="mentor">ID mentor</label>
+                        <input
+                            class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
+                            type="text" name="mentor" id="mentor" required>
+                    </li>
+
+                    <li class="flex flex-col text-xl">
+                        <label for="kategori">Kategori</label>
+                        <input
+                            class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
+                            type="text" name="kategori" id="kategori" required>
+                    </li>
+                </ul>
+                <div class="flex justify-between mt-5">
+                    <a class="bg-[#C084FC] p-2 rounded-md hover:bg-[#9333EA] hover:scale-102 duration-200"
+                        href="manageClasses.php">Kembali</a>
+                    <button class="bg-[#C084FC] p-2 rounded-md hover:bg-[#9333EA] hover:scale-102 duration-200"
+                        type="submit" name="submit">Tambah Kelas</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 
 </body>
 

@@ -13,11 +13,11 @@ $data = query("SELECT * FROM `kelas`");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="shortcut icon" href="picture/logo (1).png" type="image/x-icon">
     <title>Kelola Kelas-DadProject</title>
-    <link rel="stylesheet" href="../css/adminDashboard.css">
+    <link rel="stylesheet" href="../css/admin/adminDashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="adminDashboard.css">
-    <link rel="stylesheet" href="../css/kelas.css">
+    <link rel="stylesheet" href="../css/kelas/kelas.css">
 </head>
 
 <body>
@@ -32,8 +32,7 @@ $data = query("SELECT * FROM `kelas`");
                 <li><a href="manageUser.php">Pengguna</a></li>
                 <li><a href="manageClasses.php">Kelas</a></li>
                 <li><a href="manageCategoryClass.php">Kategori Kelas</a></li>
-                <li><a href="#">Notifikasi</a></li>
-                <li><a href="#">Statistik dan Data Pengguna</a></li>
+                <li><a href="manageContact.php">Kontak</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>

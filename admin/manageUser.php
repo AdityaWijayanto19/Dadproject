@@ -35,8 +35,7 @@ $dataUser = query('SELECT * FROM user');
                 <li><a href="manageUser.php">Pengguna</a></li>
                 <li><a href="manageClasses.php">Kelas</a></li>
                 <li><a href="manageCategoryClass">Kategori Kelas</a></li>
-                <li><a href="#">Notifikasi</a></li>
-                <li><a href="#">Statistik dan Data Pengguna</a></li>
+                <li><a href="manageContact.php">Kontak</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>
@@ -63,25 +62,25 @@ $dataUser = query('SELECT * FROM user');
                         <form action="../controller/controlUser.php" method="POST" class="form-container">
 
                             <label for="firstName">Nama Depan:</label>
-                            <input type="text" id="firstName" name="namaDepan" required>
+                            <input type="text" id="firstName" class="input" name="namaDepan" required>
 
                             <label for="lastName">Nama Belakang:</label>
-                            <input type="text" id="lastName" name="namaBelakang" required>
+                            <input type="text" id="lastName" class="input" name="namaBelakang" required>
 
                             <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" required>
+                            <input type="text" id="username" class="input" name="username" required>
 
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" class="input" name="email" required>
 
                             <label for="password">Password:</label>
-                            <input type="password" id="password" name="kataSandi" required>
+                            <input type="password" id="password" class="input" name="kataSandi" required>
 
                             <label for="role">Role:</label>
-                            <select id="role" name="role" required onchange="updateFormByRole()">
-                                <option value="admin">Admin</option>
-                                <option value="mentor">Mentor</option>
-                                <option value="student">Student</option>
+                            <select id="role" class="input" name="role" required onchange="updateFormByRole()">
+                                <option class="input" value="admin">Admin</option>
+                                <option class="input" value="mentor">Mentor</option>
+                                <option class="input" value="student">Student</option>
                             </select>
 
                             <!-- Admin Specific Fields -->

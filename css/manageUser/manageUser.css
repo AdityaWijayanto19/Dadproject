@@ -17,7 +17,7 @@ body {
 }
 
 .sidebar {
-    background-color:#112D4E; 
+    background-color:#0F172A; 
     color: #fff;
     width: 250px;
     padding: 20px;
@@ -49,30 +49,37 @@ body {
 }
 
 .sidebar ul li a:hover {
-    background-color: #575757;
-    padding-left: 10px;
-    font-size: 20px; 
+    background-color: #C084FC;
+    padding: 10px;
+    border-radius: 10px;
+    color: #581C87;
+    font-size: 20px; /* Ukuran font lebih besar agar lebih terlihat */
     transition: all 0.3s ease;
 }
 
 .main-content {
     flex: 1;
     padding: 20px;
-    background-color: #F9F7F7; 
+    background-color: #1C2435; 
+}
+
+.main-content hr {
+    border-color: #9333EA;
 }
 
 .header h1 {
     font-size: 28px;
     margin-bottom: 10px;
+    color: white;
 }
 
 .header p {
     font-size: 18px;
-    color: #777;
+    color: white;
 }
 
 #openModalBtn {
-    background-color: #4CAF50;
+    background-color:#C084FC;
     color: white;
     padding: 10px;
     margin-top: 10px;
@@ -82,14 +89,14 @@ body {
 }
 
 #openModalBtn:hover {
-    background-color: #45a049;
+    background-color:#9333EA;
 }
 
 .inputSearch{
     padding: 9px;
     width: 20%;
-    border-radius: 5px;
-    border: 0.6mm solid #45a049;
+    border-radius: 20px;
+    border: 0.6mm solid #C084FC;
     margin-left: 5px;
 }
 
@@ -107,10 +114,11 @@ body {
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: #0F172A;
     margin: 1% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #581C87;
+    color: white;
     width: 80%;
     max-width: 400px;
     font-size: 12px;
@@ -118,7 +126,7 @@ body {
 
 /* Tombol tutup modal */
 .close {
-    color: #aaa;
+    color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -126,9 +134,14 @@ body {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: #C084FC;
     text-decoration: none;
     cursor: pointer;
+}
+
+.input{
+    background-color: #1C2435;
+    color: white;
 }
 
 /* Style untuk form */
@@ -136,13 +149,13 @@ body {
     width: 100%;
     padding: 8px;
     margin: 8px 0;
-    border: 1px solid #ddd;
+    border: 1px solid #581C87;
     border-radius: 4px;
     height: 30px;
 }
 
 .form-container button {
-    background-color: #4CAF50;
+    background-color: #C084FC;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -151,7 +164,7 @@ body {
 }
 
 .form-container button:hover {
-    background-color: #45a049;
+    background-color: #9333EA;
 }
 
 /* Menyembunyikan elemen berdasarkan role */
@@ -169,18 +182,20 @@ body {
   }
   
   .custom-table th, .custom-table td {
-    border: 1px solid #000000; 
+    border: 1px solid #581C87; 
     padding: 6px;
     text-align: center; 
   }
   
   .custom-table th {
-    background-color: #cbcbcb; 
+    background-color:#9333EA; 
     font-weight: bold; 
+    color: white;
   }
   
-  .custom-table tr:nth-child(even) {
-    background-color:  #d5d7bb; 
+  .custom-table tr {
+    background-color: #C084FC;
+    color: white; 
   }
 
   .custom-table td{
@@ -194,27 +209,27 @@ body {
   .btnEdit{
     padding: 4px;
     margin: 2px;
-    background-color: green;
+    background-color: rgb(47, 130, 255) ;
     color: white;
     text-decoration: none;
     border-radius: 3px;
   } 
 
   .btnEdit:hover{
-    background-color: rgb(59, 150, 59);
+    background-color: rgb(20, 114, 255);
   }
 
   .btnHapus{
     padding: 4px;
     margin: 2px;
-    background-color: red;
+    background-color: #BE185D;
     color: white;
     text-decoration: none;
     border-radius: 3px;
   } 
 
   .btnHapus:hover{
-    background-color: rgb(220, 67, 67);
+    background-color: #cb0055;
   }
 
 

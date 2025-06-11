@@ -21,7 +21,7 @@ table{
 th{
     padding: 10px 20px;
     text-align: center;
-    background-color: #08697f;
+    background-color: #9333EA;
     color: white;
 }
 
@@ -31,11 +31,11 @@ td{
 }
 
 tbody tr:nth-child(odd){
-    background-color: #f8f9fa;
+    background-color: #C084FC;
 }
 
 tbody tr:nth-child(even){
-    background-color: #e9ecef;
+    background-color: #C084FC;
 }
 
 .boxbtn{
@@ -48,8 +48,8 @@ tbody tr:nth-child(even){
     display: inline-block;
     vertical-align: middle;
     user-select: none;
-    background-color: #198754; 
-    border: 1px solid #198754;
+    background-color: #C084FC; 
+    border: 1px solid #C084FC;
     padding: 0.375rem 0.75rem; 
     line-height: 1.5;
     border-radius: 0.375rem; 
@@ -58,8 +58,8 @@ tbody tr:nth-child(even){
 }
 
 .boxbtn button:hover {
-    background-color: #157347;
-    border-color: #146c43;
+    background-color: #9333EA;
+    border-color: #9333EA;
   }
   
 

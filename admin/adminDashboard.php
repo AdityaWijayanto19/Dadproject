@@ -32,8 +32,7 @@ $jumlahUser = $data['jumlah_user'];
                 <li><a href="manageUser.php">Pengguna</a></li>
                 <li><a href="manageClasses.php">Kelas</a></li>
                 <li><a href="manageCategoryClass.php">Kategori Kelas</a></li>
-                <li><a href="#">Notifikasi</a></li>
-                <li><a href="#">Statistik dan Data Pengguna</a></li>
+                <li><a href="manageContact.php">Kontak</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>

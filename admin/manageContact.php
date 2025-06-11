@@ -28,7 +28,7 @@
         <!-- Main Content -->
         <div class="main-content">
             <header>
-                <h1>Manajemen Kategori Kelas</h1>
+                <h1>Manajemen Kontak</h1>
                 <hr>
                 <br>
                 <p>Selamat Datang, Admin</p>
