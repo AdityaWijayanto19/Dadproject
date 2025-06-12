@@ -10,26 +10,24 @@
 
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar -->
         <?php include 'components/sidebar.php'; ?>
 
-        <!-- Main Content -->
         <main class="main-content">
-            <div class="page-header">
-                <h1>Pengaturan Akun</h1>
-            </div>
+            <header>
+                <h1>Pengaturan</h1>
+                <hr>
+            </header>
 
-            <!-- Kartu Pengaturan Profil -->
             <div class="settings-card">
                 <h2>Informasi Profil</h2>
                 <form>
                     <div class="form-group">
                         <label for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" name="nama" value="John Doe">
+                        <input type="text" id="nama" name="nama" value="Nama User">
                     </div>
                     <div class="form-group">
                         <label for="email">Alamat Email</label>
-                        <input type="email" id="email" name="email" value="john.doe@example.com" disabled>
+                        <input type="email" id="email" name="email" value="user@example.com" disabled>
                         <small>Email tidak dapat diubah.</small>
                     </div>
                     <div class="form-group">
@@ -46,26 +44,25 @@
                 </form>
             </div>
 
-            <!-- Kartu Pengaturan Notifikasi -->
             <div class="settings-card">
                 <h2>Preferensi Notifikasi</h2>
                 <form>
                     <div class="form-check">
                         <input type="checkbox" id="notif-tugas" name="notif-tugas" checked>
-                        <label for="notif-tugas">Kirim notifikasi email saat ada tugas baru yang perlu dinilai.</label>
+                        <label for="notif-tugas">Kirim notifikasi saat ada kelas yang sudah di upload oleh admin.</label>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" id="notif-update" name="notif-update">
-                        <label for="notif-update">Kirim notifikasi email tentang pembaruan platform.</label>
+                        <label for="notif-update">Kirim notifikasi jika upload konten sudah di setujui admin.</label>
                     </div>
                 </form>
             </div>
 
-            <!-- Kartu Zona Berbahaya -->
             <div class="settings-card danger-zone">
                 <h2>Zona Berbahaya</h2>
-                <p>Tindakan ini akan menonaktifkan akun Anda secara permanen dan tidak dapat diurungkan.</p>
-                <button type="button" class="btn btn-danger">Nonaktifkan Akun Saya</button>
+                <p>Tindakan ini akan Menghapus akun Anda secara permanen dan tidak dapat dikembalikan.</p>
+                <br/>
+                <button type="button" class="btn btn-danger">Hapus Akun Saya</button>
             </div>
 
         </main>
