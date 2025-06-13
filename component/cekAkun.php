@@ -36,6 +36,9 @@ if (isset($_POST['masuk'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['role'] = $user['role'];
+            $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
 
             header("Location: ../index.php");
             exit();
