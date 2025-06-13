@@ -36,20 +36,11 @@ if (isset($_POST['masuk'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['role'] = $user['role'];
+            
             if ($user['role'] === 'mentor') {
-                // MENGAMBIL MENTOR_ID DI TABEL MENTORS
-                $user_id = $user['user_id'];
-                $queryMentor = "SELECT mentor_id FROM mentors WHERE user_id = '$user_id'";
-                $resultMentor = mysqli_query($conn, $queryMentor);
-
-                if ($resultMentor && mysqli_num_rows($resultMentor) === 1) {
-                    $mentor = mysqli_fetch_assoc($resultMentor);
-                    $_SESSION['mentor_id'] = $mentor['mentor_id'];
-                } else {
-                    $_SESSION['login_error'] = "Akun mentor belum terdaftar di tabel mentors.";
-                    header("Location: login.php");
-                    exit();
-                }
+                $mentorQuery = mysqli_query($conn, "SELECT * FROM mentors WHERE user_id = {$user['user_id']}");
+                $mentor = mysqli_fetch_assoc($mentorQuery);
+                $_SESSION['mentor_id'] = $mentor['mentor_id'];
             }
 
 
