@@ -1,3 +1,25 @@
+<?php
+session_start();
+include '../koneksi/koneksi.php';
+
+$mentor_id = $_SESSION['mentor_id'];
+$kelas_id = $_GET['kelas_id'];
+
+$queryKelas = mysqli_query($conn, "SELECT * FROM kelas WHERE kelas_id = '$kelas_id'");
+$data_kelas = mysqli_fetch_assoc($queryKelas); 
+
+$queryMentor = mysqli_query($conn, "
+    SELECT user.nama_lengkap 
+    FROM mentors 
+    JOIN user ON mentors.user_id = user.user_id 
+    WHERE mentors.mentor_id = '$mentor_id'
+");
+
+$dataMentor = mysqli_fetch_assoc($queryMentor);
+$nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,10 +36,10 @@
         <?php include 'components/sidebar.php'; ?>
         <div class="content-area">
             <header class="header-kelas">
-                <h1 class="page-title">Detail Kelas: Web Dasar</h1>
+                <h1 class="page-title">Detail Kelas: <?= htmlspecialchars($data_kelas['title_kelas']) ?></h1>
                 <div class="tabs">
-                    <div class="tab-item active">Konten</div>
-                    <a class="tab-item " href="uploadKonten.php">Upload Konten</a>
+                    <a href="#" class="tab-item active">Konten</a>
+                    <a class="tab-item" href="uploadKonten.php?kelas_id=<?= $kelas_id ?>">Upload Konten</a>
                 </div>
             </header>
             <main>

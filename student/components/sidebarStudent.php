@@ -1,28 +1,38 @@
 <?php
-// Variabel $currentPage akan didefinisikan di setiap halaman utama
-// untuk menandai halaman mana yang sedang aktif.
-if (!isset($currentPage)) {
-    $currentPage = ''; // Default value
-}
+$user_name = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : 'Pengguna';
+$user_role = isset($_SESSION['role']) ? $_SESSION['role'] : 'student';
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Username Student';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email Student';
 ?>
 
-<div class="sidebar">
-    <div class="profile-section">
-        <?php if (isset($_SESSION['info']['picture'])): ?>
-            <img src="<?= htmlspecialchars($_SESSION['info']['picture']) ?>" class="profile-img" referrerpolicy="no-referrer">
-        <?php else: ?>
-            <img src="https://i.pravatar.cc/100" class="profile-img" alt="Profile Picture">
-        <?php endif; ?>
-        
-        <h2 class="username">
-            <?php echo isset($_SESSION['info']['name']) ? htmlspecialchars($_SESSION['info']['name']) : 'Nama Student'; ?>
-        </h2>
+
+<div class="content">
+    <div class="greeting">
+        <h1>Hallo <?= $user_name ?> <span>!</span></h1>
+        <p>Bagaimana dengan proses belajarmu?</p>
     </div>
-    <nav class="navigation">
-        <a href="dashboardStudent.php" class="<?= ($currentPage == 'dashboard') ? 'active' : '' ?>">Dashboard</a>
-        <a href="daftarKelasStudent.php" class="<?= ($currentPage == 'kelas') ? 'active' : '' ?>">Kelas Saya</a>
-        <a href="notifikasiStudent.php" class="<?= ($currentPage == 'notifikasi') ? 'active' : '' ?>">Notifikasi</a>
-        <a href="profilStudent.php" class="<?= ($currentPage == 'profil') ? 'active' : '' ?>">Profil & Pengaturan</a>
-        <a href="logout.php">Logout</a>
-    </nav>
+    <div class="student-detail">
+        <h1>Your Detail</h1>
+        <div class="container-detail">
+            <div class="detail-item">
+                <h2>Nama <span>: <?= $user_name ?></span></h2>
+            </div>
+            <div class="detail-item">
+                <h2>Role <span>: <?= $user_role ?></span>
+                </h2>
+            </div>
+            <div class="detail-item">
+                <h2>Username <span>: <?= $username ?></span>
+                </h2>
+            </div>
+            <div class="detail-item">
+                <h2>Email <span>: <?= $email ?></span>
+                </h2>
+            </div>
+            <div class="detail-item">
+                <h2>Kelas yang diikuti <span>: x</span>
+                </h2>
+            </div>
+        </div>
+    </div>
 </div>

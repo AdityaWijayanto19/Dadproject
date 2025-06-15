@@ -23,7 +23,7 @@ function redirectUser($role)
 }
 
 if (isset($_POST['masuk'])) {
-    $email    = mysqli_real_escape_string($conn, $_POST['email']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['kataSandi'];
 
     $query = "SELECT * FROM user WHERE email = '$email'";
@@ -36,6 +36,13 @@ if (isset($_POST['masuk'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['role'] = $user['role'];
+            
+            if ($user['role'] === 'mentor') {
+                $mentorQuery = mysqli_query($conn, "SELECT * FROM mentors WHERE user_id = {$user['user_id']}");
+                $mentor = mysqli_fetch_assoc($mentorQuery);
+                $_SESSION['mentor_id'] = $mentor['mentor_id'];
+            }
+
 
             header("Location: ../index.php");
             exit();

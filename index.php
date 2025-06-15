@@ -4,6 +4,9 @@ require 'koneksi/koneksi.php';
 
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 $user_role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+$user_name = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : 'Pengguna';
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Username';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email Pengguna';
 
 $profile_link = '#';
 if ($user_role === 'admin') {
@@ -28,7 +31,7 @@ if ($user_role === 'admin') {
 </head>
 
 <body>
-    <!-- navbar -->
+    <!-- NAVBAR SECTION -->
     <nav>
         <div class="navbar">
             <div class="boxSearch left">
@@ -47,14 +50,20 @@ if ($user_role === 'admin') {
                     <?php elseif ($user_role === 'mentor'): ?>
                         <li><a href="mentor/mentorDashboard.php">Dashboard Mentor</a></li>
                     <?php elseif ($user_role === 'student'): ?>
-                        <li><a href="student/dashboardStudent.php">Dashboard Siswa</a></li>
+                        <li><a href="student/studentDashboard.php">Dashboard Siswa</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
 
             <div class="boxSearch right">
                 <?php if ($user_id): ?>
-                    <a class="btnProfile" href="<?= htmlspecialchars($profile_link) ?>">Profile</a>
+                    <?php if ($user_role === 'admin'): ?>
+                        <a class="btnProfile" href="admin/adminDashboard.php">Profile</a>
+                    <?php elseif ($user_role === 'mentor'): ?>
+                        <a class="btnProfile" href="mentor/mentorDashboard.php">Profile</a>
+                    <?php elseif ($user_role === 'student'): ?>
+                        <a class="btnProfile" href="student/studentDashboard.php">Profile</a>
+                    <?php endif; ?>
                     <a class="btnLogout" href="logout.php">Logout</a>
                 <?php endif; ?>
             </div>
@@ -78,7 +87,7 @@ if ($user_role === 'admin') {
                 </div>
             <?php endif; ?>
 
-            <div class="imageContainer scroll" style="--t:50s">
+            <div class="imageContainer scroll" style="--t:80s">
                 <div>
                     <img class="image-slide" src="picture/imghero1.jpg" alt="">
                     <img class="image-slide" src="picture/imghero2.png" alt="">
@@ -162,31 +171,94 @@ if ($user_role === 'admin') {
 
             const pathData = {
                 mobile: {
-                    title: "Mobile Developer", classCount: "3 kelas", studentCount: "299k siswa belajar di path ini",
+                    title: "Mobile Developer",
+                    classCount: "3 kelas",
+                    studentCount: "299k siswa belajar di path ini",
                     description: "Kurikulum didesain dengan persetujuan dari Tim Google Android untuk mempersiapkan developer Android standar Global. Dicoding adalah Google Developer Authorized Training Partner.",
-                    courses: [
-                        { step: 1, title: "Memulai Pemrograman dengan Kotlin", rating: "4.84", level: "Dasar", img: "mobiledeveloper.jpg" },
-                        { step: 2, title: "Belajar Membuat Aplikasi Android untuk Pemula", rating: "4.87", level: "Pemula", img: "mobiledeveloper.jpg" },
-                        { step: 3, title: "Belajar Fundamental Aplikasi Android", rating: "4.84", level: "Menengah", img: "mobiledeveloper.jpg" }
+                    courses: [{
+                            step: 1,
+                            title: "Memulai Pemrograman dengan Kotlin",
+                            rating: "4.84",
+                            level: "Dasar",
+                            img: "mobiledeveloper.jpg"
+                        },
+                        {
+                            step: 2,
+                            title: "Belajar Membuat Aplikasi Android untuk Pemula",
+                            rating: "4.87",
+                            level: "Pemula",
+                            img: "mobiledeveloper.jpg"
+                        },
+                        {
+                            step: 3,
+                            title: "Belajar Fundamental Aplikasi Android",
+                            rating: "4.84",
+                            level: "Menengah",
+                            img: "mobiledeveloper.jpg"
+                        }
                     ]
                 },
                 web: {
-                    title: "Web Developer", classCount: "4 kelas", studentCount: "450k siswa belajar di path ini",
+                    title: "Web Developer",
+                    classCount: "4 kelas",
+                    studentCount: "450k siswa belajar di path ini",
                     description: "Belajar membuat website responsif dan modern dari dasar hingga menjadi seorang Full-Stack Web Developer handal dengan teknologi terkini.",
-                    courses: [
-                        { step: 1, title: "Belajar Dasar Pemrograman Web", rating: "4.85", level: "Dasar", img: "webdeveloper.jpg" },
-                        { step: 2, title: "Belajar Membuat Front-End Web untuk Pemula", rating: "4.88", level: "Pemula", img: "webdeveloper.jpg" },
-                        { step: 3, title: "Belajar Fundamental Front-End Web Development", rating: "4.86", level: "Menengah", img: "webdeveloper.jpg" },
-                        { step: 4, title: "Menjadi Front-End Web Developer Expert", rating: "4.90", level: "Expert", img: "webdeveloper.jpg" }
+                    courses: [{
+                            step: 1,
+                            title: "Belajar Dasar Pemrograman Web",
+                            rating: "4.85",
+                            level: "Dasar",
+                            img: "webdeveloper.jpg"
+                        },
+                        {
+                            step: 2,
+                            title: "Belajar Membuat Front-End Web untuk Pemula",
+                            rating: "4.88",
+                            level: "Pemula",
+                            img: "webdeveloper.jpg"
+                        },
+                        {
+                            step: 3,
+                            title: "Belajar Fundamental Front-End Web Development",
+                            rating: "4.86",
+                            level: "Menengah",
+                            img: "webdeveloper.jpg"
+                        },
+                        {
+                            step: 4,
+                            title: "Menjadi Front-End Web Developer Expert",
+                            rating: "4.90",
+                            level: "Expert",
+                            img: "webdeveloper.jpg"
+                        }
                     ]
                 },
                 data: {
-                    title: "Data Scientist", classCount: "3 kelas", studentCount: "150k siswa belajar di path ini",
+                    title: "Data Scientist",
+                    classCount: "3 kelas",
+                    studentCount: "150k siswa belajar di path ini",
                     description: "Mulai karir di bidang data dengan mempelajari statistika, machine learning, dan visualisasi data yang relevan dengan kebutuhan industri.",
-                    courses: [
-                        { step: 1, title: "Memulai Pemrograman Dengan Python", rating: "4.89", level: "Dasar", img: "dataanalyst.jpg" },
-                        { step: 2, title: "Belajar Analisis Data dengan Python", rating: "4.87", level: "Pemula", img: "dataanalyst.jpg" },
-                        { step: 3, title: "Belajar Machine Learning untuk Pemula", rating: "4.88", level: "Pemula", img: "dataanalyst.jpg" }
+                    courses: [{
+                            step: 1,
+                            title: "Memulai Pemrograman Dengan Python",
+                            rating: "4.89",
+                            level: "Dasar",
+                            img: "dataanalyst.jpg"
+                        },
+                        {
+                            step: 2,
+                            title: "Belajar Analisis Data dengan Python",
+                            rating: "4.87",
+                            level: "Pemula",
+                            img: "dataanalyst.jpg"
+                        },
+                        {
+                            step: 3,
+                            title: "Belajar Machine Learning untuk Pemula",
+                            rating: "4.88",
+                            level: "Pemula",
+                            img: "dataanalyst.jpg"
+                        }
                     ]
                 }
             };
@@ -229,8 +301,12 @@ if ($user_role === 'admin') {
             if (pathSlider && pathScrollLeftBtn && pathScrollRightBtn) {
                 const card = pathSlider.querySelector(".path-card");
                 const scrollAmount = card ? card.offsetWidth + 24 : 424;
-                pathScrollRightBtn.addEventListener("click", () => { pathSlider.scrollLeft += scrollAmount; });
-                pathScrollLeftBtn.addEventListener("click", () => { pathSlider.scrollLeft -= scrollAmount; });
+                pathScrollRightBtn.addEventListener("click", () => {
+                    pathSlider.scrollLeft += scrollAmount;
+                });
+                pathScrollLeftBtn.addEventListener("click", () => {
+                    pathSlider.scrollLeft -= scrollAmount;
+                });
             }
 
             const pathDetailsContainer = document.getElementById("path-details-container");
@@ -302,8 +378,12 @@ if ($user_role === 'admin') {
                     const card = slider.querySelector(".course-card");
                     if (!card) return;
                     const scrollAmount = card.offsetWidth + 20;
-                    scrollRightBtn.addEventListener("click", () => { slider.scrollLeft += scrollAmount; });
-                    scrollLeftBtn.addEventListener("click", () => { slider.scrollLeft -= scrollAmount; });
+                    scrollRightBtn.addEventListener("click", () => {
+                        slider.scrollLeft += scrollAmount;
+                    });
+                    scrollLeftBtn.addEventListener("click", () => {
+                        slider.scrollLeft -= scrollAmount;
+                    });
                 }
             }
             displayPathDetails('web', false);
