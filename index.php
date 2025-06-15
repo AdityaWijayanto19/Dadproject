@@ -39,10 +39,9 @@ if ($user_role === 'admin') {
             </div>
             <div class="boxSearch center">
                 <ul class="nav-links">
-                    <li><a href="component/comingSoon.php">Home</a></li>
-                    <li><a href="component/comingSoon.php">Kelas</a></li>
-                    <li><a href="component/comingSoon.php">Tentang Kami</a></li>
-                    <li><a href="component/comingSoon.php">Kontak</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="user/menuKelas.php">Kelas</a></li>
+                    <li><a href="user/kontak.php">Kontak</a></li>
                     <?php if ($user_role === 'admin'): ?>
                         <li><a href="admin/adminDashboard.php">Dashboard Admin</a></li>
                     <?php elseif ($user_role === 'mentor'): ?>
@@ -151,7 +150,7 @@ if ($user_role === 'admin') {
     </div>
 
     <div id="path-details-container">
-        <!-- ISI KONTEN DISINI -->
+
     </div>
 
     <div class="secondSection">

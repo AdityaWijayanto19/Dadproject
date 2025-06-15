@@ -151,7 +151,7 @@ img{
     gap: 0.3rem;
     padding: 2rem 2rem 2rem 2rem;
     border-radius: 1rem;
-    background-color: var(--white-color);
+    background-color: #1C2435 ;
 }
 
 .registerBox{
@@ -172,7 +172,8 @@ img{
     border: 2px solid var(--primary-color);
     z-index: 1;
     transition: border-color 0.4s;
-    background-color: var(--white-color);
+    background-color: #323A4C;
+    color: white;
 }
 
 .labelSelect{
@@ -183,7 +184,7 @@ img{
     border: 2px solid var(--primary-color);
     z-index: 1;
     transition: border-color 0.4s;
-    background-color: var(--white-color);
+    background-color: #323A4C;
 }
 
 .statusBox{
@@ -192,7 +193,7 @@ img{
     padding: 0.2rem 0.5rem;
     border: 2px solid var(--primary-color);
     z-index: 1;
-    background-color: var(--white-color);
+    background-color: #323A4C;
 }
 
 .registerInput:autofill{
@@ -200,7 +201,7 @@ img{
 }
 
 .registerInput:focus{
-    background-color: var(--fourtiary-color);
+    background-color: #323A4C;
 }
 
 .registerInput:focus ~ .registerLabel{
@@ -267,7 +268,7 @@ img{
     width: 100%;
     display: inline-flex;
     justify-content: center;
-    background-color: var(--secondary-color);
+    background-color: #C084FC ;
     color: var(--white-color);
     font-weight: var(--font-semi-bold);
     font-size: 1.2rem;
@@ -280,7 +281,7 @@ img{
 }
 
 .registButton:hover{
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     box-shadow: 0 8px 24px rgba(0, 0%, 0%, 0.2);
 }
 

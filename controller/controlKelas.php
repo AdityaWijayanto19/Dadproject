@@ -16,7 +16,7 @@ function tambah($data){
     $direktori = '../picture/' . $nama_file;
 
     if(move_uploaded_file($lokasi_file,$direktori)){
-        $query = "INSERT INTO kelas (`title_kelas`, `foto`,	`desk_kelas`,`mentor_id`,`kategori`) VALUES ('$title','$nama_file','$desc','$mentor','$kategori')";
+        $query = "INSERT INTO kelas (`title_kelas`, `foto`,	`desk_kelas`,`mentor_id`,`kategori_id`) VALUES ('$title','$nama_file','$desc','$mentor','$kategori')";
 
         mysqli_query($conn,$query);
     }
@@ -32,7 +32,6 @@ function hapus($id){
     $data = mysqli_fetch_assoc($query);
     $foto = $data["foto"];
 
-    //get foto
     $sql_f = "SELECT `foto` FROM `kelas` WHERE `kelas_id` = $id";
     $query_f = mysqli_query($conn,$sql_f);
     while($db_f = mysqli_fetch_row($query_f)){
@@ -68,7 +67,7 @@ function edit($edit,$id){
                 `foto` = '$nama_file',
                 `desk_kelas` = '$desc',
                 `mentor_id` = '$mentor',
-                `kategori` = '$kategori'
+                `kategori_id` = '$kategori'
                 WHERE kelas_id = $id";
 
     mysqli_query($conn,$query);
