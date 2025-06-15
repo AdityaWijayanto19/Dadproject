@@ -1,7 +1,9 @@
 <?php
 require '../koneksi/koneksi.php';
 
-$data = query("SELECT * FROM `kelas`");
+$data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+                kategori_kelas.jenis, enrollment_key.enrollment_key FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
+                JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id LEFT JOIN enrollment_key ON kelas.kelas_id = enrollment_key.kelas_id");
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +35,7 @@ $data = query("SELECT * FROM `kelas`");
                 <li><a href="manageClasses.php">Kelas</a></li>
                 <li><a href="manageCategoryClass.php">Kategori Kelas</a></li>
                 <li><a href="manageContact.php">Kontak</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="../logout.php">Logout</a></li>
             </ul>
         </div>
 
@@ -60,6 +62,7 @@ $data = query("SELECT * FROM `kelas`");
                         <th>deskripsi kelas</th>
                         <th>ID mentor</th>
                         <th>Kategori</th>
+                        <th>Enrollment</th>
                     </tr>
                     <?php $i = 1; ?>
                     <?php foreach ($data as $dt): ?>
@@ -72,8 +75,9 @@ $data = query("SELECT * FROM `kelas`");
                             <td><?= $dt["title_kelas"] ?></td>
                             <td><?= $dt["foto"] ?></td>
                             <td><?= $dt["desk_kelas"] ?></td>
-                            <td><?= $dt["mentor_id"] ?></td>
-                            <td><?= $dt["kategori"] ?></td>
+                            <td><?= $dt["nama_depan"] ?></td>
+                            <td><?= $dt["jenis"] ?></td>
+                            <td><?= $dt['enrollment_key'] ?></td>
                         </tr>
                         <?php $i++ ?>
                     <?php endforeach; ?>

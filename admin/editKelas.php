@@ -3,7 +3,11 @@ require "../controller/controlKelas.php";
 $alert = "";
 
 $id = $_GET['id'];
-$data = query("SELECT * FROM kelas WHERE `kelas_id`= $id");
+$data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+                kategori_kelas.jenis FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
+                JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id");
+$data_kategori = query("SELECT * FROM kategori_kelas");
+$data_mentor = query("SELECT * FROM mentors");
 
 if (isset($_POST['submit'])) {
     if (edit($_POST, $id) > 0) {
@@ -93,17 +97,23 @@ if (isset($_POST['submit'])) {
                         </li>
 
                         <li class="flex flex-col text-xl">
-                            <label for="mentor">ID mentor</label>
-                            <input
-                                class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
-                                type="text" name="mentor" id="mentor" required value="<?= $dt['mentor_id'] ?>">
+                             <label for="mentor">Mentor</label>
+                            <select id="mentor" class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md" name="mentor">
+                                <?php foreach ($data_mentor as $dt): ?>
+                                    <option class="input" value="<?= $dt['mentor_id'] ?>">
+                                        <?= $dt['nama_depan'] ?></option>
+                                <?php endforeach; ?>                                
+                            </select>
                         </li>
 
                         <li class="flex flex-col text-xl">
                             <label for="kategori">Kategori</label>
-                            <input
-                                class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
-                                type="text" name="kategori" id="kategori" required value="<?= $dt['kategori'] ?>">
+                            <select id="kategori" class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md" name="kategori">
+                                <?php foreach ($data_kategori as $dt): ?>
+                                    <option class="bg-[#323A4C] text-white" value="<?= $dt['kategori_kelas_id'] ?>">
+                                        <?= $dt['jenis'] ?></option>
+                                <?php endforeach; ?>                                
+                            </select>                            
                         </li>
                     </ul>
                     <div class="flex justify-between mt-5">

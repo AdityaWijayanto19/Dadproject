@@ -1,11 +1,15 @@
 <?php
 include '../koneksi/koneksi.php';
 
-$result = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_user FROM user');
+$countUser = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_user FROM user');
+$countKelas = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_kelas FROM kelas');
 
 // mysqli_fetch_assoc =  untuk mengambil hasil query dalam bentuk array asosiatif
-$data =  mysqli_fetch_assoc($result);
-$jumlahUser = $data['jumlah_user'];
+$user =  mysqli_fetch_assoc($countUser);
+$kelas = mysqli_fetch_assoc($countKelas);
+$jumlahUser = $user['jumlah_user'];
+$jumlahKelas = $kelas['jumlah_kelas'];
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +37,7 @@ $jumlahUser = $data['jumlah_user'];
                 <li><a href="manageClasses.php">Kelas</a></li>
                 <li><a href="manageCategoryClass.php">Kategori Kelas</a></li>
                 <li><a href="manageContact.php">Kontak</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="../logout.php">Logout</a></li>
             </ul>
         </div>
 
@@ -68,7 +72,7 @@ $jumlahUser = $data['jumlah_user'];
                 <div class="stat-card">
                     <div class="stat-head">
                         <i class="fa-solid fa-landmark"></i>
-                        <h3>20<p>Kelas</p>
+                        <h3><?= $jumlahKelas ?><p>Kelas</p>
                         </h3>
                     </div>
                     <a href="manageClasses.php">

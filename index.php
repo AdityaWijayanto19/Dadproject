@@ -16,7 +16,13 @@ if ($user_role === 'admin') {
 } elseif ($user_role === 'student') {
     $profile_link = 'student/dashboardStudent.php';
 }
+
+// GET LEARNING PATH
+$data_kelas = query("SELECT * FROM kategori_kelas");
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -28,6 +34,11 @@ if ($user_role === 'admin') {
     <title>Home Page | Dad Project</title>
     <link rel="stylesheet" href="css/index/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <script>        
+        const courses = <?= json_encode($data_kelas, JSON_PRETTY_PRINT); ?>;
+        console.log(courses);
+    </script>
 </head>
 
 <body>
@@ -125,7 +136,15 @@ if ($user_role === 'admin') {
             </div>
 
             <div class="path-slider">
-                <div class="path-card" data-path="web" style="background-image: url('picture/webdeveloper.jpg');">
+                <?php foreach ($data_kelas as $kategori): ?>
+                    <div class="path-card" data-path="web" style="background-image: url('picture/<?= $kategori['foto']?>');">
+                        <div class="card-title">
+                            <h3><?= $kategori['jenis'] ?></h3>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+                <!-- <div class="path-card" data-path="web" style="background-image: url('picture/webdeveloper.jpg');">
                     <div class="card-title">
                         <h3>Web Developer</h3>
                     </div>
@@ -154,7 +173,7 @@ if ($user_role === 'admin') {
                     <div class="card-title">
                         <h3>UI/UX Designer</h3>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -167,9 +186,8 @@ if ($user_role === 'admin') {
 
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-
+    <script>        
+        document.addEventListener("DOMContentLoaded", () => {            
             const pathData = {
                 mobile: {
                     title: "Mobile Developer",
