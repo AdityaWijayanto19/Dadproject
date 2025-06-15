@@ -128,21 +128,21 @@ img{
     flex-direction: column;
     gap: 0.3rem;
     padding: 1rem 2rem 1rem 2rem;
-    background-color: var(--white-color);
+    background-color: #1C2435;
     border-radius: 1rem;    
 }
 
 .loginForm h1{
     font-size: var(--big--font-size);
     font-weight: var(--font-semi-bold);
-    color: var(--primary-color);
+    color: white;
     text-align: center;
 }
 
 .loginForm h2{
     font-size: var(--normal-font-size);
     font-weight: var(--font-semi-bold);
-    color: var(--primary-color);
+    color: white;
     text-align: center;
 }
 
@@ -154,7 +154,7 @@ img{
     border-radius: 1rem;
     padding: 5px;
     margin: 0 auto;
-    background-color: var(--white-color);
+    background-color: #323A4C;
 }
 
 .loginInput{

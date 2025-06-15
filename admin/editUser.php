@@ -1,62 +1,48 @@
-<?php 
-    session_start();
-    include '../koneksi/koneksi.php';
+<?php
+session_start();
+include '../koneksi/koneksi.php';
 
-     //memanggil id_user dari url
-     $user_id = (int)$_GET['user_id'];
+//memanggil id_user dari url
+$user_id = (int) $_GET['user_id'];
 
-     // Query untuk mengambil data dari tabel user, mentor, dan student
-     $query = "
+// Query untuk mengambil data dari tabel user, mentor, dan student
+$query = "
          SELECT user.*, mentors.expertise, students.status
          FROM user
          LEFT JOIN mentors ON user.user_id = mentors.user_id
          LEFT JOIN students ON user.user_id = students.user_id
          WHERE user.user_id = $user_id
      ";
- 
-     // Mengambil data
-     $dataUser = query($query)[0];  // Ambil data pertama
+
+// Mengambil data
+$dataUser = query($query)[0];  // Ambil data pertama
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="shortcut icon" href="../picture/logo.png" type="image/x-icon">
     <title>Form Edit Pengguna-DadProject</title>
-    <link rel="stylesheet" href="../css/manageUser.css">
+    <link rel="stylesheet" href="../css/manageUser/manageUser.css">
     <!-- SweetAlert CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
+
 <body>
     <div class="wrapper">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <h2>DadProject</h2>
-            </div>
-            <ul>
-                <li><a href="adminDashboard.php">Dashboard</a></li>
-                <li><a href="manageUser.php">Pengguna</a></li>
-                <li><a href="manageClasses.php">Kelas</a></li>
-                <li><a href="manageCategoryClass">Kategori Kelas</a></li>
-                <li><a href="#">Notifikasi</a></li>
-                <li><a href="#">Statistik dan Data Pengguna</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </div>
-
-        <!-- Main Content -->
         <div class="main-content">
             <header>
                 <h2>Form Edit Pengguna</h2>
+                <br>
                 <hr>
                 <br>
             </header>
-            <div class="stats-container">   
+            <div class="stats-container">
                 <form id="editUserForm" action="../controller/controlUser.php" method="POST" class="form-container">
 
                     <input type="hidden" name="userId" value="<?= $dataUser['user_id']; ?>">
@@ -65,7 +51,8 @@
                     <input type="text" id="firstName" name="namaDepan" value="<?= $dataUser['nama_depan']; ?>" required>
 
                     <label for="lastName">Nama Belakang:</label>
-                    <input type="text" id="lastName" name="namaBelakang" value="<?= $dataUser['nama_belakang']; ?>" required>
+                    <input type="text" id="lastName" name="namaBelakang" value="<?= $dataUser['nama_belakang']; ?>"
+                        required>
 
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" value="<?= $dataUser['username']; ?>" required>
@@ -98,14 +85,17 @@
                     <div class="student-fields" id="studentFields">
                         <label for="status">Status:</label>
                         <select id="status" name="status">
-                            <option value="Mahasiswa" <?= ($dataUser['status'] == 'Mahasiswa' ? 'selected' : '') ?>>Mahasiswa</option>
+                            <option value="Mahasiswa" <?= ($dataUser['status'] == 'Mahasiswa' ? 'selected' : '') ?>>
+                                Mahasiswa</option>
                             <option value="Siswa" <?= ($dataUser['status'] == 'Siswa' ? 'selected' : '') ?>>Siswa</option>
                         </select>
                     </div>
 
                     <!-- Tombol untuk memicu SweetAlert konfirmasi -->
-                    <button type="submit" name="editUser" onclick="confirmEdit()">Edit Pengguna</button>
+                    <button type="submit" name="editUser" class="btnEditPengguna" onclick="confirmEdit()">Edit
+                        Pengguna</button>
                 </form>
+                <button class="btnEditPengguna"><a href="manageUser.php">Kembali</a></button>
             </div>
         </div>
 
@@ -130,6 +120,7 @@
 
             // Memanggil fungsi updateFormByRole saat halaman pertama kali dimuat
             window.onload = updateFormByRole;
-        </script>                               
+        </script>
 </body>
+
 </html>

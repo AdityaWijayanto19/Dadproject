@@ -18,9 +18,123 @@ $data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_
     <link rel="stylesheet" href="../css/admin/adminDashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="adminDashboard.css">
-    <link rel="stylesheet" href="../css/kelas/kelas.css">
 </head>
+
+<style>
+  table{
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    border-color: #0F172A;
+    font-size: 14px;
+}
+
+th{
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #0F172A;
+    color: white;
+}
+
+td{
+    padding: 10px 20px;
+    text-align: justify; 
+}
+
+tbody tr:nth-child(even):hover{
+    background-color: rgb(225, 224, 224);
+}
+
+tbody tr:nth-child(odd):hover{
+    background-color: rgb(225, 224, 224);
+}
+
+tbody tr:nth-child(odd){
+    background-color: white;
+}
+
+tbody tr:nth-child(even){
+    background-color: white;
+}
+
+.boxbtn{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.boxbtn button{
+    display: inline-block;
+    vertical-align: middle;
+    user-select: none;
+    background-color: #C084FC; 
+    border: 1px solid #C084FC;
+    padding: 0.375rem 0.75rem; 
+    line-height: 1.5;
+    border-radius: 0.375rem; 
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.boxbtn button:hover {
+    background-color: #9333EA;
+    border-color: #9333EA;
+    transform: scale(1.05);
+  }
+  
+
+.boxbtn button a{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-weight: 400;
+    font-size: 1rem; 
+    text-decoration: none;
+    text-align: center;
+}
+
+td button{
+    margin-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0.375rem 0.75rem; 
+    line-height: 1.5;
+    border-radius: 0.375rem; 
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+td button a{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-weight: 400;
+    font-size: 1rem; 
+    text-decoration: none;
+    text-align: center;
+}
+
+td .hapus{
+    border: 1px solid  #dc3545;
+    background-color: #dc3545;
+}
+
+td .hapus:hover {
+    background-color:  #bb2d3b;
+    border-color:  #b02a37;
+    transform: scale(1.05);
+  }
+
+td .edit{
+    border: 1px solid #0d6efd;
+    background-color: #0d6efd; 
+}
+
+td .edit:hover {
+    background-color:  #0b5ed7;
+    border-color:  #0a58ca;
+    transform: scale(1.05);
+  }
+</style>
 
 <body>
     <div class="wrapper">
@@ -75,9 +189,8 @@ $data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_
                             <td><?= $dt["title_kelas"] ?></td>
                             <td><?= $dt["foto"] ?></td>
                             <td><?= $dt["desk_kelas"] ?></td>
-                            <td><?= $dt["nama_depan"] ?></td>
-                            <td><?= $dt["jenis"] ?></td>
-                            <td><?= $dt['enrollment_key'] ?></td>
+                            <td><?= $dt["mentor_id"] ?></td>
+                            <td><?= $dt["kategori"] ?></td>
                         </tr>
                         <?php $i++ ?>
                     <?php endforeach; ?>

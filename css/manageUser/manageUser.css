@@ -60,7 +60,8 @@ body {
 .main-content {
     flex: 1;
     padding: 20px;
-    background-color: #1C2435; 
+    background-color: #1C2435;
+    color: white;
 }
 
 .main-content hr {
@@ -144,6 +145,16 @@ body {
     color: white;
 }
 
+input{
+    background-color: #1C2435;
+    color: white;
+}
+
+select{
+    background-color: #1C2435;
+    color: white;
+}
+
 /* Style untuk form */
 .form-container input, .form-container select {
     width: 100%;
@@ -152,6 +163,15 @@ body {
     border: 1px solid #581C87;
     border-radius: 4px;
     height: 30px;
+}
+
+.stats-container{
+    margin-top: 20px;
+    width: 100%;
+    height: fit-content;
+    padding: 30px;
+    background-color: #0F172A;
+    border-radius: 10px;
 }
 
 .form-container button {
@@ -163,8 +183,33 @@ body {
     border-radius: 4px;
 }
 
+.btnEditPengguna{
+    background-color: #C084FC;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.btnEditPengguna a{
+    text-decoration: none;
+    color: white;
+}
+
+.btnEditPengguna:hover{
+    background-color: #9333EA;
+    transform: scale(1.05);
+}
+
 .form-container button:hover {
     background-color: #9333EA;
+}
+
+.boxbtn{
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Menyembunyikan elemen berdasarkan role */
@@ -172,65 +217,6 @@ body {
     display: none;
 }
 
-/* Styling untuk tabel */
-.custom-table {
-    table-layout: fixed;
-    font-size: 13px;
-    margin-top: 10px;
-    width: 100%;
-    border-collapse: collapse; 
-  }
-  
-  .custom-table th, .custom-table td {
-    border: 1px solid #581C87; 
-    padding: 6px;
-    text-align: center; 
-  }
-  
-  .custom-table th {
-    background-color:#9333EA; 
-    font-weight: bold; 
-    color: white;
-  }
-  
-  .custom-table tr {
-    background-color: #C084FC;
-    color: white; 
-  }
-
-  .custom-table td{
-    width: 150px;            
-    overflow: hidden;        
-    text-overflow: ellipsis; 
-    white-space: nowrap;     
-    padding-right: 10px;      
-  }
-
-  .btnEdit{
-    padding: 4px;
-    margin: 2px;
-    background-color: rgb(47, 130, 255) ;
-    color: white;
-    text-decoration: none;
-    border-radius: 3px;
-  } 
-
-  .btnEdit:hover{
-    background-color: rgb(20, 114, 255);
-  }
-
-  .btnHapus{
-    padding: 4px;
-    margin: 2px;
-    background-color: #BE185D;
-    color: white;
-    text-decoration: none;
-    border-radius: 3px;
-  } 
-
-  .btnHapus:hover{
-    background-color: #cb0055;
-  }
 
 
   
