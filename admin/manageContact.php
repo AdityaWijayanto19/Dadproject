@@ -21,7 +21,7 @@
                 <li><a href="manageClasses.php">Kelas</a></li>
                 <li><a href="manageCategoryClass.php">Kategori Kelas</a></li>
                 <li><a href="manageContact.php">Kontak</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="../logout.php">Logout</a></li>
             </ul>
         </div>
 

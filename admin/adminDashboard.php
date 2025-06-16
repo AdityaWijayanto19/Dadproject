@@ -3,12 +3,14 @@ include '../koneksi/koneksi.php';
 
 $countUser = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_user FROM user');
 $countKelas = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_kelas FROM kelas');
+$countKategori = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_kategori FROM kategori_kelas');
 
-// mysqli_fetch_assoc =  untuk mengambil hasil query dalam bentuk array asosiatif
 $user =  mysqli_fetch_assoc($countUser);
 $kelas = mysqli_fetch_assoc($countKelas);
+$kategoriKelas = mysqli_fetch_assoc($countKategori);
 $jumlahUser = $user['jumlah_user'];
 $jumlahKelas = $kelas['jumlah_kelas'];
+$jumlahKategori = $kategoriKelas['jumlah_kategori'];
 
 ?>
 
@@ -86,7 +88,7 @@ $jumlahKelas = $kelas['jumlah_kelas'];
                 <div class="stat-card">
                     <div class="stat-head">
                         <i class="fa-solid fa-folder-tree"></i>
-                        <h3>20<p>Kategori Kelas</p>
+                        <h3><?= $jumlahKategori; ?><p>Kategori Kelas</p>
                         </h3>
                     </div>
                     <a href="manageCategoryClass.php">

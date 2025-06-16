@@ -108,7 +108,7 @@ if (isset($_POST['submit'])) {
                         <select id="mentor" class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md" name="mentor">
                             <?php foreach ($data_mentor as $dt): ?>
                                 <option class="input" value="<?= $dt['mentor_id'] ?>">
-                                    <?= $dt['nama_depan'] ?></option>
+                                    <?= $dt['nama_depan'] . " " . $dt['nama_belakang']?></option>
                             <?php endforeach; ?>                                
                         </select>
                     </li>

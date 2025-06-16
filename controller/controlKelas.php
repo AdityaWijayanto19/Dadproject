@@ -16,8 +16,6 @@ function tambah($data){
     $size_file = $_FILES['foto']['size'];
     $direktori = '../picture/' . $nama_file;
 
-    
-
     if(move_uploaded_file($lokasi_file,$direktori)){
         $query = "INSERT INTO kelas (`title_kelas`, `foto`,	`desk_kelas`,`mentor_id`,`kategori_id`) VALUES ('$title','$nama_file','$desc','$mentor','$kategori')";
 
@@ -34,8 +32,7 @@ function tambah($data){
                                 VALUES ('$kelas_id', '$enrollment')";
             
             mysqli_query($conn, $query_enrollment);
-        }
-        mysqli_query($conn,$query);
+        }        
     }
 
     return mysqli_affected_rows($conn);
@@ -73,6 +70,7 @@ function edit($edit,$id){
     $desc = htmlspecialchars($edit['desc']);
     $mentor = htmlspecialchars($edit['mentor']);
     $kategori = htmlspecialchars($edit['kategori']);
+    $enrollment = htmlspecialchars($edit['enrollment']);
 
     $lokasi_file = $_FILES['foto']['tmp_name'];
     $nama_file = $_FILES['foto']['name'];
@@ -85,9 +83,14 @@ function edit($edit,$id){
                 `desk_kelas` = '$desc',
                 `mentor_id` = '$mentor',
                 `kategori_id` = '$kategori'
-                WHERE kelas_id = $id";
+                WHERE kelas_id = $id";        
 
-    mysqli_query($conn,$query);
+    if (mysqli_query($conn, $query)) {                        
+        $query_enrollment = "UPDATE enrollment_key SET `enrollment_key` = '$enrollment' 
+                             WHERE kelas_id = '$id'";                             
+        
+        mysqli_query($conn, $query_enrollment);
+    }    
 
     return mysqli_affected_rows($conn);
 }

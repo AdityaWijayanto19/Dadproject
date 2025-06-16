@@ -3,9 +3,16 @@ require "../controller/controlKelas.php";
 $alert = "";
 
 $id = $_GET['id'];
+// $data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+//                 kategori_kelas.jenis FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
+//                 JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id WHERE kelas.kelas_id = $id");
+
 $data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
-                kategori_kelas.jenis FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
-                JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id");
+                kategori_kelas.jenis, enrollment_key.enrollment_key FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
+                JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id LEFT JOIN enrollment_key ON kelas.kelas_id = enrollment_key.kelas_id WHERE kelas.kelas_id = $id");
+
+$titlePage = $data[0];
+
 $data_kategori = query("SELECT * FROM kategori_kelas");
 $data_mentor = query("SELECT * FROM mentors");
 
@@ -44,7 +51,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Document</title>
+    <title>Edit - <?= htmlspecialchars($titlePage['title_kelas'])?></title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
 </head>
@@ -66,11 +73,11 @@ if (isset($_POST['submit'])) {
     </div>
 
     <div class="flex p-10 gap-10">
-        <div class="flex justify-center items-center w-[30%] h-150 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl">
+        <div class="flex justify-center items-center w-[30%] h-180 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl">
             <img class="h-30" src="../picture/logo1.png" alt="">
         </div>
 
-        <form class="flex flex-col p-10 w-[70%] h-150 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl" action=""
+        <form class="flex flex-col p-10 w-[70%] h-180 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl" action=""
             method="POST" enctype="multipart/form-data">
             <div class="flex flex-col text-xl">
                 <?php foreach ($data as $dt): ?>
@@ -94,6 +101,13 @@ if (isset($_POST['submit'])) {
                             <textarea
                                 class="h-40 bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
                                 type="text" name="desc" id="desc" required><?= $dt['desk_kelas'] ?></textarea>
+                        </li>
+
+                        <li class="flex flex-col text-xl">
+                            <label for="enrollment">Enrollment Key</label>
+                            <input
+                                class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
+                                type="text" name="enrollment" id="enrollment" value = "<?= $dt['enrollment_key'] ?>" required>
                         </li>
 
                         <li class="flex flex-col text-xl">

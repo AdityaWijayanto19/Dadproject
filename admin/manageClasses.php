@@ -69,7 +69,7 @@ tbody tr:nth-child(even){
     user-select: none;
     background-color: #C084FC; 
     border: 1px solid #C084FC;
-    padding: 0.375rem 0.75rem; 
+    padding: 0.2rem 0.5rem; 
     line-height: 1.5;
     border-radius: 0.375rem; 
     transition: all 0.15s ease-in-out;
@@ -116,6 +116,8 @@ td button a{
 td .hapus{
     border: 1px solid  #dc3545;
     background-color: #dc3545;
+    max-width: auto;
+    max-height: auto;
 }
 
 td .hapus:hover {
@@ -171,10 +173,10 @@ td .edit:hover {
                     <tr>
                         <th>NO.</th>
                         <th>Aksi</th>
-                        <th>Title kelas</th>
-                        <th>foto</th>
+                        <th>Nama Kelas</th>
+                        <th>Foto</th>
                         <th>deskripsi kelas</th>
-                        <th>ID mentor</th>
+                        <th>Nama Mentor</th>
                         <th>Kategori</th>
                         <th>Enrollment</th>
                     </tr>
@@ -189,8 +191,9 @@ td .edit:hover {
                             <td><?= $dt["title_kelas"] ?></td>
                             <td><?= $dt["foto"] ?></td>
                             <td><?= $dt["desk_kelas"] ?></td>
-                            <td><?= $dt["mentor_id"] ?></td>
-                            <td><?= $dt["kategori"] ?></td>
+                            <td><?= $dt["nama_depan"] . " " . $dt["nama_belakang"] ?></td>
+                            <td><?= $dt["jenis"] ?></td>
+                            <td><?= $dt['enrollment_key'] ?></td>
                         </tr>
                         <?php $i++ ?>
                     <?php endforeach; ?>

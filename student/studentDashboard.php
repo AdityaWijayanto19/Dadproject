@@ -83,7 +83,7 @@ $student_id = isset($_SESSION['student_id']) ? $_SESSION['student_id'] : 1;
                         <div class="kelas-card">
                             <div class="kelas-head">
                                 <div class="imgbox">
-                                    <img src="../picture/javascriptLogo.png" alt="">
+                                    <img src="../picture/<?= $row['foto']?>" alt="">
                                 </div>
                                 <div class="side">
                                     <h3><?= $row['title_kelas']?></h3>

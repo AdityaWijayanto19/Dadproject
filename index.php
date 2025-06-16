@@ -20,6 +20,23 @@ if ($user_role === 'admin') {
 // GET LEARNING PATH
 $data_kelas = query("SELECT * FROM kategori_kelas");
 
+function generatePathId($jenis) {
+    // GET ID KATEGORI KELAS
+    $kategoriKelas = query("SELECT kategori_kelas_id FROM kategori_kelas WHERE jenis = '$jenis'");
+    $idKelas = $kategoriKelas[0]['kategori_kelas_id'] ?? null;
+    
+    return $idKelas ? "$idKelas" : "path-default";
+}
+
+// GET KELAS DATA
+function getKelasDataByJenis($jenis) {
+    global $conn;
+    $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id WHERE kategori_kelas.jenis = '$jenis'");
+    return json_encode($kelas);
+}
+
+$kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id");
+
 ?>
 
 
@@ -36,8 +53,9 @@ $data_kelas = query("SELECT * FROM kategori_kelas");
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
     <script>        
-        const courses = <?= json_encode($data_kelas, JSON_PRETTY_PRINT); ?>;
-        console.log(courses);
+        const kelasData = <?= json_encode($data_kelas); ?>;
+        const allKelasData = <?= json_encode($kelas); ?>;
+        console.log(kelasData);
     </script>
 </head>
 
@@ -136,43 +154,12 @@ $data_kelas = query("SELECT * FROM kategori_kelas");
 
             <div class="path-slider">
                 <?php foreach ($data_kelas as $kategori): ?>
-                    <div class="path-card" data-path="web" style="background-image: url('picture/<?= $kategori['foto']?>');">
+                    <div class="path-card" data-path="<?= generatePathId($kategori['jenis']) ?>" style="background-image: url('picture/<?= $kategori['foto']?>');">
                         <div class="card-title">
                             <h3><?= $kategori['jenis'] ?></h3>
                         </div>
                     </div>
                 <?php endforeach; ?>
-
-                <!-- <div class="path-card" data-path="web" style="background-image: url('picture/webdeveloper.jpg');">
-                    <div class="card-title">
-                        <h3>Web Developer</h3>
-                    </div>
-                </div>
-                <div class="path-card" data-path="mobile" style="background-image: url('picture/mobiledeveloper.jpg');">
-                    <div class="card-title">
-                        <h3>Mobile Developer</h3>
-                    </div>
-                </div>
-                <div class="path-card" data-path="iot" style="background-image: url('picture/iotengineer.jpg');">
-                    <div class="card-title">
-                        <h3>IoT Engineer</h3>
-                    </div>
-                </div>
-                <div class="path-card" data-path="data" style="background-image: url('picture/dataanalyst.jpg');">
-                    <div class="card-title">
-                        <h3>Data Scientist</h3>
-                    </div>
-                </div>
-                <div class="path-card" data-path="game" style="background-image: url('picture/gamedeveloper.jpg');">
-                    <div class="card-title">
-                        <h3>Game Developer</h3>
-                    </div>
-                </div>
-                <div class="path-card" data-path="ui-ux" style="background-image: url('picture/uiuxdesigner.jpg');">
-                    <div class="card-title">
-                        <h3>UI/UX Designer</h3>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
@@ -185,101 +172,10 @@ $data_kelas = query("SELECT * FROM kategori_kelas");
 
     </div>
 
-    <script>        
-        document.addEventListener("DOMContentLoaded", () => {            
-            const pathData = {
-                mobile: {
-                    title: "Mobile Developer",
-                    classCount: "3 kelas",
-                    studentCount: "299k siswa belajar di path ini",
-                    description: "Kurikulum didesain dengan persetujuan dari Tim Google Android untuk mempersiapkan developer Android standar Global. Dicoding adalah Google Developer Authorized Training Partner.",
-                    courses: [{
-                            step: 1,
-                            title: "Memulai Pemrograman dengan Kotlin",
-                            rating: "4.84",
-                            level: "Dasar",
-                            img: "mobiledeveloper.jpg"
-                        },
-                        {
-                            step: 2,
-                            title: "Belajar Membuat Aplikasi Android untuk Pemula",
-                            rating: "4.87",
-                            level: "Pemula",
-                            img: "mobiledeveloper.jpg"
-                        },
-                        {
-                            step: 3,
-                            title: "Belajar Fundamental Aplikasi Android",
-                            rating: "4.84",
-                            level: "Menengah",
-                            img: "mobiledeveloper.jpg"
-                        }
-                    ]
-                },
-                web: {
-                    title: "Web Developer",
-                    classCount: "4 kelas",
-                    studentCount: "450k siswa belajar di path ini",
-                    description: "Belajar membuat website responsif dan modern dari dasar hingga menjadi seorang Full-Stack Web Developer handal dengan teknologi terkini.",
-                    courses: [{
-                            step: 1,
-                            title: "Belajar Dasar Pemrograman Web",
-                            rating: "4.85",
-                            level: "Dasar",
-                            img: "webdeveloper.jpg"
-                        },
-                        {
-                            step: 2,
-                            title: "Belajar Membuat Front-End Web untuk Pemula",
-                            rating: "4.88",
-                            level: "Pemula",
-                            img: "webdeveloper.jpg"
-                        },
-                        {
-                            step: 3,
-                            title: "Belajar Fundamental Front-End Web Development",
-                            rating: "4.86",
-                            level: "Menengah",
-                            img: "webdeveloper.jpg"
-                        },
-                        {
-                            step: 4,
-                            title: "Menjadi Front-End Web Developer Expert",
-                            rating: "4.90",
-                            level: "Expert",
-                            img: "webdeveloper.jpg"
-                        }
-                    ]
-                },
-                data: {
-                    title: "Data Scientist",
-                    classCount: "3 kelas",
-                    studentCount: "150k siswa belajar di path ini",
-                    description: "Mulai karir di bidang data dengan mempelajari statistika, machine learning, dan visualisasi data yang relevan dengan kebutuhan industri.",
-                    courses: [{
-                            step: 1,
-                            title: "Memulai Pemrograman Dengan Python",
-                            rating: "4.89",
-                            level: "Dasar",
-                            img: "dataanalyst.jpg"
-                        },
-                        {
-                            step: 2,
-                            title: "Belajar Analisis Data dengan Python",
-                            rating: "4.87",
-                            level: "Pemula",
-                            img: "dataanalyst.jpg"
-                        },
-                        {
-                            step: 3,
-                            title: "Belajar Machine Learning untuk Pemula",
-                            rating: "4.88",
-                            level: "Pemula",
-                            img: "dataanalyst.jpg"
-                        }
-                    ]
-                }
-            };
+    <script>                
+        document.addEventListener("DOMContentLoaded", () => {               
+            const pathDetailsContainer = document.getElementById("path-details-container");            
+            renderPathDetails([allKelasData[2]]); // DEFAULT
 
             const text = document.querySelector(".role");
             const textLoad = () => {
@@ -327,40 +223,86 @@ $data_kelas = query("SELECT * FROM kategori_kelas");
                 });
             }
 
-            const pathDetailsContainer = document.getElementById("path-details-container");
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('join-btn')) {
+                    const kelasId = e.target.dataset.kelasId;
+                    console.log("Kamu memilih kelas ID:", kelasId);
 
-            pathSlider.addEventListener('click', (e) => {
-                const clickedCard = e.target.closest('.path-card');
-                if (!clickedCard) return;
+                    // Arahkan ke halaman detail/join, atau kirim data via fetch/ajax, dll
+                    // Contoh redirect:
+                    // window.location.href = `join.php?kelas_id=${kelasId}`;
+                }
+            });
+            
 
-                const pathId = clickedCard.dataset.path;
-                displayPathDetails(pathId, true);
+            pathSlider.addEventListener('click', async (e) => {
+                const clickedCard = e.target.closest('.path-card');                                                  
+                const jenis = clickedCard.dataset.path;
+                console.log(jenis);
+                    
+                
+
+
+                if (jenis && allKelasData[jenis]) {
+                    const kelasData = [allKelasData][0];
+                    console.log(kelasData.length); // tampilkan semua kelas dari jenis yang dipilih
+
+                    const allKelas = [];
+
+                    for (let index = 0; index < kelasData.length; index++) {
+                        if (kelasData[index].kategori_id == jenis) {                            
+                            allKelas.push(kelasData[index]);
+                            console.log(kelasData[index].title_kelas);                            
+                        }                        
+                    }
+
+                    console.log(allKelas);                                
+                    
+                    renderPathDetails(allKelas); // tampilkan ke UI jika perlu
+                } else {
+                    console.warn("Data tidak ditemukan untuk jenis:", jenis);
+                }
+
+
             });
 
-            function displayPathDetails(pathId, shouldScroll) {
-                const cardToActivate = document.querySelector(`.path-card[data-path="${pathId}"]`);
-                const data = pathData[pathId];
-
-                document.querySelectorAll('.path-card').forEach(card => card.classList.remove('active'));
-
-                if (cardToActivate && data) {
-                    renderPathDetails(data);
-                    pathDetailsContainer.style.display = 'block';
-
-                    cardToActivate.classList.add('active');
-
-                } else {
-                    window.location.href = 'component/comingSoon.php';
+            
+            function renderPathDetails(kelasArray) {
+                if (!kelasArray || !Array.isArray(kelasArray) || kelasArray.length === 0) {                    
+                    const emptyHTML = `
+                        <div class="path-details-content">
+                            <div class="path-info">
+                                <h2>Path Tidak Ditemukan</h2>
+                                <div class="info-item"><span>0 kelas</span></div>
+                                <p class="description">Belum ada kelas yang tersedia untuk path ini.</p>
+                            </div>
+                            <div class="path-courses">
+                                <div class="course-slider">
+                                    <div class="course-card empty">
+                                        <div class="card-content">
+                                            <h4>Oops!</h4>
+                                            <p>Kelas untuk kategori ini belum tersedia.</p>
+                                            <small>Silakan cek kembali nanti ya!</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    pathDetailsContainer.innerHTML = emptyHTML;
+                    return;
                 }
-            }
 
-            function renderPathDetails(data) {
-                const coursesHTML = data.courses.map((course, index) => `
+                const jenis = kelasArray[0].jenis;
+
+                const coursesHTML = kelasArray.map((course, index) => `
                     <div class="course-card">
-                        <img src="picture/${course.img}" alt="${course.title}">
+                        <img src="picture/${course.foto}" alt="${course.title_kelas}">
                         <div class="card-content">
                             <div class="card-step">Langkah ${index + 1}</div>
-                            <h4>${course.title}</h4>
+                            <h4>${course.title_kelas}</h4>
+                            <p>${course.desk_kelas}</p>       
+                            <button class="join-btn" data-kelas-id="${course.kelas_id}">Join Kelas</button>                     
                         </div>
                     </div>
                 `).join('');
@@ -368,17 +310,18 @@ $data_kelas = query("SELECT * FROM kategori_kelas");
                 const detailsHTML = `
                     <div class="path-details-content">
                         <div class="path-info">
-                            <h2>${data.title}</h2>
-                            <div class="info-item"><span>${data.classCount}</span></div>
-                            <div class="info-item"><span>${data.studentCount}</span></div>
-                            <p class="description">${data.description}</p>
+                            <h2>${kelasArray[0].jenis}</h2>
+                            <div class="info-item"><span>${kelasArray.length} kelas</span></div>
+                            <p class="description"><strong>${kelasArray[0].deskripsi}</strong>.</p>
                         </div>
                         <div class="path-courses">
                             <div class="slider-controls-detail">
                                 <button id="course-scroll-left" class="arrow-btn">←</button>
                                 <button id="course-scroll-right" class="arrow-btn">→</button>
                             </div>
-                            <div class="course-slider">${coursesHTML.length > 0 ? coursesHTML : '<p>Belum ada kelas untuk path ini.</p>'}</div>
+                            <div class="course-slider">
+                                ${coursesHTML.length > 0 ? coursesHTML : '<p>Belum ada kelas untuk path ini.</p>'}
+                            </div>
                         </div>
                     </div>
                 `;
@@ -404,7 +347,10 @@ $data_kelas = query("SELECT * FROM kategori_kelas");
                     });
                 }
             }
-            displayPathDetails('web', false);
+            const defaultKategori = kelasData.find(k => k.jenis.toLowerCase().includes('web'));
+            if (defaultKategori) {
+                renderPathDetails(defaultKategori);
+            }
         });
     </script>
 </body>

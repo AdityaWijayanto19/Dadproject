@@ -13,6 +13,16 @@ if ($user_role === 'admin') {
 } elseif ($user_role === 'student') {
     $profile_link = 'student/dashboardStudent.php';
 }
+
+
+// GET DATA KELAS
+$data_kelas = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+                    kategori_kelas.jenis FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
+                    JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id");
+
+// GET DATA KATEGORI
+$data_kategori = query("SELECT * FROM kategori_kelas");
+
 ?>
 
 <!DOCTYPE html>
@@ -68,67 +78,27 @@ if ($user_role === 'admin') {
             <select
                 class="p-2 text-white text-base bg-[#1C2435] rounded-[10px] focus:border-[#BE185D] focus:outline-none shadow-xl/30 hover:shadow-lg hover:shadow-[#BE185D] hover:scale-102 duration-300"
                 name="kategori" id="kategori" value="kategori">
-                <option value="Kategori">Kategori</option>
-                <option value="olahraga">Front end Dev</option>
-                <option value="musik">Back end Dev</option>
-                <option value="bahasa">Full stack Dev</option>
-                <option value="bahasa">UI/UX</option>
+                <?php foreach ($data_kategori as $kategori): ?>
+                    <option value="<?= $kategori['kategori_kelas_id'] ?>"><?= $kategori['jenis'] ?></option>
+                <?php endforeach; ?>
             </select>
 
         </form>
     </div>
     <section class="p-15">
         <div class="grid grid-cols-4 gap-6 place-items-center p-10 w-full h-fit bg-[#1C2435] rounded-[15px]">
-            <a href="../component/comingSoon.php"
+        <?php foreach ($data_kelas as $kelas): ?>
+            <a href="../component/kelasDetail.php?kelas_id=<?= $kelas['kelas_id'] ?>"
                 class="block w-70 h-90 rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:scale-102 transition duration-300 bg-white">
-                <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                    alt="Belajar JavaScript Dasar">
-                <p class="m-1 bg-[#C084FC] w-fit px-2 py-1 text-[#581C87] text-sm rounded-lg">FE Dev</p>
+                <img class="h-40 w-full object-cover" src="../picture/<?= $kelas['foto'] ?>" alt="<?= $kelas['title_kelas'] ?>">
+                <p class="m-1 bg-[#C084FC] w-fit px-2 py-1 text-[#581C87] text-sm rounded-lg"><?= $kelas['jenis'] ?></p>
                 <div class="flex flex-col p-4 justify-center items-center">
-                    <h3 class="text-lg font-semibold text-gray-800">Belajar HTML Dasar</h3>
-                    <p class="mt-5 text-sm text-gray-500">Belajar HTML dari dasar membangun fundamental yang kuat</p>
+                    <h3 class="text-lg font-semibold text-gray-800"><?= $kelas['title_kelas'] ?></h3>
+                    <p class="mt-5 text-sm text-gray-500"><?= substr($kelas['desk_kelas'], 0, 100) . '...' ?></p>
+                    <p class="mt-2 text-sm text-gray-500">Mentor: <?= $kelas['nama_depan'] . ' ' . $kelas['nama_belakang'] ?></p>
                 </div>
             </a>
-            <a href="../component/comingSoon.php"
-                class="block w-70 h-90 rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:scale-102 transition duration-300 bg-white">
-                <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                    alt="Belajar JavaScript Dasar">
-                <p class="m-1 bg-[#C084FC] w-fit px-2 py-1 text-[#581C87] text-sm rounded-lg">FE Dev</p>
-                <div class="flex flex-col p-4 justify-center items-center">
-                    <h3 class="text-lg font-semibold text-gray-800">Belajar HTML Dasar</h3>
-                    <p class="mt-5 text-sm text-gray-500">Belajar HTML dari dasar membangun fundamental yang kuat</p>
-                </div>
-            </a>
-            <a href="../component/comingSoon.php"
-                class="block w-70 h-90 rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:scale-102 transition duration-300 bg-white">
-                <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                    alt="Belajar JavaScript Dasar">
-                <p class="m-1 bg-[#C084FC] w-fit px-2 py-1 text-[#581C87] text-sm rounded-lg">FE Dev</p>
-                <div class="flex flex-col p-4 justify-center items-center">
-                    <h3 class="text-lg font-semibold text-gray-800">Belajar HTML Dasar</h3>
-                    <p class="mt-5 text-sm text-gray-500">Belajar HTML dari dasar membangun fundamental yang kuat</p>
-                </div>
-            </a>
-            <a href="../component/comingSoon.php"
-                class="block w-70 h-90 rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:scale-102 transition duration-300 bg-white">
-                <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                    alt="Belajar JavaScript Dasar">
-                <p class="m-1 bg-[#C084FC] w-fit px-2 py-1 text-[#581C87] text-sm rounded-lg">FE Dev</p>
-                <div class="flex flex-col p-4 justify-center items-center">
-                    <h3 class="text-lg font-semibold text-gray-800">Belajar HTML Dasar</h3>
-                    <p class="mt-5 text-sm text-gray-500">Belajar HTML dari dasar membangun fundamental yang kuat</p>
-                </div>
-            </a>
-            <a href="../component/comingSoon.php"
-                class="block w-70 h-90 rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:scale-102 transition duration-300 bg-white">
-                <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                    alt="Belajar JavaScript Dasar">
-                <p class="m-1 bg-[#C084FC] w-fit px-2 py-1 text-[#581C87] text-sm rounded-lg">FE Dev</p>
-                <div class="flex flex-col p-4 justify-center items-center">
-                    <h3 class="text-lg font-semibold text-gray-800">Belajar HTML Dasar</h3>
-                    <p class="mt-5 text-sm text-gray-500">Belajar HTML dari dasar membangun fundamental yang kuat</p>
-                </div>
-            </a>
+        <?php endforeach; ?>                
         </div>
     </section>
 </body>
