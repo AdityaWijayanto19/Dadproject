@@ -14,14 +14,36 @@ if ($user_role === 'admin') {
     $profile_link = 'student/dashboardStudent.php';
 }
 
+$kategori_filter = isset($_POST['kategori']) ? $_POST['kategori'] : null;
+$search = isset($_POST['search']) ? $_POST['search'] : null;
 
-// GET DATA KELAS
-$data_kelas = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
-                    kategori_kelas.jenis FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
-                    JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id");
+$query = "SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+kategori_kelas.jenis 
+FROM kelas 
+JOIN mentors ON kelas.mentor_id = mentors.mentor_id 
+JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id 
+WHERE 1=1";
 
-// GET DATA KATEGORI
-$data_kategori = query("SELECT * FROM kategori_kelas");
+// Filter berdasarkan kategori jika dipilih
+if ($kategori_filter) {
+    $query .= " AND kelas.kategori_id = '$kategori_filter'";
+}
+
+// Filter berdasarkan pencarian jika diisi
+if ($search) {
+    $query .= " AND kelas.title_kelas LIKE '%$search%'";
+}
+
+$data_kelas = query($query);
+
+
+// // GET DATA KELAS
+// $data_kelas = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+//                     kategori_kelas.jenis FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
+//                     JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id");
+
+// // GET DATA KATEGORI
+// $data_kategori = query("SELECT * FROM kategori_kelas");
 
 ?>
 
@@ -74,15 +96,8 @@ $data_kategori = query("SELECT * FROM kategori_kelas");
         <form class="flex gap-2" action="" method="post">
             <input
                 class="h-5 w-60 p-5 bg-[#1C2435] border border-[#1C2435] focus:border-[#BE185D] focus:outline-none text-base text-white rounded-[20px] shadow-xl/30 hover:shadow-lg hover:shadow-[#BE185D] hover:scale-102 duration-300 "
-                type="text" name="search" placeholder="cari kelas...">
-            <select
-                class="p-2 text-white text-base bg-[#1C2435] rounded-[10px] focus:border-[#BE185D] focus:outline-none shadow-xl/30 hover:shadow-lg hover:shadow-[#BE185D] hover:scale-102 duration-300"
-                name="kategori" id="kategori" value="kategori">
-                <?php foreach ($data_kategori as $kategori): ?>
-                    <option value="<?= $kategori['kategori_kelas_id'] ?>"><?= $kategori['jenis'] ?></option>
-                <?php endforeach; ?>
-            </select>
-
+                type="text" name="search" placeholder="Cari kelas...">            
+            <button type="submit" class="text-white px-4 rounded-lg bg-[#BE185D] hover:scale-105 duration-300">Cari</button>
         </form>
     </div>
     <section class="p-15">
