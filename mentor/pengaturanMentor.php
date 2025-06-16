@@ -1,3 +1,21 @@
+<?php
+session_start();
+include '../koneksi/koneksi.php';
+
+$mentor_id = $_SESSION['mentor_id']; 
+
+$queryMentor = mysqli_query($conn, "
+    SELECT user.nama_lengkap, user.email 
+    FROM mentors 
+    JOIN user ON mentors.user_id = user.user_id 
+    WHERE mentors.mentor_id = '$mentor_id'
+");
+
+$dataMentor = mysqli_fetch_assoc($queryMentor);
+$nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
+$email = $dataMentor['email'];
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -23,11 +41,11 @@
                 <form>
                     <div class="form-group">
                         <label for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" name="nama" value="Nama User">
+                        <input type="text" id="nama" name="nama" value="<?= $nama_mentor;?>">
                     </div>
                     <div class="form-group">
                         <label for="email">Alamat Email</label>
-                        <input type="email" id="email" name="email" value="user@example.com" disabled>
+                        <input type="email" id="email" name="email" value="<?= $email;?>" disabled>
                         <small>Email tidak dapat diubah.</small>
                     </div>
                     <div class="form-group">

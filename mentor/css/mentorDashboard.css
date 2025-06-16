@@ -89,7 +89,14 @@ header p { font-size: 20px; color: #efece9; margin-top: 15px }
   padding: 12px 16px;
   background-color: #f8f9fa;
   border-top: 1px solid #e9ecef;
-  text-align: right;
+  display: flex;                  
+  justify-content: space-between; 
+  align-items: center;            
+}
+
+.class-actions {
+  display: flex;
+  gap: 15px; 
 }
 
 .status-tag { padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; display: inline-block; white-space: nowrap }
@@ -166,12 +173,13 @@ header h1 { font-size: 2.25rem; font-weight: 700; margin: 0 0 1.5rem 0 }
 .btn-submit { width: 100%; padding: 0.85rem 1rem; background-color: #581C87; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background-color 0.2s }
 .btn-submit:hover { background-color: #9333EA; }
 
-.class-actions { display: flex; gap: 15px; }
-
 .btn-action { font-size: 1.5rem; color: #555; text-decoration: none; transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;}
 .btn-action:hover {transform: scale(1.1);}
 .btn-edit:hover { color: #007bff; }
 .btn-delete:hover {color: #dc3545;}
+.btn-back:hover {color: #c9c2c3;}
+.btn-back {padding: 10px;}
+.btn-back span{font-size: 25px; font-family: 'Roboto'; padding-left: 5px;}
 
 @media (max-width: 992px) {
     .sidebar {

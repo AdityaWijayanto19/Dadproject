@@ -205,16 +205,7 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
 
     <script>                
         document.addEventListener("DOMContentLoaded", () => {               
-            const pathDetailsContainer = document.getElementById("path-details-container");   
-            
-             // --- START: Referensi elemen Pop-up dan Form ---
-            const popupOverlay = document.getElementById("popup-overlay");
-            const enrollForm = document.getElementById("enroll-form");
-            const hiddenKelasIdInput = document.getElementById("popup-hidden-kelas-id");
-            const popupCloseBtn = document.querySelector(".popup-close-btn");
-            const popupCancelBtn = document.getElementById("popup-cancel-btn");
-            // --- END: Referensi elemen Pop-up ---
-                
+            const pathDetailsContainer = document.getElementById("path-details-container");            
             renderPathDetails([allKelasData[2]]); // DEFAULT
 
             const text = document.querySelector(".role");

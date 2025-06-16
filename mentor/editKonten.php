@@ -2,20 +2,11 @@
 session_start();
 include '../koneksi/koneksi.php';
 
-$mentor_id = $_SESSION['mentor_id'] ?? null;
-$kelas_id = isset($_GET['kelas_id']) ? (int) $_GET['kelas_id'] : null;
-
-if (!$mentor_id || !$kelas_id) {
-    die("Akses tidak sah atau parameter tidak lengkap.");
-}
+$mentor_id = $_SESSION['mentor_id'];
+$kelas_id = $_GET['kelas_id'];
 
 $queryKelas = mysqli_query($conn, "SELECT * FROM kelas WHERE kelas_id = '$kelas_id'");
 $data_kelas = mysqli_fetch_assoc($queryKelas);
-
-if (!$data_kelas) {
-    die("Kelas tidak ditemukan.");
-}
-
 
 $queryMentor = mysqli_query($conn, "
     SELECT user.nama_lengkap 
@@ -23,9 +14,9 @@ $queryMentor = mysqli_query($conn, "
     JOIN user ON mentors.user_id = user.user_id 
     WHERE mentors.mentor_id = '$mentor_id'
 ");
+
 $dataMentor = mysqli_fetch_assoc($queryMentor);
 $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
-
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -33,10 +24,12 @@ $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Konten - <?= htmlspecialchars($data_kelas['title_kelas']) ?></title>
+    <!-- Judul statis -->
+    <title>Edit Konten - Pengenalan Dasar-Dasar CSS</title>
     <link rel="stylesheet" href="css/mentorDashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
@@ -46,50 +39,57 @@ $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
 
         <div class="content-area">
             <header class="header-kelas">
-                <h1 class="page-title">Detail Kelas: <?= htmlspecialchars($data_kelas['title_kelas']) ?></h1>
-                <div class="tabs">
-                    <a class="tab-item" href="kelolaMateri.php?kelas_id=<?= $kelas_id ?>">Konten</a>
-                    <a href="#" class="tab-item active">Upload Konten</a>
-                </div>
+                <!-- Judul kelas statis -->
+                <h1 class="page-title">Edit Konten di Kelas: Belajar Web Development dari Nol</h1>
+                <!-- Link kembali dengan ID kelas statis -->
+                <a href="kelolaMateri.php?kelas_id=<?= $kelas_id ?>" class="btn-action btn-back" title="Kembali ke Daftar Konten">
+                    <i class="fa-solid fa-left-long"><span>kembali</span></i>
+                </a>
             </header>
 
             <main>
                 <div class="form-container">
-                    <form action="Controller.php" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="kelas_id" value="<?= htmlspecialchars($kelas_id) ?>">
+                    <form action="proses_edit_konten.php" method="POST" enctype="multipart/form-data">
+
+                        <!-- <input type="hidden" name="konten_id" value="101"> -->
+                        <input type="hidden" name="kelas_id" value="<?= $kelas_id ?>">
 
                         <div class="form-group">
                             <label for="content_title">Judul Konten</label>
+                            <!-- Judul konten statis -->
                             <input type="text" id="content_title" name="content_title"
-                                placeholder="Contoh: Pengenalan HTML" required>
+                                placeholder="Contoh: Pengenalan HTML" required
+                                value="Pengenalan Dasar-Dasar CSS">
                         </div>
 
                         <div class="form-group">
                             <label for="content_type">Tipe Konten</label>
                             <select id="content_type" name="content_type" required>
-                                <option value="" disabled selected>Pilih tipe konten</option>
+                                <option value="" disabled>Pilih tipe konten</option>
+                                <!-- Tipe konten dipilih secara statis dengan atribut 'selected' -->
                                 <option value="video_url">Video (Link URL)</option>
-                                <option value="video_file">Video (Upload File)</option>
+                                <option value="video_file" selected>Video (Upload File)</option>
                                 <option value="document">Dokumen/Slide (PDF, PPT)</option>
                                 <option value="text">Artikel Teks</option>
                             </select>
                         </div>
 
-
                         <div id="url-input-group" class="form-group" style="display: none;">
                             <label for="content_url">Link URL Video</label>
-                            <input type="text" id="content_url" name="url_or_file"
-                                placeholder="https://youtube.com/watch?v=... atau upload file di bawah">
+                            <input type="url" id="content_url" name="content_url"
+                                placeholder="Contoh: https://www.youtube.com/watch?v=..." value="">
                             <small>Masukkan link lengkap dari platform seperti YouTube atau Vimeo.</small>
                         </div>
 
-
                         <div id="file-input-group" class="form-group" style="display: none;">
-                            <label for="content_file">Upload File</label>
+                            <label for="content_file">Upload File Baru</label>
+                            <!-- Info file saat ini ditulis statis -->
+                            <p style="font-size: 0.9em; color: #555;">File saat ini:
+                                <strong>video_perkenalan_css.mp4</strong>
+                            </p>
                             <input type="file" id="content_file" name="content_file">
-                            <small>Pilih file video (MP4) atau dokumen (PDF, PPTX).</small>
+                            <small>Kosongkan jika tidak ingin mengubah file.</small>
                         </div>
-
 
                         <div id="text-input-group" class="form-group" style="display: none;">
                             <label for="content_body">Isi Artikel</label>
@@ -99,18 +99,21 @@ $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
 
                         <div class="form-group">
                             <label for="urutan">Urutan Konten</label>
-                            <input type="number" id="urutan" name="urutan" placeholder="Contoh: 1" required min="1">
+                            <!-- Urutan statis -->
+                            <input type="number" id="urutan" name="urutan" placeholder="Contoh: 1" required min="1"
+                                value="2">
                             <small>Urutan materi ini akan ditampilkan di dalam kelas.</small>
                         </div>
 
                         <div class="form-group">
                             <label for="content_deskripsi">Deskripsi Singkat (Opsional)</label>
+                            <!-- Deskripsi statis -->
                             <textarea id="content_deskripsi" name="content_deskripsi" rows="4"
-                                placeholder="Jelaskan secara singkat isi dari konten ini..."></textarea>
+                                placeholder="Jelaskan secara singkat isi dari konten ini...">Ini adalah materi video yang menjelaskan tentang konsep dasar dan fundamental dari Cascading Style Sheets (CSS) untuk pemula.</textarea>
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn-submit">Simpan & Upload Konten</button>
+                            <button type="submit" class="btn-submit">Simpan Perubahan</button>
                         </div>
                     </form>
                 </div>
@@ -119,6 +122,7 @@ $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
     </div>
 
     <script>
+        // Skrip JavaScript tidak perlu diubah karena bekerja pada struktur HTML
         document.addEventListener('DOMContentLoaded', function () {
             const contentTypeSelect = document.getElementById('content_type');
             const urlGroup = document.getElementById('url-input-group');
@@ -128,15 +132,12 @@ $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
             const fileInput = document.getElementById('content_file');
             const textInput = document.getElementById('content_body');
 
-            contentTypeSelect.addEventListener('change', function () {
-                const selectedValue = this.value;
-
+            function toggleContentInputs() {
+                const selectedValue = contentTypeSelect.value;
                 urlGroup.style.display = 'none';
                 urlInput.required = false;
-
                 fileGroup.style.display = 'none';
                 fileInput.required = false;
-
                 textGroup.style.display = 'none';
                 textInput.required = false;
 
@@ -145,15 +146,15 @@ $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
                     urlInput.required = true;
                 } else if (selectedValue === 'video_file' || selectedValue === 'document') {
                     fileGroup.style.display = 'block';
-                    fileInput.required = true;
                 } else if (selectedValue === 'text') {
                     textGroup.style.display = 'block';
                     textInput.required = true;
                 }
-            });
+            }
+            contentTypeSelect.addEventListener('change', toggleContentInputs);
+            toggleContentInputs();
         });
     </script>
 
 </body>
-
 </html>

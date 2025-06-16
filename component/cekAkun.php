@@ -37,6 +37,10 @@ if (isset($_POST['masuk'])) {
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['role'] = $user['role'];
             $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
+
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['password'] = $user['password'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['email'] = $user['email'];
             
