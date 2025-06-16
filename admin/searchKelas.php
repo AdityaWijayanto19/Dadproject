@@ -3,7 +3,7 @@ require '../koneksi/koneksi.php';
 
 $keyword = mysqli_real_escape_string($conn, $_GET["keywordKelas"]);
 
-$query = "SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, 
+$query = "SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto_kelas, kelas.desk_kelas, 
                  mentors.nama_depan, mentors.nama_belakang, kategori_kelas.jenis, 
                  enrollment_key.enrollment_key 
           FROM kelas 
@@ -50,7 +50,7 @@ $dataKelas = query($query);
                         <button class="edit"><a href="editKelas.php?id=<?= $dt['kelas_id']; ?>">Edit</a></button>
                     </td>
                     <td><?= htmlspecialchars($dt["title_kelas"]) ?></td>
-                    <td><img src="../picture/<?= htmlspecialchars($dt["foto"]) ?>" alt="Foto Kelas" width="100"></td>
+                    <td><img src="../picture/<?= htmlspecialchars($dt["foto_kelas"]) ?>" alt="Foto Kelas" width="100"></td>
                     <td><?= htmlspecialchars($dt["desk_kelas"]) ?></td>
                     <td><?= htmlspecialchars($dt["nama_depan"] . " " . $dt["nama_belakang"]) ?></td>
                     <td><?= htmlspecialchars($dt["jenis"]) ?></td>

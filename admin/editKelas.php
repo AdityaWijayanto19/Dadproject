@@ -7,7 +7,7 @@ $id = $_GET['id'];
 //                 kategori_kelas.jenis FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
 //                 JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id WHERE kelas.kelas_id = $id");
 
-$data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+$data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto_kelas, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
                 kategori_kelas.jenis, enrollment_key.enrollment_key FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
                 JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id LEFT JOIN enrollment_key ON kelas.kelas_id = enrollment_key.kelas_id WHERE kelas.kelas_id = $id");
 
@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
                             <label for="foto">foto</label>
                             <input
                                 class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md cursor-pointer hover:bg-[#0F172A] hover:scale-101 duration-200"
-                                type="file" name="foto" id="foto" value="<?= $dt['foto'] ?>">
+                                type="file" name="foto" id="foto" value="<?= $dt['foto_kelas'] ?>">
                         </li>
 
                         <li class="flex flex-col text-xl">

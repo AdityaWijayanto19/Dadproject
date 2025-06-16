@@ -56,7 +56,7 @@ if (isset($_SESSION['success_message'])) {
                     <?php foreach ($result as $row): ?>
                         <div class="card">
                             <div class="class-card-banner"
-                                style="background-image: url('../picture/<?= htmlspecialchars($row['foto']) ?>'); background-size: cover; background-position: center;">
+                                style="background-image: url('../picture/<?= htmlspecialchars($row['foto_kelas']) ?>'); background-size: cover; background-position: center;">
                             </div>
                             <div class="class-card-content">
                                 <h3><?= htmlspecialchars($row['title_kelas']) ?></h3>

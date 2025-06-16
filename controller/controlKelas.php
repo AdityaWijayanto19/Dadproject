@@ -16,24 +16,21 @@ function tambah($data){
     $size_file = $_FILES['foto']['size'];
     $direktori = '../picture/' . $nama_file;
 
-    if(move_uploaded_file($lokasi_file,$direktori)){
-        $query = "INSERT INTO kelas (`title_kelas`, `foto`,	`desk_kelas`,`mentor_id`,`kategori_id`) VALUES ('$title','$nama_file','$desc','$mentor','$kategori')";
+    if(move_uploaded_file($lokasi_file, $direktori)){
+    // 1. Jalankan query insert kelas
+    $query = "INSERT INTO kelas (`title_kelas`, `foto_kelas`, `desk_kelas`,`mentor_id`,`kategori_id`) 
+              VALUES ('$title','$nama_file','$desc','$mentor','$kategori')";
 
-        // GET ID KELAS ID
-        $query_id = mysqli_query($conn,"SELECT kelas_id FROM kelas WHERE title_kelas = '$title' AND desk_kelas = '$desc' AND mentor_id = '$mentor' AND kategori_id = '$kategori'");
-        $kelas_id = mysqli_fetch_assoc($query_id)['kelas_id'];
+    if (mysqli_query($conn, $query)) {
+        // 2. Ambil ID kelas terakhir yang baru saja diinsert
+        $kelas_id = mysqli_insert_id($conn);
 
-        if (mysqli_query($conn, $query)) {
-            // 2. Ambil kelas_id terakhir
-            $kelas_id = mysqli_insert_id($conn);
-
-            // 3. Masukkan enrollment_key ke tabel enrollment_key
-            $query_enrollment = "INSERT INTO enrollment_key (`kelas_id`, `enrollment_key`) 
-                                VALUES ('$kelas_id', '$enrollment')";
-            
-            mysqli_query($conn, $query_enrollment);
-        }        
+        // 3. Insert ke tabel enrollment_key
+        $query_enrollment = "INSERT INTO enrollment_key (`kelas_id`, `enrollment_key`) 
+                             VALUES ('$kelas_id', '$enrollment')";
+        mysqli_query($conn, $query_enrollment);
     }
+}
 
     return mysqli_affected_rows($conn);
 
@@ -42,11 +39,11 @@ function tambah($data){
 function hapus($id){
     global $conn;
 
-    $query = mysqli_query($conn,"SELECT `foto` FROM kelas WHERE kelas_id = $id" );
+    $query = mysqli_query($conn,"SELECT `foto_kelas` FROM kelas WHERE kelas_id = $id" );
     $data = mysqli_fetch_assoc($query);
-    $foto = $data["foto"];
+    $foto = $data["foto_kelas"];
 
-    $sql_f = "SELECT `foto` FROM `kelas` WHERE `kelas_id` = $id";
+    $sql_f = "SELECT `foto_kelas` FROM `kelas` WHERE `kelas_id` = $id";
     $query_f = mysqli_query($conn,$sql_f);
     while($db_f = mysqli_fetch_row($query_f)){
         $foto = $db_f[0];
@@ -79,7 +76,7 @@ function edit($edit,$id){
 
     $query = "UPDATE kelas SET
                 `title_kelas` = '$title',
-                `foto` = '$nama_file',
+                `foto_kelas` = '$nama_file',
                 `desk_kelas` = '$desc',
                 `mentor_id` = '$mentor',
                 `kategori_id` = '$kategori'

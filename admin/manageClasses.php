@@ -2,7 +2,7 @@
 session_start();
 require '../koneksi/koneksi.php';
 
-$data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+$data = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto_kelas, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
                 kategori_kelas.jenis, enrollment_key.enrollment_key FROM kelas 
                 INNER JOIN mentors ON kelas.mentor_id = mentors.mentor_id
                 INNER JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id 
@@ -80,7 +80,7 @@ $nama_lengkap = $data_admin['nama_lengkap'] ?? 'Admin';
                                                 href="editKelas.php?id=<?= $dt['kelas_id']; ?>">Edit</a></button>
                                     </td>
                                     <td><?= htmlspecialchars($dt["title_kelas"]) ?></td>
-                                    <td><img src="../picture/<?= htmlspecialchars($dt["foto"]) ?>" alt="Foto Kelas" width="100">
+                                    <td><img src="../picture/<?= htmlspecialchars($dt["foto_kelas"]) ?>" alt="Foto Kelas" width="100">
                                     </td>
                                     <td><?= htmlspecialchars($dt["desk_kelas"]) ?></td>
                                     <td><?= htmlspecialchars($dt["nama_depan"] . " " . $dt["nama_belakang"]) ?></td>
