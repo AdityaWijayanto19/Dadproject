@@ -41,8 +41,7 @@ if (isset($_POST['masuk'])) {
             $_SESSION['email'] = $user['email'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['password'] = $user['password'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['email'] = $user['email'];
+            $_SESSION['username'] = $user['username'];            
             
             if ($user['role'] === 'mentor') {
                 $mentorQuery = mysqli_query($conn, "SELECT * FROM mentors WHERE user_id = {$user['user_id']}");

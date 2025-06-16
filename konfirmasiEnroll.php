@@ -40,16 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll'])) {
         $stmt_key->close();
 
         if ($enrollment) {
-            // BERHASIL: Simpan pesan sukses ke session
+            // BERHASIL: Tambahkan pesan tambahan di sini
             $_SESSION['flash_message'] = [
                 'status' => 'success',
-                'message' => 'Enrollment key Anda: ' . htmlspecialchars($enrollment['enrollment_key'])
+                'title' => 'Enrollment Berhasil!', // Judul bisa dikustomisasi
+                'message' => 'Anda telah berhasil terdaftar di kelas.',
+                'details' => 'Enrollment Key Anda: <strong>' . htmlspecialchars($enrollment['enrollment_key']) . '</strong><br><small>Silakan simpan key ini untuk digunakan di dashboard siswa.</small>'
             ];
         } else {
-            // GAGAL: Key tidak ditemukan untuk kelas ini
+            // GAGAL: Key tidak ditemukan
             $_SESSION['flash_message'] = [
                 'status' => 'error',
-                'message' => 'Enrollment key untuk kelas ini tidak ditemukan.'
+                'title' => 'Gagal!',
+                'message' => 'Enrollment key untuk kelas ini tidak dapat ditemukan.',
+                'details' => 'Pastikan Anda memilih kelas yang benar atau hubungi administrator.'
             ];
         }
 
@@ -57,14 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll'])) {
         // GAGAL: Email atau password salah
         $_SESSION['flash_message'] = [
             'status' => 'error',
-            'message' => 'Email atau kata sandi yang Anda masukkan salah.'
+            'title' => 'Autentikasi Gagal!',
+            'message' => 'Email atau kata sandi yang Anda masukkan salah.',
+            'details' => 'Periksa kembali kredensial Anda dan coba lagi.'
         ];
     }
-
-} else {
-    // Jika file diakses langsung, redirect saja
-    header('Location: index.php');
-    exit();
 }
 
 // Redirect kembali ke halaman utama SETELAH semua logika selesai

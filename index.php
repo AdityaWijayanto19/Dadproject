@@ -164,20 +164,13 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                 <?php endforeach; ?>
             </div>            
         </div>
-    </div>
-
-        <!-- ================================== -->
-        <!-- HTML UNTUK POP-UP (MODAL)          -->
-        <!-- Letakkan di dalam <body>           -->
-        <!-- ================================== -->
+    </div>        
         <div id="popup-overlay" class="popup-overlay">
             <div class="popup-container">
                 <button class="popup-close-btn">×</button>
-                <h2>Enrollment Kelas</h2>
-                <!-- Ganti 'form-container' menjadi id untuk referensi JS yang lebih mudah -->
+                <h2>Enrollment Kelas</h2>                
                 <form id="enroll-form" action="konfirmasiEnroll.php" method="POST" class="form-container">
-                    
-                    <!-- PENTING: Input tersembunyi untuk menyimpan ID kelas -->
+                                        
                     <input type="hidden" name="kelas_id" id="popup-hidden-kelas-id" value="">
 
                     <label for="email">Email :</label>
@@ -187,10 +180,7 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                     <input type="password" id="password" class="input" name="password" required placeholder="Masukkan password Anda">
                                 
                     <div class="popup-actions">
-                        <!-- type="submit" akan mengirimkan form saat diklik -->
-                        <button type="submit" name = "enroll" id="popup-confirm-btn" class="btn-confirm">Enroll</button>
-                        
-                        <!-- type="button" mencegah pengiriman form, hanya untuk aksi JS -->
+                        <button type="submit" name = "enroll" id="popup-confirm-btn" class="btn-confirm">Enroll</button>                                            
                         <button type="button" id="popup-cancel-btn" class="btn-cancel">Batal</button>
                     </div>
                 </form>
@@ -316,7 +306,7 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                     for (let index = 0; index < kelasData.length; index++) {
                         if (kelasData[index].kategori_id == jenis) {                            
                             allKelas.push(kelasData[index]);
-                            console.log(kelasData[index].title_kelas);                            
+                            console.log(kelasData[index].jenis);                            
                         }                        
                     }
 
@@ -361,8 +351,8 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
 
                 const coursesHTML = kelasArray.map((course, index) => `
                     <div class="course-card">
-                        <img src="picture/${course.foto}" alt="${course.title_kelas}">
-                        <div class="card-content">                            
+                        <img src="picture/${course.foto_kelas}" alt="${course.title_kelas}">
+                        <div class="card-content">                              
                             <h4>${course.title_kelas}</h4>
                             <p>${course.desk_kelas}</p>       
                             <button  class="join-btn" data-kelas-id="${course.kelas_id}">Join Kelas</button>                     
@@ -421,16 +411,27 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
     // Cek apakah ada flash message di session
     if (isset($_SESSION['flash_message'])) {
         $flash = $_SESSION['flash_message'];
-        $status = $flash['status']; // 'success' atau 'error'
-        $message = $flash['message'];
+        
+        // Ambil semua data dari session
+        $status = $flash['status'] ?? 'info';
+        $title = $flash['title'] ?? 'Informasi';
+        $message = $flash['message'] ?? '';
+        $details = $flash['details'] ?? '';
+
+        // Gabungkan pesan utama dan detail menjadi satu blok HTML
+        $htmlContent = "<p>" . addslashes($message) . "</p>";
+        if (!empty($details)) {
+            // addslashes() penting untuk menangani kutip di dalam string
+            $htmlContent .= "<div>" . addslashes($details) . "</div>";
+        }
 
         // Cetak skrip SweetAlert
         echo "<script>
             Swal.fire({
-                title: '" . ucfirst($status) . "!',
-                text: '" . addslashes($message) . "',
                 icon: '" . $status . "',
-                confirmButtonText: 'OK'
+                title: '" . addslashes($title) . "',
+                html: `" . $htmlContent . "`, // Gunakan `html` bukan `text`, dan backtick (`) untuk string
+                confirmButtonText: 'Mengerti'
             });
         </script>";
 
