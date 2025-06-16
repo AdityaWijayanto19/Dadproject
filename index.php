@@ -174,7 +174,9 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
 
     <script>                
         document.addEventListener("DOMContentLoaded", () => {               
-            const pathDetailsContainer = document.getElementById("path-details-container");            
+            const pathDetailsContainer = document.getElementById("path-details-container");    
+            console.log(pathDetailsContainer);
+                    
             renderPathDetails([allKelasData[2]]); // DEFAULT
 
             const text = document.querySelector(".role");

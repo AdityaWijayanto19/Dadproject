@@ -1,5 +1,5 @@
 <?php
-    $mentor_id = $_SESSION['mentor_id'];
+    $nama_lengkap = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : 'Mentor';
 ?>
 
 <aside class="sidebar">
@@ -10,7 +10,7 @@
             </svg>
         </div>
         <h2>Mentor</h2>
-        <p><?= $nama_mentor ?></p>
+        <p><?= $nama_lengkap ?></p>
     </div>
     <nav class="navigation">
         <ul>
