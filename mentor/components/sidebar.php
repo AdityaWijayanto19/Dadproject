@@ -1,5 +1,6 @@
 <?php
-    $nama_lengkap = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : 'Mentor';
+$nama_lengkap = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : 'Mentor';
+$current_page = basename($_SERVER['SCRIPT_NAME']);
 ?>
 
 <aside class="sidebar">
@@ -10,17 +11,46 @@
             </svg>
         </div>
         <h2>Mentor</h2>
-        <p><?= $nama_lengkap ?></p>
+        <p><?= htmlspecialchars($nama_lengkap); ?></p>
     </div>
     <nav class="navigation">
         <ul>
-            <li><a href="../index.php">Home</a></li>
-            <li><a href="mentorDashboard.php">Dashboard</a></li>
-            <li><a href="../component/comingSoon.php">Tugas & Kuis</a></li>
-            <li><a href="../component/comingSoon.php">Penilaian</a></li>
-            <li><a href="../component/comingSoon.php">Sertifikat Kelulusan</a></li>
-            <li><a href="pengaturanMentor.php">Pengaturan</a></li>
-            <li><a href="../logout.php">Keluar</a></li>
+            <li>
+                <a href="../index.php">Home</a>
+            </li>
+            <li>
+                <a href="mentorDashboard.php" 
+                   class="<?= ($current_page == 'mentorDashboard.php' || $current_page == 'kelolaMateri.php' || $current_page == 'uploadKonten.php' || $current_page == 'editKonten.php') ? 'active' : '' ?>">
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="../component/comingSoon.php" 
+                   class="<?= ($current_page == 'comingSoon.php' && strpos($_SERVER['REQUEST_URI'], 'Tugas') !== false) ? 'active' : '' ?>">
+                    Tugas & Kuis
+                </a>
+            </li>
+            <li>
+                <a href="../component/comingSoon.php"
+                   class="<?= ($current_page == 'comingSoon.php' && strpos($_SERVER['REQUEST_URI'], 'Penilaian') !== false) ? 'active' : '' ?>">
+                    Penilaian
+                </a>
+            </li>
+            <li>
+                <a href="../component/comingSoon.php"
+                   class="<?= ($current_page == 'comingSoon.php' && strpos($_SERVER['REQUEST_URI'], 'Sertifikat') !== false) ? 'active' : '' ?>">
+                    Sertifikat Kelulusan
+                </a>
+            </li>
+            <li>
+                <a href="pengaturanMentor.php" 
+                   class="<?= ($current_page == 'pengaturanMentor.php') ? 'active' : '' ?>">
+                    Pengaturan
+                </a>
+            </li>
+            <li>
+                <a href="../logout.php">Keluar</a>
+            </li>
         </ul>
     </nav>
 </aside>

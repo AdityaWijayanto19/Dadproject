@@ -1,7 +1,6 @@
 <?php
     include_once '../controller/controlUser.php';
 
-    // Menerima id user yang dipilih pengguna
     $user_id = (int)$_GET['user_id'];
 
     if (delete_user($user_id) > 0) {

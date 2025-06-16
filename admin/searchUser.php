@@ -1,54 +1,57 @@
 <?php
+require '../koneksi/koneksi.php';
 
-    include '../koneksi/koneksi.php';
-    
-    $keyword = $_GET["keyword"];
-    $query = "SELECT * FROM user WHERE user_id LIKE '%$keyword%' 
-        OR nama_depan LIKE '%$keyword%' 
-        OR nama_belakang LIKE '%$keyword%' 
-        OR nama_lengkap LIKE '%$keyword%' 
-        OR username LIKE '%$keyword%' 
-        OR email LIKE '%$keyword%' 
-        OR `role` LIKE '%$keyword%'";
+$keyword = mysqli_real_escape_string($conn, $_GET["keywordUser"]);
 
-    $dataUser = query($query);
+$query = "SELECT * FROM user 
+          WHERE 
+              user_id LIKE '%$keyword%' 
+              OR nama_depan LIKE '%$keyword%' 
+              OR nama_belakang LIKE '%$keyword%'
+              OR CONCAT(nama_depan, ' ', nama_belakang) LIKE '%$keyword%' 
+              OR nama_lengkap LIKE '%$keyword%' 
+              OR username LIKE '%$keyword%' 
+              OR email LIKE '%$keyword%' 
+              OR `role` LIKE '%$keyword%'
+          ORDER BY user_id DESC";
 
-    // CEK DATA
-    if (empty($dataUser)) {
-        echo '<tr><td colspan="9">Data tidak ditemukan</td></tr>';
-    } else {
-        echo '<table class="custom-table">    
-                <thead>
-                    <tr>
-                        <th>Id User</th>
-                        <th>Nama Depan</th>
-                        <th>Nama Belakang</th>
-                        <th>Nama Lengkap</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Role</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>';
-        foreach ($dataUser as $user) {
-            echo '<tr>
-                    <td>' . $user['user_id'] . '</td>
-                    <td>' . $user['nama_depan'] . '</td>
-                    <td>' . $user['nama_belakang'] . '</td>
-                    <td>' . $user['nama_lengkap'] . '</td>
-                    <td>' . $user['username'] . '</td>
-                    <td>' . $user['email'] . '</td>
-                    <td>' . $user['password'] . '</td>
-                    <td>' . $user['role'] . '</td>
-                    <td>
-                        <a class="btnEdit" href="editUser.php?user_id=' . $user['user_id'] . '">Edit</a>
-                        <a class="btnHapus" name="deleteUser" href="#" onclick="confirm(' . $user['user_id'] . ')">Hapus</a>
-                    </td>
-                </tr>';
-        }
-        echo '</tbody></table>';
-    }
-
+$dataUser = query($query);
 ?>
+
+<table class="custom-table" border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Aksi</th>
+            <th>Nama Depan</th>
+            <th>Nama Belakang</th>
+            <th>Nama Lengkap</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (empty($dataUser)): ?>
+            <tr>
+                <td colspan="8" style="text-align: center;">User tidak ditemukan untuk keyword "<?= htmlspecialchars($keyword) ?>".</td>
+            </tr>
+        <?php else: ?>
+            <?php foreach ($dataUser as $user): ?>
+                <tr>
+                    <td><?= $user['user_id'] ?></td>
+                    <td class="actions">
+                        <button class="hapus" onclick="confirmDelete(<?= $user['user_id'] ?>, '<?= htmlspecialchars(addslashes($user['username'])) ?>')">Hapus</button>
+                        <button class="edit"><a href="editUser.php?user_id=<?= $user['user_id'] ?>">Edit</a></button>
+                    </td>
+                    <td><?= htmlspecialchars($user['nama_depan']) ?></td>
+                    <td><?= htmlspecialchars($user['nama_belakang']) ?></td>
+                    <td><?= htmlspecialchars($user['nama_lengkap']) ?></td>
+                    <td><?= htmlspecialchars($user['username']) ?></td>
+                    <td><?= htmlspecialchars($user['email']) ?></td>
+                    <td><?= htmlspecialchars($user['role']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </tbody>
+</table>

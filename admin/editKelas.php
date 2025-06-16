@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                window.location.href = 'manageClasses.php'; //berpindah kehalaman lain
+                window.location.href = 'manageClasses.php'; 
             });
             </script>";
     } else {

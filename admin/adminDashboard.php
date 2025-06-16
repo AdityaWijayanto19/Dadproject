@@ -1,17 +1,20 @@
 <?php
 include '../koneksi/koneksi.php';
 
+$dataAdmin = mysqli_query($conn, 'SELECT * FROM user');
 $countUser = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_user FROM user');
 $countKelas = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_kelas FROM kelas');
 $countKategori = mysqli_query($conn, 'SELECT COUNT(*) AS jumlah_kategori FROM kategori_kelas');
 
+$data_admin =  mysqli_fetch_assoc($dataAdmin);
 $user =  mysqli_fetch_assoc($countUser);
 $kelas = mysqli_fetch_assoc($countKelas);
 $kategoriKelas = mysqli_fetch_assoc($countKategori);
+
 $jumlahUser = $user['jumlah_user'];
 $jumlahKelas = $kelas['jumlah_kelas'];
 $jumlahKategori = $kategoriKelas['jumlah_kategori'];
-
+$nama_lengkap = $data_admin['nama_lengkap'];
 ?>
 
 <!DOCTYPE html>
@@ -28,28 +31,14 @@ $jumlahKategori = $kategoriKelas['jumlah_kategori'];
 
 <body>
     <div class="wrapper">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <h2>DadProject</h2>
-            </div>
-            <ul>
-                <li><a href="adminDashboard.php">Dashboard</a></li>
-                <li><a href="manageUser.php">Pengguna</a></li>
-                <li><a href="manageClasses.php">Kelas</a></li>
-                <li><a href="manageCategoryClass.php">Kategori Kelas</a></li>
-                <li><a href="manageContact.php">Kontak</a></li>
-                <li><a href="../logout.php">Logout</a></li>
-            </ul>
-        </div>
-
+        <?php include('components/sidebarAdmin.php');?>
         <!-- Main Content -->
         <div class="main-content">
             <header>
                 <h1>Dashboard</h1>
                 <hr>
                 <br>
-                <p>Selamat Datang, Admin</p>
+                <p>Selamat Datang, <?= $nama_lengkap;?></p>
             </header>
             <div class="stats-container">
                 <!-- Manajemen Pengguna -->
@@ -101,27 +90,12 @@ $jumlahKategori = $kategoriKelas['jumlah_kategori'];
 
                 <div class="stat-card">
                     <div class="stat-head">
-                        <i class="fa-solid fa-bell"></i>
+                        <i class="fa-solid fa-message"></i>
                         <h3>
-                            <p>Notifikasi</p>
+                            <p>Kontak</p>
                         </h3>
                     </div>
-                    <a href="login.php">
-                        <div class="stat-foot">
-                            <p>Lihat Detail</p>
-                            <i class="fa-solid fa-circle-right"></i>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-head">
-                        <i class="fa-solid fa-chart-column"></i>
-                        <h3>
-                            <p>Statistika dan Data</p>
-                        </h3>
-                    </div>
-                    <a href="login.php">
+                    <a href="../component/comingSoon.php">
                         <div class="stat-foot">
                             <p>Lihat Detail</p>
                             <i class="fa-solid fa-circle-right"></i>
