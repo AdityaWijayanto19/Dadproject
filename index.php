@@ -165,29 +165,29 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
             </div>            
         </div>
     </div>        
-        <div id="popup-overlay" class="popup-overlay">
-            <div class="popup-container">
-                <button class="popup-close-btn">×</button>
-                <h2>Enrollment Kelas</h2>                
-                <form id="enroll-form" action="konfirmasiEnroll.php" method="POST" class="form-container">
-                                        
-                    <input type="hidden" name="kelas_id" id="popup-hidden-kelas-id" value="">
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup-container">
+            <button class="popup-close-btn">×</button>
+            <h2>Enrollment Kelas</h2>                
+            <form id="enroll-form" action="konfirmasiEnroll.php" method="POST" class="form-container">
+                                    
+                <input type="hidden" name="kelas_id" id="popup-hidden-kelas-id" value="">
 
-                    <label for="email">Email :</label>
-                    <input type="email" id="email" class="input" name="email" required placeholder="contoh@email.com">
+                <label for="email">Email :</label>
+                <input type="email" id="email" class="input" name="email" required placeholder="contoh@email.com">
 
-                    <label for="password">Password :</label>
-                    <input type="password" id="password" class="input" name="password" required placeholder="Masukkan password Anda">
-                                
-                    <div class="popup-actions">
-                        <button type="submit" name = "enroll" id="popup-confirm-btn" class="btn-confirm">Enroll</button>                                            
-                        <button type="button" id="popup-cancel-btn" class="btn-cancel">Batal</button>
-                    </div>
-                </form>
-            </div>
+                <label for="password">Password :</label>
+                <input type="password" id="password" class="input" name="password" required placeholder="Masukkan password Anda">
+                            
+                <div class="popup-actions">
+                    <button type="submit" name = "enroll" id="popup-confirm-btn" class="btn-confirm">Enroll</button>                                            
+                    <button type="button" id="popup-cancel-btn" class="btn-cancel">Batal</button>
+                </div>
+            </form>
         </div>
+    </div>
 
-    <div id="path-details-container">
+    <div id="path-details-container" class = "path-details-container">
 
     </div>
 
@@ -207,7 +207,7 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
             const popupCancelBtn = document.getElementById("popup-cancel-btn");
             
             
-            renderPathDetails([allKelasData[2]]); // DEFAULT
+            renderPathDetails([allKelasData[3]]); // DEFAULT
 
             const text = document.querySelector(".role");
             const textLoad = () => {

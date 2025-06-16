@@ -151,7 +151,8 @@ img{
     gap: 0.3rem;
     padding: 2rem 2rem 2rem 2rem;
     border-radius: 1rem;
-    background-color: #1C2435 ;
+    background-color: #1C2435 ;  
+    z-index: 0;  
 }
 
 .registerBox{
@@ -169,11 +170,10 @@ img{
     padding: 1.25rem 2.25rem 1.25rem 1rem;
     font-weight: var(--font-semi-bold);
     border-radius: 1rem;
-    border: 2px solid var(--primary-color);
-    z-index: 1;
-    transition: border-color 0.4s;
-    background-color: #323A4C;
+    border: 2px solid var(--primary-color);    
+    transition: border-color 0.4s;    
     color: white;
+    
 }
 
 .labelSelect{
@@ -183,8 +183,7 @@ img{
     border-radius: 1rem;
     border: 2px solid var(--primary-color);
     z-index: 1;
-    transition: border-color 0.4s;
-    background-color: #323A4C;
+    transition: border-color 0.4s;    
 }
 
 .statusBox{

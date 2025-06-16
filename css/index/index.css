@@ -379,7 +379,7 @@ nav{
 /* BOTTOM SECTION */
 .bottomSectiom {
     padding: 20px 0;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color);    
 }
 
 .path-container {
@@ -507,15 +507,6 @@ nav{
     text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
-/* SECOND SECTION */
-.secondSection{
-    height: 100vh;
-    width: 100%;
-    background-color: var(--primary-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 @keyframes animate {
     40%,
@@ -550,11 +541,15 @@ nav{
     opacity: 0;
 }
 
+.path-details-container{
+    margin-bottom: 2rem;
+}
+
 .path-details-content {
     display: flex;
     flex-wrap: wrap;
     background-color: var(--secondary-color);
-    padding: 40px;
+    padding: 40px;    
     border-radius: 5px;
     max-width: 1150px;
     margin: 0 auto;

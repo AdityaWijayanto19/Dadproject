@@ -165,7 +165,7 @@ $result = $stmt_data->get_result();
                                         </div>
                                     </div>
                                     <div class="kelas-foot">
-                                        <a href="materi.php?id=<?= $row['kelas_id'] ?>" class="kelas-link">
+                                        <a href="../component/detailMateri.php?id=<?= $row['kelas_id'] ?>" class="kelas-link">
                                             <p>Lihat Materi</p>
                                         </a>
                                     </div>
