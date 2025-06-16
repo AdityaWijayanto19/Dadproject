@@ -3,12 +3,13 @@ $user_name = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : 'Pen
 $user_role = isset($_SESSION['role']) ? $_SESSION['role'] : 'student';
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Username Student';
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email Student';
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 1;
 ?>
 
 
 <div class="content">
     <div class="greeting">
-        <h1>Hallo <?= $user_name ?> <span>!</span></h1>
+        <h1>Hallo <?= $user_name?> <span>!</span></h1>
         <p>Bagaimana dengan proses belajarmu?</p>
     </div>
     <div class="student-detail">

@@ -8,6 +8,7 @@ $user_name = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : 'Pen
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Username';
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email Pengguna';
 
+
 $profile_link = '#';
 if ($user_role === 'admin') {
     $profile_link = 'admin/adminDashboard.php';
@@ -51,6 +52,7 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
     <title>Home Page | Dad Project</title>
     <link rel="stylesheet" href="css/index/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>        
         const kelasData = <?= json_encode($data_kelas); ?>;
@@ -71,7 +73,7 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
             </div>
             <div class="boxSearch center">
                 <ul class="nav-links">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Home <?php $key ?></a></li>
                     <li><a href="user/menuKelas.php">Kelas</a></li>
                     <li><a href="user/kontak.php">Kontak</a></li>
                     <?php if ($user_role === 'admin'): ?>
@@ -162,38 +164,28 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                 <?php endforeach; ?>
             </div>            
         </div>
-    </div>
+    </div>        
+        <div id="popup-overlay" class="popup-overlay">
+            <div class="popup-container">
+                <button class="popup-close-btn">×</button>
+                <h2>Enrollment Kelas</h2>                
+                <form id="enroll-form" action="konfirmasiEnroll.php" method="POST" class="form-container">
+                                        
+                    <input type="hidden" name="kelas_id" id="popup-hidden-kelas-id" value="">
 
-    <!-- ================================== -->
-    <!-- HTML UNTUK POP-UP (MODAL)          -->
-    <!-- Letakkan di dalam <body>           -->
-    <!-- ================================== -->
-    <div id="popup-overlay" class="popup-overlay">
-        <div class="popup-container">
-            <button class="popup-close-btn">×</button>
-            <h2>Enrollment Kelas</h2>
-            <!-- Ganti 'form-container' menjadi id untuk referensi JS yang lebih mudah -->
-            <form id="enroll-form" action="../controller/controlUser.php" method="POST" class="form-container">
-                
-                <!-- PENTING: Input tersembunyi untuk menyimpan ID kelas -->
-                <input type="hidden" name="kelas_id" id="popup-hidden-kelas-id" value="">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" class="input" name="email" required placeholder="contoh@email.com">
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" class="input" name="email" required placeholder="contoh@email.com">
-
-                <label for="password">Password:</label>
-                <input type="password" id="password" class="input" name="password" required placeholder="Masukkan password Anda">
-                            
-                <div class="popup-actions">
-                    <!-- type="submit" akan mengirimkan form saat diklik -->
-                    <button type="submit" id="popup-confirm-btn" class="btn-confirm">Enroll</button>
-                    
-                    <!-- type="button" mencegah pengiriman form, hanya untuk aksi JS -->
-                    <button type="button" id="popup-cancel-btn" class="btn-cancel">Batal</button>
-                </div>
-            </form>
+                    <label for="password">Password :</label>
+                    <input type="password" id="password" class="input" name="password" required placeholder="Masukkan password Anda">
+                                
+                    <div class="popup-actions">
+                        <button type="submit" name = "enroll" id="popup-confirm-btn" class="btn-confirm">Enroll</button>                                            
+                        <button type="button" id="popup-cancel-btn" class="btn-cancel">Batal</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
     <div id="path-details-container">
 
@@ -205,7 +197,16 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
 
     <script>                
         document.addEventListener("DOMContentLoaded", () => {               
-            const pathDetailsContainer = document.getElementById("path-details-container");            
+            const pathDetailsContainer = document.getElementById("path-details-container");   
+            
+            // DEKLARASI UNTUK POP UP
+            const popupOverlay = document.getElementById("popup-overlay");
+            const enrollForm = document.getElementById("enroll-form");
+            const hiddenKelasIdInput = document.getElementById("popup-hidden-kelas-id");
+            const popupCloseBtn = document.querySelector(".popup-close-btn");
+            const popupCancelBtn = document.getElementById("popup-cancel-btn");
+            
+            
             renderPathDetails([allKelasData[2]]); // DEFAULT
 
             const text = document.querySelector(".role");
@@ -254,27 +255,23 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                 });
             }
 
-            // --- MODIFIKASI: Event Listener untuk tombol "Join Kelas" ---
+            // JOIN KELAS
             document.addEventListener('click', (e) => {
                 if (e.target.classList.contains('join-btn')) {
                     const kelasId = e.target.dataset.kelasId;
-                    
-                    // 1. Set nilai input tersembunyi dengan ID kelas
+                                        
                     hiddenKelasIdInput.value = kelasId;
-
-                    // 2. Tampilkan pop-up
+                    
                     popupOverlay.classList.add('show');
                 }
             });
 
-            // --- BARU: Fungsi untuk menutup pop-up ---
+            // CLOSE POP UP
             function closePopup() {
-                popupOverlay.classList.remove('show');
-                // Reset form agar bersih saat dibuka lagi
+                popupOverlay.classList.remove('show');                
                 enrollForm.reset(); 
             }
-
-            // --- BARU: Event Listener untuk elemen-elemen pop-up ---
+            
             popupCloseBtn.addEventListener('click', closePopup);
             popupCancelBtn.addEventListener('click', closePopup);
             popupOverlay.addEventListener('click', (e) => {
@@ -299,26 +296,23 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                 const clickedCard = e.target.closest('.path-card');                                                  
                 const jenis = clickedCard.dataset.path;
                 console.log(jenis);
-                    
-                
-
-
+                                
                 if (jenis && allKelasData[jenis]) {
                     const kelasData = [allKelasData][0];
-                    console.log(kelasData.length); // tampilkan semua kelas dari jenis yang dipilih
+                    console.log(kelasData.length); 
 
                     const allKelas = [];
 
                     for (let index = 0; index < kelasData.length; index++) {
                         if (kelasData[index].kategori_id == jenis) {                            
                             allKelas.push(kelasData[index]);
-                            console.log(kelasData[index].title_kelas);                            
+                            console.log(kelasData[index].jenis);                            
                         }                        
                     }
 
                     console.log(allKelas);                                
                     
-                    renderPathDetails(allKelas); // tampilkan ke UI jika perlu
+                    renderPathDetails(allKelas); 
                 } else {
                     console.warn("Data tidak ditemukan untuk jenis:", jenis);
                 }
@@ -357,9 +351,8 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
 
                 const coursesHTML = kelasArray.map((course, index) => `
                     <div class="course-card">
-                        <img src="picture/${course.foto}" alt="${course.title_kelas}">
-                        <div class="card-content">
-                            <div class="card-step">Langkah ${index + 1}</div>
+                        <img src="picture/${course.foto_kelas}" alt="${course.title_kelas}">
+                        <div class="card-content">                              
                             <h4>${course.title_kelas}</h4>
                             <p>${course.desk_kelas}</p>       
                             <button  class="join-btn" data-kelas-id="${course.kelas_id}">Join Kelas</button>                     
@@ -410,9 +403,42 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
             const defaultKategori = kelasData.find(k => k.jenis.toLowerCase().includes('web'));
             if (defaultKategori) {
                 renderPathDetails(defaultKategori);
-            }
+            }    
         });
     </script>
+
+    <?php
+    // Cek apakah ada flash message di session
+    if (isset($_SESSION['flash_message'])) {
+        $flash = $_SESSION['flash_message'];
+        
+        // Ambil semua data dari session
+        $status = $flash['status'] ?? 'info';
+        $title = $flash['title'] ?? 'Informasi';
+        $message = $flash['message'] ?? '';
+        $details = $flash['details'] ?? '';
+
+        // Gabungkan pesan utama dan detail menjadi satu blok HTML
+        $htmlContent = "<p>" . addslashes($message) . "</p>";
+        if (!empty($details)) {
+            // addslashes() penting untuk menangani kutip di dalam string
+            $htmlContent .= "<div>" . addslashes($details) . "</div>";
+        }
+
+        // Cetak skrip SweetAlert
+        echo "<script>
+            Swal.fire({
+                icon: '" . $status . "',
+                title: '" . addslashes($title) . "',
+                html: `" . $htmlContent . "`, // Gunakan `html` bukan `text`, dan backtick (`) untuk string
+                confirmButtonText: 'Mengerti'
+            });
+        </script>";
+
+        // Hapus flash message agar tidak muncul lagi
+        unset($_SESSION['flash_message']);
+    }
+    ?>
 </body>
 
 </html>

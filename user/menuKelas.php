@@ -17,7 +17,7 @@ if ($user_role === 'admin') {
 $kategori_filter = isset($_POST['kategori']) ? $_POST['kategori'] : null;
 $search = isset($_POST['search']) ? $_POST['search'] : null;
 
-$query = "SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
+$query = "SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto_kelas, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
 kategori_kelas.jenis 
 FROM kelas 
 JOIN mentors ON kelas.mentor_id = mentors.mentor_id 
@@ -35,15 +35,6 @@ if ($search) {
 }
 
 $data_kelas = query($query);
-
-
-// // GET DATA KELAS
-// $data_kelas = query("SELECT kelas.kelas_id, kelas.title_kelas, kelas.foto, kelas.desk_kelas, mentors.nama_depan, mentors.nama_belakang, 
-//                     kategori_kelas.jenis FROM kelas JOIN mentors ON kelas.mentor_id = mentors.mentor_id
-//                     JOIN kategori_kelas ON kelas.kategori_id = kategori_kelas.kategori_kelas_id");
-
-// // GET DATA KATEGORI
-// $data_kategori = query("SELECT * FROM kategori_kelas");
 
 ?>
 
@@ -105,7 +96,7 @@ $data_kelas = query($query);
         <?php foreach ($data_kelas as $kelas): ?>
             <a href="../component/kelasDetail.php?kelas_id=<?= $kelas['kelas_id'] ?>"
                 class="block w-70 h-90 rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:scale-102 transition duration-300 bg-white">
-                <img class="h-40 w-full object-cover" src="../picture/<?= $kelas['foto'] ?>" alt="<?= $kelas['title_kelas'] ?>">
+                <img class="h-40 w-full object-cover" src="../picture/<?= $kelas['foto_kelas'] ?>" alt="<?= $kelas['title_kelas'] ?>">
                 <p class="m-1 bg-[#C084FC] w-fit px-2 py-1 text-[#581C87] text-sm rounded-lg"><?= $kelas['jenis'] ?></p>
                 <div class="flex flex-col p-4 justify-center items-center">
                     <h3 class="text-lg font-semibold text-gray-800"><?= $kelas['title_kelas'] ?></h3>
