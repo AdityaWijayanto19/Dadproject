@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Hanya perlu callback.php untuk membuat Auth URL
+// MEMBUAT CALLBACK
 require_once 'callback.php';
 
 // ARRAY ASSOC PESAN ERROR
@@ -64,7 +64,7 @@ unset($_SESSION['login_error']);
                 </div>
 
                 <!-- Input kata sandi -->
-                <div class="loginBox">
+                <div class="loginBox">  
                     <input type="password" name="kataSandi" id="inputField" class="loginInput" placeholder=" " required>
                     <label for="inputField" class="loginLabel">Kata Sandi</label>
                     <i class="ri-lock-line loginIcon"></i>
