@@ -1,6 +1,10 @@
 <?php
-require "../controller/controlKelas.php";
+session_start();
+require_once "../controller/controlKelas.php";
+require_once '../koneksi/koneksi.php';
 
+$data_kategori = query("SELECT * FROM kategori_kelas");
+$data_mentor = query("SELECT * FROM mentors");
 $alert = "";
 if (isset($_POST['submit'])) {
 
@@ -28,6 +32,8 @@ if (isset($_POST['submit'])) {
 </script>";
     }
 }
+
+
 
 
 ?>
@@ -61,11 +67,11 @@ if (isset($_POST['submit'])) {
     </div>
 
     <div class="flex p-10 gap-10">
-        <div class="flex justify-center items-center w-[30%] h-150 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl">
+        <div class="flex justify-center items-center w-[30%] h-180 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl">
             <img class="h-30" src="../picture/logo1.png" alt="">
         </div>
 
-        <form class="flex flex-col p-10 w-[70%] h-150 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl" method="POST"
+        <form class="flex flex-col p-10 w-[70%] h-180 bg-[#1C2435] border-2 border-[#9333EA] rounded-xl" method="POST"
             enctype="multipart/form-data">
             <div class="flex flex-col text-xl">
                 <ul>
@@ -91,17 +97,30 @@ if (isset($_POST['submit'])) {
                     </li>
 
                     <li class="flex flex-col text-xl">
-                        <label for="mentor">ID mentor</label>
+                        <label for="enrollment">Enrollment Key</label>
                         <input
                             class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
-                            type="text" name="mentor" id="mentor" required>
+                            type="text" name="enrollment" id="enrollment" required>
+                    </li>
+
+                    <li class="flex flex-col text-xl">
+                        <label for="mentor">Mentor</label>
+                        <select id="mentor" class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md" name="mentor">
+                            <?php foreach ($data_mentor as $dt): ?>
+                                <option class="input" value="<?= $dt['mentor_id'] ?>">
+                                    <?= $dt['nama_depan'] . " " . $dt['nama_belakang']?></option>
+                            <?php endforeach; ?>                                
+                        </select>
                     </li>
 
                     <li class="flex flex-col text-xl">
                         <label for="kategori">Kategori</label>
-                        <input
-                            class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md"
-                            type="text" name="kategori" id="kategori" required>
+                        <select id="kategori" class="bg-[#323A4C] p-2 text-white border border-[#323A4C] focus:border-[#9333EA] focus:ring-[#9333EA] focus:outline-none rounded-md" name="kategori">
+                            <?php foreach ($data_kategori as $dt): ?>
+                                <option class="bg-[#323A4C] text-white" value="<?= $dt['kategori_kelas_id'] ?>">
+                                    <?= $dt['jenis'] ?></option>
+                            <?php endforeach; ?>                                
+                        </select>                            
                     </li>
                 </ul>
                 <div class="flex justify-between mt-5">
@@ -109,7 +128,7 @@ if (isset($_POST['submit'])) {
                         href="manageClasses.php">Kembali</a>
                     <button class="bg-[#C084FC] p-2 rounded-md hover:bg-[#9333EA] hover:scale-102 duration-200"
                         type="submit" name="submit">Tambah Kelas</button>
-                </div>
+                </div>                
             </div>
         </form>
     </div>

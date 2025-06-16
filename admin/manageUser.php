@@ -23,6 +23,124 @@ $dataUser = query('SELECT * FROM user');
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
+<style>
+  table{
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    border-color: #0F172A;
+    font-size: 12px;
+}
+
+th{
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #0F172A;
+    border-color: #0F172A;
+    color: white;
+}
+
+td{
+    padding: 10px 20px;
+    text-align: justify; 
+    color: black;
+}
+
+tbody tr:nth-child(even):hover{
+    background-color: rgb(225, 224, 224);
+}
+
+tbody tr:nth-child(odd):hover{
+    background-color: rgb(225, 224, 224);
+}
+
+tbody tr:nth-child(odd){
+    background-color: white;
+}
+
+tbody tr:nth-child(even){
+    background-color: white;
+}
+
+.boxbtn{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.boxbtn button{
+    display: inline-block;
+    vertical-align: middle;
+    user-select: none;
+    background-color: #C084FC; 
+    border: 1px solid #C084FC;
+    padding: 0.375rem 0.75rem; 
+    line-height: 1.5;
+    border-radius: 0.375rem; 
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.boxbtn button:hover {
+    background-color: #9333EA;
+    border-color: #9333EA;
+    transform: scale(1.05);
+  }
+  
+
+.boxbtn button a{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-weight: 400;
+    font-size: 1rem; 
+    text-decoration: none;
+    text-align: center;
+}
+
+td button{
+    margin-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0.375rem 0.75rem; 
+    line-height: 1.5;
+    border-radius: 0.375rem; 
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+td button a{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-weight: 400;
+    font-size: 1rem; 
+    text-decoration: none;
+    text-align: center;
+}
+
+td .hapus{
+    border: 1px solid  #dc3545;
+    background-color: #dc3545;
+}
+
+td .hapus:hover {
+    background-color:  #bb2d3b;
+    border-color:  #b02a37;
+    transform: scale(1.05);
+  }
+
+td .edit{
+    border: 1px solid #0d6efd;
+    background-color: #0d6efd; 
+}
+
+td .edit:hover {
+    background-color:  #0b5ed7;
+    border-color:  #0a58ca;
+    transform: scale(1.05);
+  }
+</style>
+
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
@@ -48,7 +166,7 @@ $dataUser = query('SELECT * FROM user');
                 <br>
                 <p>Selamat Datang, Admin</p>
             </div>
-            <div class="stats-container">
+            <div class="">
 
                 <!-- Tombol untuk membuka modal -->
                 <button id="openModalBtn">Tambah Pengguna</button>
@@ -115,7 +233,7 @@ $dataUser = query('SELECT * FROM user');
 
                 <div id="searchResult">
                     <!-- Tabel Pengguna -->
-                    <table class="custom-table">
+                    <table border="1" class="custom-table">
                         <thead>
                             <tr>
                                 <th>Id User</th>
@@ -124,7 +242,6 @@ $dataUser = query('SELECT * FROM user');
                                 <th>Nama Lengkap</th>
                                 <th>Username</th>
                                 <th>email</th>
-                                <th>Password</th>
                                 <th>Role</th>
                                 <th>Aksi</th>
                             </tr>
@@ -138,11 +255,10 @@ $dataUser = query('SELECT * FROM user');
                                     <td><?= $user['nama_lengkap']; ?></td>
                                     <td><?= $user['username']; ?></td>
                                     <td><?= $user['email']; ?></td>
-                                    <td><?= $user['password']; ?></td>
                                     <td><?= $user['role']; ?></td>
                                     <td>
-                                        <a class="btnEdit" href="editUser.php?user_id=<?= $user['user_id']; ?>">Edit</a>
-                                        <a class="btnHapus" name="deleteUser" href="#" onclick="confirm(<?= $user['user_id']; ?>)">Hapus</a>
+                                        <button class="edit"><a  href="editUser.php?user_id=<?= $user['user_id']; ?>">Edit</a></button>
+                                        <button class="hapus"><a name="deleteUser" href="#" onclick="confirm(<?= $user['user_id']; ?>)">Hapus</a></button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
