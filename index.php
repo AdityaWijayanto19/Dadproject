@@ -66,7 +66,7 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
     <nav>
         <div class="navbar">
             <div class="boxSearch left">
-                <img class="logo" src="picture/logopj.png" alt="Dad project">
+                <img class="logo" src="picture/logo.png" alt="Dad project">
                 <form action="" method="post">
                     <input class="search" type="text" name="search" placeholder="Temukan tujuanmu disini">
                 </form>

@@ -17,15 +17,12 @@ function tambah($data){
     $direktori = '../picture/' . $nama_file;
 
     if(move_uploaded_file($lokasi_file, $direktori)){
-    // 1. Jalankan query insert kelas
     $query = "INSERT INTO kelas (`title_kelas`, `foto_kelas`, `desk_kelas`,`mentor_id`,`kategori_id`) 
               VALUES ('$title','$nama_file','$desc','$mentor','$kategori')";
 
     if (mysqli_query($conn, $query)) {
-        // 2. Ambil ID kelas terakhir yang baru saja diinsert
         $kelas_id = mysqli_insert_id($conn);
 
-        // 3. Insert ke tabel enrollment_key
         $query_enrollment = "INSERT INTO enrollment_key (`kelas_id`, `enrollment_key`) 
                              VALUES ('$kelas_id', '$enrollment')";
         mysqli_query($conn, $query_enrollment);

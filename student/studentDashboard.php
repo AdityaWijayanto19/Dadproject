@@ -1,54 +1,43 @@
 <?php
-// Selalu mulai session di baris paling atas
 session_start();
 
-// --- BAGIAN 1: KEAMANAN DAN INISIALISASI ---
-
-// Langkah 1: Pastikan pengguna sudah login. Ini adalah solusi utama untuk bug Anda.
 if (!isset($_SESSION['user_id'])) {
-    // Jika tidak ada user_id di session, paksa pengguna kembali ke halaman login.
-    header('Location: ../component/login.php'); // Sesuaikan path ke halaman login Anda
-    exit(); // Hentikan eksekusi skrip
+    header('Location: ../component/login.php'); 
+    exit(); 
 }
 
-// Jika lolos, kita bisa melanjutkan dengan aman
 include '../koneksi/koneksi.php';
 $currentPage = $_GET['page'] ?? 'kelas';
-$user_id = (int)$_SESSION['user_id'];
-$sweetAlertScript = ''; // Variabel untuk menampung script SweetAlert
+$user_id = (int) $_SESSION['user_id'];
+$sweetAlertScript = ''; 
 
-// --- BAGIAN 2: LOGIKA PEMROSESAN FORM ENROLLMENT ---
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_enroll'])) {
-    
+
     if (isset($_POST['enrollment_key']) && !empty($_POST['enrollment_key'])) {
         $enrollKey = $_POST['enrollment_key'];
 
-        // Ambil student_id dari user_id dengan aman
         $stmt_student = $conn->prepare("SELECT student_id FROM students WHERE user_id = ?");
         $stmt_student->bind_param("i", $user_id);
         $stmt_student->execute();
         $studentResult = $stmt_student->get_result();
-        
+
         if ($studentResult->num_rows > 0) {
             $student_id = $studentResult->fetch_assoc()['student_id'];
-            
-            // Cek apakah key valid dan dapatkan kelas_id
+
             $stmt_key = $conn->prepare("SELECT kelas_id FROM enrollment_key WHERE enrollment_key = ?");
             $stmt_key->bind_param("s", $enrollKey);
             $stmt_key->execute();
             $keyResult = $stmt_key->get_result();
-            
+
             if ($keyResult->num_rows > 0) {
                 $kelas_id = $keyResult->fetch_assoc()['kelas_id'];
 
-                // Cek apakah sudah pernah enroll sebelumnya
                 $stmt_check = $conn->prepare("SELECT kelas_student_id FROM kelas_student WHERE student_id = ? AND course_id = ?");
                 $stmt_check->bind_param("ii", $student_id, $kelas_id);
                 $stmt_check->execute();
-                
+
                 if ($stmt_check->get_result()->num_rows == 0) {
-                    // Jika belum, insert ke tabel kelas_student
                     $stmt_insert = $conn->prepare("INSERT INTO kelas_student (student_id, course_id) VALUES (?, ?)");
                     $stmt_insert->bind_param("ii", $student_id, $kelas_id);
                     if ($stmt_insert->execute()) {
@@ -73,13 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_enroll'])) {
         }
         $stmt_student->close();
     } else {
-         $sweetAlertScript = "<script>Swal.fire('Perhatian!', 'Harap masukkan enrollment key.', 'warning');</script>";
+        $sweetAlertScript = "<script>Swal.fire('Perhatian!', 'Harap masukkan enrollment key.', 'warning');</script>";
     }
 }
 
-// --- BAGIAN 3: LOGIKA PENGAMBILAN DATA UNTUK TAMPILAN ---
-
-// Dapatkan student_id yang akan digunakan untuk semua query tampilan
 $stmt_get_student_id = $conn->prepare("SELECT student_id FROM students WHERE user_id = ?");
 $stmt_get_student_id->bind_param("i", $user_id);
 $stmt_get_student_id->execute();
@@ -87,12 +73,10 @@ $student_id_result = $stmt_get_student_id->get_result();
 $student_id = ($student_id_result->num_rows > 0) ? $student_id_result->fetch_assoc()['student_id'] : 0;
 $stmt_get_student_id->close();
 
-// Pagination Settings
 $limit = 4;
-$page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+$page = isset($_GET['p']) ? (int) $_GET['p'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Hitung total data kelas yang diambil siswa ini (untuk pagination yang akurat)
 $stmt_total = $conn->prepare("SELECT COUNT(*) as total FROM kelas_student WHERE student_id = ?");
 $stmt_total->bind_param("i", $student_id);
 $stmt_total->execute();
@@ -100,7 +84,6 @@ $totalData = $stmt_total->get_result()->fetch_assoc()['total'];
 $totalPages = ceil($totalData / $limit);
 $stmt_total->close();
 
-// Ambil data kelas sesuai halaman dengan aman
 $query = "
     SELECT 
         k.kelas_id, k.title_kelas, k.foto_kelas, kk.jenis AS kategori
@@ -115,80 +98,101 @@ $result = $stmt_data->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Siswa</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
-    <nav>
-        <div class="navbar">
-            <img class="logo" src="../picture/logo1.png" alt="Dad project">
-            <div class="links-container">
+    <div class="container">
+        <aside class="sidebar-section">
+            <?php include 'components/sidebarStudent.php'; ?>
+        </aside>
+
+        <main class="main-content-area">
+            <nav class="main-navbar">
                 <ul class="nav-links">
                     <li><a href="../index.php">Home</a></li>
-                    <li><a href="studentDashboard.php?page=notifikasi" class="<?= ($currentPage == 'notifikasi') ? 'active' : '' ?>">Notifikasi</a></li>
-                    <li><a href="studentDashboard.php?page=kelas" class="<?= ($currentPage == 'kelas') ? 'active' : '' ?>">Kelas Saya</a></li>
+                    <li><a href="studentDashboard.php?page=notifikasi"
+                            class="<?= ($currentPage == 'notifikasi') ? 'active' : '' ?>">Notifikasi</a></li>
+                    <li><a href="studentDashboard.php?page=kelas"
+                            class="<?= ($currentPage == 'kelas') ? 'active' : '' ?>">Kelas Saya</a></li>
                 </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="sidebar-section">
-            <?php include 'components/sidebarStudent.php'; ?>
-        </div>
-        <main>
-            <div class="main-content">
+            </nav>
+
+            <div class="content-wrapper">
                 <?php if ($currentPage == 'notifikasi'): ?>
-                    <h1>Notifikasi</h1>
-                    <p>Fitur notifikasi akan segera hadir.</p>
-                <?php elseif ($currentPage == 'kelas'): ?>
-                    <div class="head">
-                        <h1>Kelas yang Anda Ambil</h1>
-                        <form action="studentDashboard.php?page=kelas" method="POST" class="enroll-form">
-                            <input class="search" type="text" name="enrollment_key" placeholder="Masukkan Enrollment Key..." required>
-                            <button class="btnEnroll" type="submit" name="submit_enroll">Daftar Kelas</button>
-                        </form>
+                    <header class="content-header">
+                        <h1>Notifikasi</h1>
+                        <p>Daftar pemberitahuan penting untuk Anda.</p>
+                    </header>
+                    <div class="notification-list">
+                        <div class="notification-item">
+                            <p>Fitur notifikasi akan segera hadir. Pantau terus ya!</p>
+                        </div>
                     </div>
+                <?php elseif ($currentPage == 'kelas'): ?>
+                    <header class="content-header">
+                        <h1>Kelas yang Anda Ikuti</h1>
+                        <form action="studentDashboard.php?page=kelas" method="POST" class="enroll-form">
+                            <input class="enroll-key-input" type="text" name="enrollment_key"
+                                placeholder="Masukkan Enrollment Key..." required>
+                            <button class="btnEnroll" type="submit" name="submit_enroll">Daftar</button>
+                        </form>
+                    </header>
+
                     <div class="kelas-container">
                         <?php if ($result && $result->num_rows > 0): ?>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                 <div class="kelas-card">
-                                    <div class="kelas-head">
-                                        <div class="imgbox">
-                                            <img src="../picture/<?= htmlspecialchars($row['foto_kelas']) ?>" alt="Gambar kelas <?= htmlspecialchars($row['title_kelas']) ?>">
-                                        </div>
-                                        <div class="side">
-                                            <h3><?= htmlspecialchars($row['title_kelas']) ?></h3>
-                                        </div>
+                                    <div class="kelas-card-banner"
+                                        style="background-image: url('../picture/<?= htmlspecialchars($row['foto_kelas']) ?>');">
                                     </div>
-                                    <div class="kelas-foot">
-                                        <a href="../component/detailMateri.php?id=<?= $row['kelas_id'] ?>" class="kelas-link">
-                                            <p>Lihat Materi</p>
+                                    <div class="kelas-card-body">
+                                        <span class="kategori-chip"><?= htmlspecialchars($row['kategori']) ?></span>
+                                        <h3><?= htmlspecialchars($row['title_kelas']) ?></h3>
+                                    </div>
+                                    <div class="kelas-card-footer">
+                                        <a href="detailMateri.php?id=<?= $row['kelas_id'] ?>" class="btn-lanjutkan">
+                                            Lanjutkan Belajar
                                         </a>
                                     </div>
                                 </div>
                             <?php endwhile; ?>
                         <?php else: ?>
+                            <div class="empty-state">
+                                <img src="../picture/empty-box.svg" alt="Kotak Kosong" class="empty-state-img">
+                                <h2>Anda Belum Mengambil Kelas Apapun</h2>
+                                <p>Gunakan enrollment key yang Anda dapatkan untuk mendaftar ke kelas baru.</p>
+                            </div>
                         <?php endif; ?>
                     </div>
+
                     <div class="pagination">
                         <?php if ($totalPages > 1): ?>
-                            <?php if ($page > 1): ?><a href="studentDashboard.php?page=kelas&p=<?= $page - 1 ?>">« Prev</a><?php endif; ?>
-                            <?php for ($i = 1; $i <= $totalPages; $i++): ?><a href="studentDashboard.php?page=kelas&p=<?= $i ?>" class="<?= ($i == $page) ? 'active-page' : '' ?>"><?= $i ?></a><?php endfor; ?>
-                            <?php if ($page < $totalPages): ?><a href="studentDashboard.php?page=kelas&p=<?= $page + 1 ?>">Next »</a><?php endif; ?>
+                            <?php if ($page > 1): ?><a href="studentDashboard.php?page=kelas&p=<?= $page - 1 ?>">«
+                                    Prev</a><?php endif; ?>
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?><a href="studentDashboard.php?page=kelas&p=<?= $i ?>"
+                                    class="<?= ($i == $page) ? 'active-page' : '' ?>"><?= $i ?></a><?php endfor; ?>
+                            <?php if ($page < $totalPages): ?><a href="studentDashboard.php?page=kelas&p=<?= $page + 1 ?>">Next
+                                    »</a><?php endif; ?>
                         <?php endif; ?>
                     </div>
                 <?php else: ?>
-                    <h1>Halaman tidak ditemukan</h1>
+                    <header class="content-header">
+                        <h1>Halaman Tidak Ditemukan</h1>
+                    </header>
                 <?php endif; ?>
             </div>
         </main>
     </div>
 
-    <!-- Script SweetAlert akan dicetak di sini jika ada -->
     <?php echo $sweetAlertScript; ?>
 </body>
+
 </html>
