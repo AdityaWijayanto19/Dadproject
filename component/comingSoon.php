@@ -37,7 +37,7 @@
                 Kami sedang berproses untuk meluncurkan halaman ini. 
                 Fitur baru yang luar biasa sedang dalam proses!
             </p>
-            <a href="../index.php" class="btn-back">Kembali ke Beranda</a>
+            <a href="../index.php" class="btn-back">Kembali ke Home</a>
         </div>
     </div>
 

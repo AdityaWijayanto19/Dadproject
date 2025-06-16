@@ -14,11 +14,13 @@
     </div>
     <nav class="navigation">
         <ul>
+            <li><a href="../index.php">Home</a></li>
             <li><a href="mentorDashboard.php">Dashboard</a></li>
             <li><a href="../component/comingSoon.php">Tugas & Kuis</a></li>
             <li><a href="../component/comingSoon.php">Penilaian</a></li>
             <li><a href="../component/comingSoon.php">Sertifikat Kelulusan</a></li>
             <li><a href="pengaturanMentor.php">Pengaturan</a></li>
+            <li><a href="../logout.php">Keluar</a></li>
         </ul>
     </nav>
 </aside>

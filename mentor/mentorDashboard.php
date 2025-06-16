@@ -8,6 +8,18 @@ $result = query("SELECT * FROM `kelas` WHERE `mentor_id` = '$mentor_id'");
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Mentor';
 $nama_lengkap = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : 'Mentor';
 
+$alertMessage = '';
+$alertType = '';
+
+if (isset($_SESSION['success_message'])) {
+    $alertMessage = $_SESSION['success_message'];
+    $alertType = 'success';
+    unset($_SESSION['success_message']);
+} elseif (isset($_SESSION['error_message'])) {
+    $alertMessage = $_SESSION['error_message'];
+    $alertType = 'error';
+    unset($_SESSION['error_message']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +33,7 @@ $nama_lengkap = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : '
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -36,7 +49,7 @@ $nama_lengkap = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : '
                 <p>Selamat Datang, <?= $nama_lengkap ?></p>
             </header>
             <div class="card-grid">
-                <?php foreach ( $result as $row ): ?>
+                <?php foreach ($result as $row): ?>
                     <div class="card">
                         <div class="class-card-banner"
                             style="background-image: url('../picture/<?= htmlspecialchars($row['foto']) ?>'); background-size: cover; background-position: center;">
@@ -64,11 +77,27 @@ $nama_lengkap = isset($_SESSION['nama_lengkap']) ? $_SESSION['nama_lengkap'] : '
                             </div>
                         </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
-            <?php endforeach; ?>
         </main>
     </div>
     <script src="js/navbar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertMessage = '<?= addslashes($alertMessage) ?>';
+            const alertType = '<?= $alertType ?>';
+            if (alertMessage) {
+                Swal.fire({
+                    icon: alertType,
+                    title: (alertType === 'success' ? 'Berhasil!' : 'Oops...'),
+                    text: alertMessage,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

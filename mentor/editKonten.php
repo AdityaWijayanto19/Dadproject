@@ -2,46 +2,53 @@
 session_start();
 include '../koneksi/koneksi.php';
 
-$mentor_id = $_SESSION['mentor_id'];
-$kelas_id = $_GET['kelas_id'];
+// Keamanan: Pastikan mentor login dan parameter valid
+if (!isset($_SESSION['mentor_id'])) {
+    die("Akses ditolak. Silakan login sebagai mentor.");
+}
+if (!isset($_GET['content_id']) || !is_numeric($_GET['content_id'])) {
+    die("Parameter konten tidak valid.");
+}
 
+$mentor_id = $_SESSION['mentor_id'];
+$content_id = (int)$_GET['content_id'];
+
+// Ambil data konten yang akan diedit
+$queryContent = mysqli_query($conn, "SELECT * FROM content WHERE content_id = '$content_id'");
+$content = mysqli_fetch_assoc($queryContent);
+
+if (!$content) {
+    die("Konten tidak ditemukan.");
+}
+
+// Ambil data kelas dari konten yang diedit
+$kelas_id = $content['kelas_id'];
 $queryKelas = mysqli_query($conn, "SELECT * FROM kelas WHERE kelas_id = '$kelas_id'");
 $data_kelas = mysqli_fetch_assoc($queryKelas);
-
-$queryMentor = mysqli_query($conn, "
-    SELECT user.nama_lengkap 
-    FROM mentors 
-    JOIN user ON mentors.user_id = user.user_id 
-    WHERE mentors.mentor_id = '$mentor_id'
-");
-
-$dataMentor = mysqli_fetch_assoc($queryMentor);
-$nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Judul statis -->
-    <title>Edit Konten - Pengenalan Dasar-Dasar CSS</title>
+    <!-- Judul dinamis -->
+    <title>Edit Konten - <?= htmlspecialchars($content['content_title']) ?></title>
     <link rel="stylesheet" href="css/mentorDashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <div class="dashboard-container">
         <?php include 'components/sidebar.php'; ?>
 
         <div class="content-area">
             <header class="header-kelas">
-                <!-- Judul kelas statis -->
-                <h1 class="page-title">Edit Konten di Kelas: Belajar Web Development dari Nol</h1>
-                <!-- Link kembali dengan ID kelas statis -->
+                <!-- Judul kelas dinamis -->
+                <h1 class="page-title">Edit Konten di Kelas: <?= htmlspecialchars($data_kelas['title_kelas']) ?></h1>
+                <!-- Link kembali dinamis -->
                 <a href="kelolaMateri.php?kelas_id=<?= $kelas_id ?>" class="btn-action btn-back" title="Kembali ke Daftar Konten">
                     <i class="fa-solid fa-left-long"><span>kembali</span></i>
                 </a>
@@ -49,67 +56,59 @@ $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
 
             <main>
                 <div class="form-container">
-                    <form action="proses_edit_konten.php" method="POST" enctype="multipart/form-data">
-
-                        <!-- <input type="hidden" name="konten_id" value="101"> -->
+                    <!-- Form mengarah ke Controller.php dengan action=edit -->
+                    <form action="Controller.php?action=edit" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="content_id" value="<?= $content['content_id'] ?>">
                         <input type="hidden" name="kelas_id" value="<?= $kelas_id ?>">
+                        <!-- Simpan nama file lama jika ada -->
+                        <input type="hidden" name="old_file_name" value="<?= htmlspecialchars($content['url_or_file']) ?>">
 
                         <div class="form-group">
                             <label for="content_title">Judul Konten</label>
-                            <!-- Judul konten statis -->
-                            <input type="text" id="content_title" name="content_title"
-                                placeholder="Contoh: Pengenalan HTML" required
-                                value="Pengenalan Dasar-Dasar CSS">
+                            <!-- Judul konten dinamis -->
+                            <input type="text" id="content_title" name="content_title" required
+                                value="<?= htmlspecialchars($content['content_title']) ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="content_type">Tipe Konten</label>
                             <select id="content_type" name="content_type" required>
                                 <option value="" disabled>Pilih tipe konten</option>
-                                <!-- Tipe konten dipilih secara statis dengan atribut 'selected' -->
-                                <option value="video_url">Video (Link URL)</option>
-                                <option value="video_file" selected>Video (Upload File)</option>
-                                <option value="document">Dokumen/Slide (PDF, PPT)</option>
-                                <option value="text">Artikel Teks</option>
+                                <!-- Tipe konten dipilih secara dinamis -->
+                                <option value="video_url" <?= $content['content_type'] == 'video_url' ? 'selected' : '' ?>>Video (Link URL)</option>
+                                <option value="video_file" <?= $content['content_type'] == 'video_file' ? 'selected' : '' ?>>Video (Upload File)</option>
+                                <option value="document" <?= $content['content_type'] == 'document' ? 'selected' : '' ?>>Dokumen/Slide (PDF, PPT)</option>
+                                <option value="text" <?= $content['content_type'] == 'text' ? 'selected' : '' ?>>Artikel Teks</option>
                             </select>
                         </div>
 
-                        <div id="url-input-group" class="form-group" style="display: none;">
+                        <div id="url-input-group" class="form-group">
                             <label for="content_url">Link URL Video</label>
-                            <input type="url" id="content_url" name="content_url"
-                                placeholder="Contoh: https://www.youtube.com/watch?v=..." value="">
-                            <small>Masukkan link lengkap dari platform seperti YouTube atau Vimeo.</small>
+                            <input type="url" id="content_url" name="url_or_file" value="<?= $content['content_type'] == 'video_url' ? htmlspecialchars($content['url_or_file']) : '' ?>">
                         </div>
 
-                        <div id="file-input-group" class="form-group" style="display: none;">
-                            <label for="content_file">Upload File Baru</label>
-                            <!-- Info file saat ini ditulis statis -->
-                            <p style="font-size: 0.9em; color: #555;">File saat ini:
-                                <strong>video_perkenalan_css.mp4</strong>
-                            </p>
+                        <div id="file-input-group" class="form-group">
+                            <label for="content_file">Upload File Baru (Opsional)</label>
+                            <?php if (($content['content_type'] == 'video_file' || $content['content_type'] == 'document') && !empty($content['url_or_file'])): ?>
+                                <p class="current-file-info">File saat ini: <strong><?= htmlspecialchars($content['url_or_file']) ?></strong></p>
+                            <?php endif; ?>
                             <input type="file" id="content_file" name="content_file">
                             <small>Kosongkan jika tidak ingin mengubah file.</small>
                         </div>
 
-                        <div id="text-input-group" class="form-group" style="display: none;">
+                        <div id="text-input-group" class="form-group">
                             <label for="content_body">Isi Artikel</label>
-                            <textarea id="content_body" name="content_body" rows="10"
-                                placeholder="Tulis artikel atau materi teks di sini..."></textarea>
+                            <textarea id="content_body" name="content_body" rows="10"><?= $content['content_type'] == 'text' ? htmlspecialchars($content['content_body']) : '' ?></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="urutan">Urutan Konten</label>
-                            <!-- Urutan statis -->
-                            <input type="number" id="urutan" name="urutan" placeholder="Contoh: 1" required min="1"
-                                value="2">
-                            <small>Urutan materi ini akan ditampilkan di dalam kelas.</small>
+                            <input type="number" id="urutan" name="urutan" required min="1" value="<?= $content['urutan'] ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="content_deskripsi">Deskripsi Singkat (Opsional)</label>
-                            <!-- Deskripsi statis -->
-                            <textarea id="content_deskripsi" name="content_deskripsi" rows="4"
-                                placeholder="Jelaskan secara singkat isi dari konten ini...">Ini adalah materi video yang menjelaskan tentang konsep dasar dan fundamental dari Cascading Style Sheets (CSS) untuk pemula.</textarea>
+                            <textarea id="content_deskripsi" name="content_deskripsi" rows="4"><?= htmlspecialchars($content['content_deskripsi']) ?></textarea>
                         </div>
 
                         <div class="form-group">
@@ -122,7 +121,6 @@ $nama_mentor = $dataMentor['nama_lengkap'] ?? 'Mentor';
     </div>
 
     <script>
-        // Skrip JavaScript tidak perlu diubah karena bekerja pada struktur HTML
         document.addEventListener('DOMContentLoaded', function () {
             const contentTypeSelect = document.getElementById('content_type');
             const urlGroup = document.getElementById('url-input-group');
