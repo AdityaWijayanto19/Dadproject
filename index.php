@@ -160,7 +160,38 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                         </div>
                     </div>
                 <?php endforeach; ?>
-            </div>
+            </div>            
+        </div>
+    </div>
+
+    <!-- ================================== -->
+    <!-- HTML UNTUK POP-UP (MODAL)          -->
+    <!-- Letakkan di dalam <body>           -->
+    <!-- ================================== -->
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup-container">
+            <button class="popup-close-btn">×</button>
+            <h2>Enrollment Kelas</h2>
+            <!-- Ganti 'form-container' menjadi id untuk referensi JS yang lebih mudah -->
+            <form id="enroll-form" action="../controller/controlUser.php" method="POST" class="form-container">
+                
+                <!-- PENTING: Input tersembunyi untuk menyimpan ID kelas -->
+                <input type="hidden" name="kelas_id" id="popup-hidden-kelas-id" value="">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" class="input" name="email" required placeholder="contoh@email.com">
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" class="input" name="password" required placeholder="Masukkan password Anda">
+                            
+                <div class="popup-actions">
+                    <!-- type="submit" akan mengirimkan form saat diklik -->
+                    <button type="submit" id="popup-confirm-btn" class="btn-confirm">Enroll</button>
+                    
+                    <!-- type="button" mencegah pengiriman form, hanya untuk aksi JS -->
+                    <button type="button" id="popup-cancel-btn" class="btn-cancel">Batal</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -174,7 +205,16 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
 
     <script>                
         document.addEventListener("DOMContentLoaded", () => {               
-            const pathDetailsContainer = document.getElementById("path-details-container");            
+            const pathDetailsContainer = document.getElementById("path-details-container");   
+            
+             // --- START: Referensi elemen Pop-up dan Form ---
+            const popupOverlay = document.getElementById("popup-overlay");
+            const enrollForm = document.getElementById("enroll-form");
+            const hiddenKelasIdInput = document.getElementById("popup-hidden-kelas-id");
+            const popupCloseBtn = document.querySelector(".popup-close-btn");
+            const popupCancelBtn = document.getElementById("popup-cancel-btn");
+            // --- END: Referensi elemen Pop-up ---
+                
             renderPathDetails([allKelasData[2]]); // DEFAULT
 
             const text = document.querySelector(".role");
@@ -223,6 +263,35 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                 });
             }
 
+            // --- MODIFIKASI: Event Listener untuk tombol "Join Kelas" ---
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('join-btn')) {
+                    const kelasId = e.target.dataset.kelasId;
+                    
+                    // 1. Set nilai input tersembunyi dengan ID kelas
+                    hiddenKelasIdInput.value = kelasId;
+
+                    // 2. Tampilkan pop-up
+                    popupOverlay.classList.add('show');
+                }
+            });
+
+            // --- BARU: Fungsi untuk menutup pop-up ---
+            function closePopup() {
+                popupOverlay.classList.remove('show');
+                // Reset form agar bersih saat dibuka lagi
+                enrollForm.reset(); 
+            }
+
+            // --- BARU: Event Listener untuk elemen-elemen pop-up ---
+            popupCloseBtn.addEventListener('click', closePopup);
+            popupCancelBtn.addEventListener('click', closePopup);
+            popupOverlay.addEventListener('click', (e) => {
+                if (e.target === popupOverlay) {
+                    closePopup();
+                }
+            });
+      
             document.addEventListener('click', (e) => {
                 if (e.target.classList.contains('join-btn')) {
                     const kelasId = e.target.dataset.kelasId;
@@ -302,7 +371,7 @@ $kelas = query("SELECT * FROM kelas JOIN kategori_kelas ON kelas.kategori_id = k
                             <div class="card-step">Langkah ${index + 1}</div>
                             <h4>${course.title_kelas}</h4>
                             <p>${course.desk_kelas}</p>       
-                            <button class="join-btn" data-kelas-id="${course.kelas_id}">Join Kelas</button>                     
+                            <button  class="join-btn" data-kelas-id="${course.kelas_id}">Join Kelas</button>                     
                         </div>
                     </div>
                 `).join('');
